@@ -1,7 +1,9 @@
 import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, VStack } from "native-base";
 import React from "react";
+import { StatusBar } from "react-native";
 
-
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Example = () => {
     return <Center w="100%">
         <Box safeArea p="2" py="8" w="90%" maxW="290">
@@ -37,7 +39,8 @@ const Example = () => {
                 Forget Password?
               </Link>
             </FormControl>
-            <Button mt="3" colorScheme="blue" bordered >
+            <Button title="" mt="3" colorScheme="blue" onPress={() => ('Details')}  >
+                
               Sign in
             </Button>
             <HStack mt="3" justifyContent="center">
