@@ -4,11 +4,11 @@
     "slug": "my-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#023e8a"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
