@@ -1,36 +1,50 @@
-import * as React from 'react';
-import { Button } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from "./components/Home";
-import Loader from "./components/LoadingComp";
 
-const Stack = createNativeStackNavigator();
 
-function App() {
-  const navigation = useNavigation();
+//const Stack = createNativeStackNavigator();
+/* components/Homescreen.js */
+
+import { Button, Center, Heading, NativeBaseProvider, View } from "native-base";
+import React from "react";
+import Home from "./components/Home";
+import Register from "./components/RegisterScreen"
+import Selection from "./components/Selection"
+import DetailsScreen from "./components/LoadingComp";
+import { NavigationContainer, ParamListBase, useNavigation, useNavigationContainerRef } from "@react-navigation/native";
+import { NativeStackNavigationProp, createNativeStackNavigator } from "@react-navigation/native-stack";
+// import React from "react";
+// import { Button, View, Text } from "react-native";
+// const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+ const Stack = createNativeStackNavigator();
+export default function App() {
+ //const navigation = useNavigation();
+//  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+//  const navigationRef = useNavigationContainerRef();
 
   return (
-    <NavigationContainer>
-        
-       {/* <Button
-      title="Back"
-      onPress={() => 
-        navigation.navigate(Hello)
-      } */}
+ 
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName="Home">
+    //     <Stack.Screen name="Home" component={Home} />
+    //     <Stack.Screen name="Details" component={DetailsScreen} />
+
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+
+    <NativeBaseProvider>
+      <Center>
+         <Selection/>
+      </Center>
     
-    <Stack.Navigator>
-                <Stack.Screen
-                    name="Home"
-                    component={HomeScreen}
-                />
-                <Stack.Screen
-                    name="About"
-                    component={Loader}
-                />
-            </Stack.Navigator>
-    </NavigationContainer>
-   
+    </NativeBaseProvider>
+
+           
+               
+          
+      
+  
+  
+
+    
+  
   );
 }
-export default App;

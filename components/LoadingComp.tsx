@@ -1,10 +1,12 @@
+import React from 'react';
+import { View, Text } from 'react-native';
 
-import React, { Component } from "react";
-import { Button, View, Text } from "react-native";
-export default function AboutScreen() {
+const DetailsScreen = () => {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>About Screen</Text>
+    <View>
+      <Text>Details Screen</Text>
     </View>
   );
-}
+};
+
+export default DetailsScreen;

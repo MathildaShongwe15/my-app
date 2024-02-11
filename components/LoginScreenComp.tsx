@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 const App = () =>{
   
     return (
-    
+    <NativeBaseProvider>
     <Center w="100%">
         
         <Box safeArea p="2" py="8" w="90%" maxW="290">
@@ -77,7 +77,8 @@ const App = () =>{
             
           </VStack>
         </Box>
-      </Center>);
+      </Center>
+      </NativeBaseProvider>);
   };
   
   function ImageFunc() {
