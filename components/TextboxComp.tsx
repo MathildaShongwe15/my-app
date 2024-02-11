@@ -1,11 +1,19 @@
-import { Box, Button, Center, FormControl, HStack, Heading, Input, Link, VStack } from "native-base";
+import { Box, Button , Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, VStack } from "native-base";
 import React from "react";
-import { StatusBar } from "react-native";
+import {StatusBar , Pressable} from "react-native";
+import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { NavigationContainer } from "@react-navigation/native";
+import { useNavigation } from '@react-navigation/native';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-const Example = () => {
-    return <Center w="100%">
+//const navigation = useNavigation();
+
+
+const App = () =>{
+  
+    return (
+    
+    <Center w="100%">
+        
         <Box safeArea p="2" py="8" w="90%" maxW="290">
          <Center>
             <Heading size="lg" fontWeight="700" color="blue.800" _dark={{
@@ -39,10 +47,17 @@ const Example = () => {
                 Forget Password?
               </Link>
             </FormControl>
-            <Button title="" mt="3" colorScheme="blue" onPress={() => ('Details')}  >
-                
-              Sign in
-            </Button>
+            <NativeBaseProvider>
+              <Pressable >
+                <Button title="" mt="3" colorScheme="blue"  >   
+                  Sign in
+                </Button>
+
+              </Pressable>
+             
+
+            </NativeBaseProvider>
+         
             <HStack mt="3" justifyContent="center">
           
               <Link  _text={{
@@ -62,8 +77,9 @@ const Example = () => {
             
           </VStack>
         </Box>
-      </Center>;
+      </Center>);
   };
+  
   function ImageFunc() {
     return <Center>
         {/* <Image size={150} borderRadius={100} source={{
@@ -71,4 +87,4 @@ const Example = () => {
       }} alt="Alternate Text" /> */}
       </Center>;
   }
-  export default Example;
+  export default App;

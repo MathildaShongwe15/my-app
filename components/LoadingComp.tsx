@@ -1,11 +1,10 @@
-import { HStack, Heading, Spinner } from "native-base";
-import React from "react";
 
-const Example = () => {
-    return <HStack space={2} justifyContent="center">
-        <Spinner accessibilityLabel="Loading posts" />
-        <Heading color="primary.500" fontSize="md">
-          Loading
-        </Heading>
-      </HStack>;
-  };
+import React, { Component } from "react";
+import { Button, View, Text } from "react-native";
+export default function AboutScreen() {
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>About Screen</Text>
+    </View>
+  );
+}
