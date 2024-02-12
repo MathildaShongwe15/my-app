@@ -1,11 +1,14 @@
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { View, Text } from 'react-native';
 
 const DetailsScreen = () => {
   return (
-    <View>
-      <Text>Details Screen</Text>
-    </View>
+   
+        <View>
+          <Text>Details Screen</Text>
+        </View>
+ 
   );
 };
 

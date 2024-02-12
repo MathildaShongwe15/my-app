@@ -1,50 +1,51 @@
 
+import * as React from 'react';
+import { Button, View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { NativeStackScreenProps, createNativeStackNavigator } from '@react-navigation/native-stack';
 
-//const Stack = createNativeStackNavigator();
-/* components/Homescreen.js */
+import LoadingScreen from './components/LoadingComp'
+import { NativeBaseProvider } from 'native-base';
 
-import { Button, Center, Heading, NativeBaseProvider, View } from "native-base";
-import React from "react";
-import Home from "./components/Home";
-import Register from "./components/RegisterScreen"
-import Selection from "./components/Selection"
-import DetailsScreen from "./components/LoadingComp";
-import { NavigationContainer, ParamListBase, useNavigation, useNavigationContainerRef } from "@react-navigation/native";
-import { NativeStackNavigationProp, createNativeStackNavigator } from "@react-navigation/native-stack";
-// import React from "react";
-// import { Button, View, Text } from "react-native";
-// const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
- const Stack = createNativeStackNavigator();
-export default function App() {
- //const navigation = useNavigation();
-//  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-//  const navigationRef = useNavigationContainerRef();
+const Stack = createNativeStackNavigator();
 
+export type RootStackParamList = {
+  Home: undefined;
+  Settings: undefined;
+  Profile: undefined;
+};
+
+    
+type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
+
+const HomeScreen: React.FC<HomeScreenProps> = (props) => {
   return (
- 
-    // <NavigationContainer>
-    //   <Stack.Navigator initialRouteName="Home">
-    //     <Stack.Screen name="Home" component={Home} />
-    //     <Stack.Screen name="Details" component={DetailsScreen} />
-
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-
-    <NativeBaseProvider>
-      <Center>
-         <Selection/>
-      </Center>
-    
-    </NativeBaseProvider>
-
-           
-               
-          
-      
-  
-  
-
-    
-  
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Button title='Go to Profile' onPress={() => props.navigation.push("Profile")} />
+      <Button title='Go to Settings' onPress={() => props.navigation.push("Settings")} />
+    </View>
   );
-}
+};
+
+type SettingsScreenProps = NativeStackScreenProps<RootStackParamList, "Settings">;
+
+const SettingsScreen: React.FC<SettingsScreenProps> = (props) => {
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>Settings Screen</Text>
+      <Button title='Go to Home' onPress={() => props.navigation.push("Home")} />
+    </View>
+  );
+};
+
+    function App() {
+      return (
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name='Home' component={HomeScreen} />
+            
+          </Stack.Navigator>
+        </NavigationContainer>
+      );
+    }
+export default App;

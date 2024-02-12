@@ -1,16 +1,19 @@
-// import React from 'react';
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// import { NavigationContainer } from "@react-navigation/native";
+import React from 'react';
+import { NativeStackNavigationProp, createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer, ParamListBase, useNavigation } from "@react-navigation/native";
+import Loading from "../components/LoadingComp"
 
-// import Home from '../components/Home';
+//import LoadingComp from "./components/LoadingComp";
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+//const navigation = useNavigation();
 
 
-// const { Navigator, Screen } = createNativeStackNavigator();
+export type RootStackParamList = {
+    Home: undefined;
+    Loading: undefined;
 
-// export function AuthRoutes() {
-//   return(
-//     <Navigator screenOptions={{headerShown: false}}>  
-//         <Screen name="Home" component={Home}/>
-//     </Navigator>
-//   )
-// }
+    
+}
+
