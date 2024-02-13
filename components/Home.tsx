@@ -7,15 +7,29 @@ import { NavigationContainer, ParamListBase, useNavigation } from "@react-naviga
 import { NativeStackNavigationProp, NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../Routes/Routes";
 
-// import React from "react";
-// import { Button, View, Text } from "react-native"; const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
-  //const navigation = useNavigation();
+    
+//type HomeScreenProps = NativeStackScreenProps<RootStackParamList, "Home">;
 
-    // const GoToLoadingComp = () => {
-    //   navigation.navigate('LoadingComp');
-    // };
+const HomeScreen = () =>{
+    const navigation = useNavigation();
+  return (
+
+  <NativeBaseProvider>
+     <Button title='Go to Loading' onPress={() => navigation.navigate("Loading")} />
+  </NativeBaseProvider>
+    
+    
  
+ 
+   
+  );
+};
+
+export default HomeScreen;
+
+ 
+
 
       
                 

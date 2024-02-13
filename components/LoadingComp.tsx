@@ -1,15 +1,22 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
+import { RootStackParamList } from '../Routes/Routes';
+import { NativeBaseProvider } from 'native-base';
 
-const DetailsScreen = () => {
+type SettingsScreenProps = NativeStackScreenProps<RootStackParamList, "Loading">;
+
+const LoadingScreen1  = () =>{
+  const navigation = useNavigation();
   return (
-   
-        <View>
-          <Text>Details Screen</Text>
-        </View>
- 
+   <NativeBaseProvider>
+
+      <Button title='Go to Home' onPress={() => navigation.navigate("Home")} />
+  
+    </NativeBaseProvider>
   );
 };
 
-export default DetailsScreen;
+
+export default LoadingScreen1;
