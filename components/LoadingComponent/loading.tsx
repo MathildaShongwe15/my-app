@@ -2,7 +2,7 @@ import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 import { View, Text, Button } from 'react-native';
-import { RootStackParamList } from '../Routes/Routes';
+import { RootStackParamList } from '../../Routes/Routes';
 import { NativeBaseProvider } from 'native-base';
 
 type SettingsScreenProps = NativeStackScreenProps<RootStackParamList, "Loading">;
