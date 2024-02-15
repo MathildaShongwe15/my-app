@@ -1,4 +1,4 @@
-import { Box, Button , Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, VStack } from "native-base";
+import { Box, Button , Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, VStack, View } from "native-base";
 import React from "react";
 import {StatusBar , Pressable} from "react-native";
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -8,11 +8,12 @@ import { useNavigation } from '@react-navigation/native';
 //const navigation = useNavigation();
 
 
-const App = () =>{
-  
+const Login = () =>{
+  const navigation = useNavigation();
     return (
-    <NativeBaseProvider>
-    <Center w="100%">
+    <NativeBaseProvider >
+      <View>
+    <Center w="100%" h="100%">
         
         <Box safeArea p="2" py="8" w="90%" maxW="290">
          <Center>
@@ -48,13 +49,11 @@ const App = () =>{
               </Link>
             </FormControl>
             <NativeBaseProvider>
-              <Pressable >
-                <Button title="" mt="3" colorScheme="blue"  >   
+           
+                <Button title="" mt="3" colorScheme="blue"  onPress={() => navigation.navigate("Register")} >   
                   Sign in
+                  
                 </Button>
-
-              </Pressable>
-             
 
             </NativeBaseProvider>
          
@@ -77,7 +76,7 @@ const App = () =>{
             
           </VStack>
         </Box>
-      </Center>
+      </Center></View>
       </NativeBaseProvider>);
   };
   
@@ -88,4 +87,4 @@ const App = () =>{
       }} alt="Alternate Text" /> */}
       </Center>;
   }
-  export default App;
+  export default Login;

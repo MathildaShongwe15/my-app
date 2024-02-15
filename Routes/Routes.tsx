@@ -12,6 +12,8 @@ import { NavigationContainer, ParamListBase, useNavigation } from "@react-naviga
 
 export type RootStackParamList = {
     Home: undefined;
+    Login:undefined;
+    Register:undefined;
     Loading: undefined;
 
     

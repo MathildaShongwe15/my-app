@@ -1,10 +1,16 @@
-import { Box, Button , Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, VStack } from "native-base";
+import { Avatar, Box, Button , Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, VStack, View } from "native-base";
 import React from "react";
 
 
-
-const Example = () => {
-    return <Center w="100%">
+ const Register = () => {
+    return <NativeBaseProvider><View >
+         
+      <Center w="100%">
+      <Avatar bg="green.500"  size="xl" source={{
+      uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+    }}>
+        AJ
+      </Avatar>
         <Box safeArea p="2" w="90%" maxW="290" py="8">
           <Heading size="lg" color="coolGray.800" _dark={{
           color: "warmGray.50"
@@ -34,7 +40,8 @@ const Example = () => {
             </Button>
           </VStack>
         </Box>
-      </Center>;
+      </Center></View>
+      </NativeBaseProvider>;
   };
 
-  export default Example;
+export default Register;
