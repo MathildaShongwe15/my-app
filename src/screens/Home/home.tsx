@@ -30,20 +30,32 @@ const HomeScreen  = () =>{
       <Center>
       
 
-           <Button title='Go to Home' onPress={() => navigation.navigate("Login")} />
+          
      </Center>
       </VStack>
      
     */}
     
       <Box>
-        <Box>
-          <Center>
-          <Heading>Easy to.</Heading>
-          <Heading>TankIt.</Heading>  
-          </Center>
+       <View>
+         <Center style={{marginVertical:250}}>
+          
+          
+           <Heading size="lg" fontSize={50} bold>Easy to</Heading>
+           <Heading  size="lg" fontSize={50} bold>TankIt.</Heading>
+          
+          <VStack space={4} alignItems="center">
+            <Button title='Login' onPress={() => navigation.navigate("Login")} />
+            <Button title='Sign up' onPress={() => navigation.navigate("Register")} />
+          </VStack>
+           
+           
+          
+         </Center>
+       </View>
+          
 
-        </Box>
+        
         
       </Box>
     </NativeBaseProvider>

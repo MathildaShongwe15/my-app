@@ -1,13 +1,15 @@
+import { useNavigation } from "@react-navigation/native";
 import { Avatar, Box, Button , Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, VStack, View } from "native-base";
 import React from "react";
 
 
  const Register = () => {
+  const navigation = useNavigation();
     return <NativeBaseProvider><View >
          
       <Center w="100%">
-      <Avatar bg="green.500"  size="xl" source={{
-      uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+      <Avatar bg="blue.300"  size="xl" source={{
+      uri: ""
     }}>
         AJ
       </Avatar>
@@ -22,7 +24,15 @@ import React from "react";
         }} fontWeight="medium" size="xs">
             Sign up to continue!
           </Heading>
-          <VStack space={3} mt="5">
+          <VStack space={3} mt="2">
+          <FormControl>
+              <FormControl.Label>First Name</FormControl.Label>
+              <Input />
+            </FormControl>
+            <FormControl>
+              <FormControl.Label>Last Name</FormControl.Label>
+              <Input />
+            </FormControl>
             <FormControl>
               <FormControl.Label>Email</FormControl.Label>
               <Input />
@@ -35,7 +45,7 @@ import React from "react";
               <FormControl.Label>Confirm Password</FormControl.Label>
               <Input type="password" />
             </FormControl>
-            <Button mt="2" colorScheme="blue">
+            <Button mt="2" colorScheme="blue"  onPress={() => navigation.navigate("Services")}>
               Sign up
             </Button>
           </VStack>

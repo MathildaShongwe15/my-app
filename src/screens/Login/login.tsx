@@ -1,4 +1,4 @@
-import { Box, Button , Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, VStack, View } from "native-base";
+import { Avatar, Box, Button , Center, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, VStack, View } from "native-base";
 import React from "react";
 import {StatusBar , Pressable} from "react-native";
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -17,6 +17,13 @@ const Login = () =>{
         
         <Box safeArea p="2" py="8" w="90%" maxW="290">
          <Center>
+           <VStack space={1} alignItems="center">
+              <Avatar bg="green.500" source={{
+                  uri: ""
+                }}>
+                    AJ
+                  </Avatar>
+                  </VStack>
             <Heading size="lg" fontWeight="700" color="blue.800" _dark={{
             color: "warmGray.50"
             }}>
