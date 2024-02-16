@@ -26,10 +26,10 @@ const Stack = createNativeStackNavigator();
             headerTintColor:'#fff',
             headerTitleAlign:'center'
           }}>
-            <Stack.Screen name='Home' component={HomeScreen} options={{headerShown:true}}  />  
+            <Stack.Screen name='Home' component={HomeScreen} options={{headerShown:false}}  />  
             <Stack.Screen name='Login' component={LoginScreen} />
             <Stack.Screen name='Register' component={RegisterScreen} /> 
-            <Stack.Screen name='Services' component={ServicesScreen} /> 
+            <Stack.Screen name='Services' component={ServicesScreen}   /> 
           </Stack.Navigator>
         </NavigationContainer>
           

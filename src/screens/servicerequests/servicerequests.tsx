@@ -1,8 +1,8 @@
 // import { useEffect } from "react";
 
-import { Center, HStack, NativeBaseProvider, Skeleton, VStack } from "native-base";
+import { Center, HStack, Heading, NativeBaseProvider, Skeleton, VStack } from "native-base";
 import React from "react";
-import AppDrawerNav from '../../../components/SideBarComponent/sideBar'
+import AppDrawerNav from '../../../components/SideBarComponent/tabBar'
 import { NavigationContainer } from "@react-navigation/native";
 // const BASE_URL=""
 
@@ -25,18 +25,20 @@ import { NavigationContainer } from "@react-navigation/native";
 
 const Example = () => {
     return (
-      <NavigationContainer>
+   
       <NativeBaseProvider>
 
-            <AppDrawerNav/>
-          
-            <VStack space={4} alignItems="center">
-                  <Center w="64" h="20" bg="indigo.300" rounded="md" shadow={3} />
-                  <Center w="64" h="20" bg="indigo.500" rounded="md" shadow={3} />
-                  <Center w="64" h="20" bg="indigo.700" rounded="md" shadow={3} />
+           
+            <VStack space={4} alignItems="center" mt="150">
+               
+                  <Center w="64" h="20" bg="muted.300" rounded="md" shadow={0} ><Heading>Hello</Heading></Center>
+                  <Center w="64" h="20" bg="muted.300" rounded="md" shadow={0} ><Heading>Hello</Heading></Center>
+                  <Center w="64" h="20" bg="muted.300" rounded="md" shadow={0} ><Heading>Hello</Heading></Center>
+                  <Center w="64" h="20" bg="muted.300" rounded="md" shadow={0} ><Heading>Hello</Heading></Center>
                </VStack>
-
-      </NativeBaseProvider></NavigationContainer>
+               <AppDrawerNav/>
+          
+      </NativeBaseProvider>
 
     )
   };
