@@ -15,6 +15,8 @@ export type RootStackParamList = {
     Login:undefined;
     Register:undefined;
     Services:undefined;
+    Profile:undefined;
+
     Loading: undefined;
 
     

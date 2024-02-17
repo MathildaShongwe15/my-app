@@ -5,7 +5,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import 'react-native-gesture-handler';
 import HomeScreen from "../../src/screens/Home/home";
-import ServiceScreen from '../../src/screens/servicerequests/servicerequests'
+import ServiceScreen from '../../src/screens/servicesRequests/services'
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 const AppTabNav = () =>{
@@ -21,28 +21,13 @@ const AppTabNav = () =>{
                 //     <Drawer.Screen name='Services' component={ServiceScreen}></Drawer.Screen>
                 //     <Drawer.Screen name='Profile' component={HomeScreen}></Drawer.Screen>
                 // </Drawer.Navigator>
-                <Tab.Navigator  screenOptions={({ route }) => ({
-                    tabBarIcon: ({ focused, color, size }) => {
-                      let iconName;
-          
-                      if (route.name === 'Home') {
-                        iconName = focused
-                          ? 'ios-information-circle'
-                          : 'ios-information-circle-outline';
-                      } else if (route.name === 'Settings') {
-                        iconName = focused ? 'ios-list' : 'ios-list-outline';
-                      }
-          
-                      // You can return any component that you like here!
-                      return <Ionicons name={iconName} size={size} color={color} />;
-                    },
-                    tabBarActiveTintColor: 'tomato',
-                    tabBarInactiveTintColor: 'gray',
-                  })}>
-                <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown:false }}/>
-                <Tab.Screen name="Settings" component={ServiceScreen} />
+                <NavigationContainer>
+                <Tab.Navigator initialRouteName='Services'   >
+                 
+                <Tab.Screen name="Services" component={ServiceScreen} options={{ tabBarBadge: 3 }}/>
+
               </Tab.Navigator>
-      
+      </NavigationContainer>
     )
 }
 

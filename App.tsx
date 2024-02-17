@@ -6,9 +6,11 @@ import { NativeStackScreenProps, createNativeStackNavigator } from '@react-navig
 import HomeScreen from './src/screens/Home/home';
 import LoginScreen from './src/screens/Login/login';
 import RegisterScreen from './src/screens/Register/register'
-import ServicesScreen from './src/screens/servicerequests/servicerequests'
+import ServicesScreen from './src/screens/servicesRequests/services'
+import ProfileScreen from './src/screens/Profile/profile'
 import { NativeBaseProvider } from 'native-base';
 import { RootStackParamList } from './Routes/Routes';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 
 
@@ -19,9 +21,9 @@ const Stack = createNativeStackNavigator();
        
         <NavigationContainer>
           <Stack.Navigator  initialRouteName='Home'   screenOptions={{
-            statusBarColor:'#535C91',
+            statusBarColor:'#65B741',
             headerStyle:{
-              backgroundColor:'#535C91'
+              backgroundColor:'#65B741'
             },
             headerTintColor:'#fff',
             headerTitleAlign:'center'
@@ -30,8 +32,15 @@ const Stack = createNativeStackNavigator();
             <Stack.Screen name='Login' component={LoginScreen} />
             <Stack.Screen name='Register' component={RegisterScreen} /> 
             <Stack.Screen name='Services' component={ServicesScreen}   /> 
+            <Stack.Screen name='Profile' component={ProfileScreen}   /> 
           </Stack.Navigator>
+
+
+
+        
         </NavigationContainer>
+
+  
           
  
       );

@@ -4,9 +4,9 @@
     "slug": "my-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/pics/Logo.png",
+    "icon": "./assets/ic_launcher_foreground.png",
     "splash": {
-      "image": "./assets/",
+      "image": "./assets/ic_launcher_foreground.png",
       "resizeMode": "contain",
       "backgroundColor": "#fffff"
     },
