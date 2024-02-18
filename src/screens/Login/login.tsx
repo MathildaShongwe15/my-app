@@ -73,7 +73,8 @@ const Login = () =>{
             </HStack>
             <Heading mt="1" _dark={{
                 color: "warmGray.200"
-                }} color="green.800"  size="2xs">
+                }} color="green.8
+                00"  size="2xs">
                By creating or login into an account you are agreeing with our Terms and Conditions and Privacy Statement
               </Heading >
             

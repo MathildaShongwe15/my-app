@@ -8,6 +8,7 @@ import { Avatar, Box, Center, Container, Heading, Icon, NativeBaseProvider, VSta
 import { LinearGradient } from 'react-native-svg';
 import Carsousel from 'react-native-snap-carousel';
 import Carousel from 'react-native-snap-carousel';
+import Bottom from '../../../components/BottomSheetComponent/bottomSheet';
 // import {colors} from ""
 // const HomeContainer = styled(Container)`
 //   background-color: ${colors.secondary}`
@@ -44,14 +45,14 @@ const HomeScreen  = () =>{
          </Center>
        </View>
           
-
+<Bottom/>
         
     
     </NativeBaseProvider>
   );
 };
 const styles = StyleSheet.create({
-  Container:{flex:1, backgroundColor: '#D7E4C0', alignItems: 'center'
+  Container:{position: 'absolute',backgroundColor: '#D7E4C0', alignItems: 'center'
 
   }
 })

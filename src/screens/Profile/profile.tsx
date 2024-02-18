@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
-import { Avatar, Box, Button , Center, Checkbox, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, VStack, View, WarningOutlineIcon } from "native-base";
+import { Avatar, Box , Center, Checkbox, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, VStack, View, WarningOutlineIcon } from "native-base";
 import React from "react";
-import { StyleSheet } from 'react-native';
+import { StyleSheet,Button } from 'react-native';
 
  const Register = () => {
   const navigation = useNavigation();
@@ -49,9 +49,7 @@ import { StyleSheet } from 'react-native';
              
             </FormControl>
 
-            <Button mt="2" colorScheme="green"  >
-             Update
-            </Button>
+            <Button color='#65B741' title='Login' onPress={() => navigation.navigate("Services")} />
           </VStack>
         </Box>
       </Center></View>
