@@ -1,6 +1,13 @@
-import React from 'react';
-import { NativeStackNavigationProp, createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer, ParamListBase, useNavigation } from "@react-navigation/native";
+import React from "react";
+import {
+  NativeStackNavigationProp,
+  createNativeStackNavigator,
+} from "@react-navigation/native-stack";
+import {
+  NavigationContainer,
+  ParamListBase,
+  useNavigation,
+} from "@react-navigation/native";
 //import Loading from "../components/LoadingComp"
 
 //import LoadingComp from "./components/LoadingComp";
@@ -9,16 +16,12 @@ import { NavigationContainer, ParamListBase, useNavigation } from "@react-naviga
 // const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 //const navigation = useNavigation();
 
-
 export type RootStackParamList = {
-    Home: undefined;
-    Login:undefined;
-    Register:undefined;
-    Services:undefined;
-    Profile:undefined;
-
-    Loading: undefined;
-
-    
-}
-
+  Home: undefined;
+  Login: undefined;
+  Register: undefined;
+  Services: undefined;
+  Profile: undefined;
+  Registration: undefined;
+  Loading: undefined;
+};

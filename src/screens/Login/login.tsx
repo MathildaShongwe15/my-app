@@ -1,4 +1,4 @@
-import { Avatar, Box, Button , Center, Checkbox, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, VStack, View } from "native-base";
+import { Avatar, Box, Button , Center, CheckIcon, Checkbox, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Select, VStack, View, WarningOutlineIcon } from "native-base";
 import React from "react";
 import {StatusBar , Pressable} from "react-native";
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -51,7 +51,7 @@ const Login = () =>{
               </Link>
    
             </FormControl>
-     
+
            
                 <Button colorScheme="green"  title="" mt="0" onPress={() => navigation.navigate("Register")} >   
                   Sign in
