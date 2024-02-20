@@ -33,7 +33,7 @@ const Register = () => {
                 size="xl"
               >
                 NB
-                <Avatar.Badge bg="green.500" />
+                <Avatar.Badge bg="yellow.500" />
               </Avatar>
             </Center>
             <VStack space={3} mt="2">
@@ -54,12 +54,15 @@ const Register = () => {
                 <Input variant="filled" placeholder="0718893654" />
               </FormControl>
               <FormControl>
-                <FormControl.Label>Password</FormControl.Label>
-                <Input type="password" variant="filled" placeholder="" />
+                <FormControl.Label>Current Password</FormControl.Label>
+                <Input type="password" variant="filled" placeholder="***********" />
               </FormControl>
-
+              <FormControl>
+                <FormControl.Label>New Password</FormControl.Label>
+                <Input type="password" variant="filled" placeholder="***********" />
+              </FormControl>
               <Button
-                color="#65B741"
+                color="#07137D"
                 title="Update"
                 onPress={() => navigation.navigate("RegistrationCarDets")}
               />

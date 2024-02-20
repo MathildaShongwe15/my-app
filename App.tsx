@@ -11,6 +11,7 @@ import RegisterScreen from "./src/screens/Register/register";
 import ServicesScreen from "./src/screens/servicesRequests/services";
 import ProfileScreen from "./src/screens/Profile/profile";
 import RegistrationScreen from "./src/screens/CarScreens/registerCar";
+import RequestFuelScreen from "./src/screens/Request/requestFuel"
 import { NativeBaseProvider } from "native-base";
 import { RootStackParamList } from "./Routes/Routes";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -24,9 +25,9 @@ function App() {
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{
-          statusBarColor: "#65B741",
+          statusBarColor: "#AEBDCA",
           headerStyle: {
-            backgroundColor: "#65B741",
+            backgroundColor: "#AEBDCA",
           },
           headerTintColor: "#fff",
           headerTitleAlign: "center",
@@ -41,6 +42,7 @@ function App() {
         <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Services" component={ServicesScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="RequestFuel" component={RequestFuelScreen} />
         <Stack.Screen
           name="RegistrationCarDets"
           component={RegistrationScreen}

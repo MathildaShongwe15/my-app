@@ -22,7 +22,7 @@ const AlertDialogComponent = () => {
         <Button variant="outline" colorScheme="success" onPress={onClose} ref={cancelRef}>
            Schedule
         </Button>
-        <Button colorScheme="success" onPress={onClose}>
+        <Button colorScheme="blue" onPress={onClose}>
          Order Now
         </Button>
       </Button.Group>

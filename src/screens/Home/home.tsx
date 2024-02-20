@@ -39,7 +39,7 @@ const HomeScreen = () => {
       <View style={styles.Container}>
         <Center style={{ marginVertical: 10 }}>
           <Image
-            source={require("../../../assets/pics/CityDriver.png")}
+            source={require("../../../assets/pics/Everthing.png")}
             style={{
               height: Dimensions.get("window").width,
               width: Dimensions.get("window").width,
@@ -60,9 +60,10 @@ const HomeScreen = () => {
             Easy access to Road Assistance when you need it
           </Text>
 
-          <VStack space={4} alignItems="center">
+          <VStack space={4} alignItems="center" >
             <Button
-              color="#65B741"
+
+              color="#07137D"
               title="Login"
               onPress={() => navigation.navigate("Login")}
             />
@@ -78,7 +79,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    backgroundColor: "#D7E4C0",
+    backgroundColor: "#AEBDCA",
     alignItems: "center",
   },
 });

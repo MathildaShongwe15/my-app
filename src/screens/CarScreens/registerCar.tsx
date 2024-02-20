@@ -22,28 +22,31 @@ import {
   Text,
 } from "native-base";
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 const Register = () => {
   const navigation = useNavigation();
   return (
     <NativeBaseProvider>
       <View>
-        <Center w="100%">
-          <Heading
+
+        <Heading
             mt="5"
+            ml="12"
             size="lg"
-            color="coolGray.800"
+            color="blue.900"
             _dark={{
-              color: "warmGray.50",
+              color: "blue.900",
             }}
             fontWeight="semibold"
           >
             Register your car
           </Heading>
+        <Center w="100%">
+
           <FormControl mt="5" w="3/4" maxW="300" isRequired isInvalid>
             <FormControl.Label>Choose the Brand/Make</FormControl.Label>
-            <Select
+            <Select variant="rounded"
               minWidth="200"
               accessibilityLabel="Choose Service"
               placeholder="Choose the Make"
@@ -99,11 +102,11 @@ const Register = () => {
           </FormControl>
           <FormControl w="3/4" maxW="300">
             <FormControl.Label>Number plate</FormControl.Label>
-            <Input variant="outline" placeholder="Number Plate" />
+            <Input variant="rounded" placeholder="Registration Number" />
           </FormControl>
           <FormControl w="3/4" maxW="300">
-            <FormControl.Label>Color of car</FormControl.Label>
-            <Input variant="outline" placeholder="First Name" />
+            <FormControl.Label>Color</FormControl.Label>
+            <Input variant="rounded" placeholder="Color" />
           </FormControl>
           <FormControl.Label w="3/4" maxW="300">
             Other information
@@ -114,14 +117,16 @@ const Register = () => {
             placeholder="Text Area Placeholder"
             w="75%"
             maxW="300"
+
           />
 
           <Button
             w="3/4"
             maxW="300"
             mt="5"
-            colorScheme="green"
-            onPress={() => navigation.navigate("Profile")}
+            colorScheme="blue"
+            variant={"outline"}
+            onPress={() => navigation.navigate("Services")}
           >
             Submit
           </Button>

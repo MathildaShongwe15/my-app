@@ -27,47 +27,47 @@ const Register = () => {
           <Box safeArea p="2" w="90%" maxW="290" py="8">
             <Heading
               size="lg"
-              color="coolGray.800"
+              color="blue.900"
               _dark={{
-                color: "warmGray.50",
+                color: "blue.900",
               }}
               fontWeight="semibold"
             >
-              Register your Account
+              Create Account
             </Heading>
             <Heading
               mt="1"
-              color="coolGray.600"
+              color="blue.800"
               _dark={{
-                color: "warmGray.200",
+                color: "blue.800",
               }}
               fontWeight="medium"
               size="xs"
             >
-              Sign up to continue!
+              Please fill in input below
             </Heading>
             <VStack space={3} mt="2">
               <FormControl>
                 <FormControl.Label>First Name</FormControl.Label>
-                <Input variant="outline" placeholder="First Name" />
+                <Input variant="rounded" placeholder="First Name" />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Last Name</FormControl.Label>
-                <Input variant="outline" placeholder="Last Name" />
+                <Input variant="rounded" placeholder="Last Name" />
               </FormControl>
               <FormControl>
-                <FormControl.Label>Email</FormControl.Label>
-                <Input variant="outline" placeholder="Email Address" />
+                <FormControl.Label>Email/EmployeeID</FormControl.Label>
+                <Input variant="rounded" placeholder="Email Address" />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Phone Number</FormControl.Label>
-                <Input variant="outline" placeholder="Phone Number" />
+                <Input variant="rounded" placeholder="Phone Number" />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Password</FormControl.Label>
                 <Input
                   type="password"
-                  variant="outline"
+                  variant="rounded"
                   placeholder="New Password"
                 />
                 <FormControl.ErrorMessage
@@ -80,7 +80,7 @@ const Register = () => {
                 <FormControl.Label>Confirm Password</FormControl.Label>
                 <Input
                   type="password"
-                  variant="outline"
+                  variant="rounded"
                   placeholder="Confirm New Password"
                 />
               </FormControl>
@@ -95,10 +95,11 @@ const Register = () => {
 
               <Button
                 mt="2"
-                colorScheme="green"
+                colorScheme="blue"
+                variant="outline"
                 onPress={() => navigation.navigate("Profile")}
               >
-                Sign up
+                SIGN UP
               </Button>
             </VStack>
           </Box>

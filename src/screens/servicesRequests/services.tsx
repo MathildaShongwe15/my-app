@@ -50,14 +50,14 @@ const servicesData = [
     name: "Out of Fuel",
     serviceProviders: " Shell, Engen, Caltex",
     deliveryTime: "30min",
-    image: require("../../../assets/pics/export.png"),
+    image: require("../../../assets/pics/Everthing.png"),
     id: 1,
     nav: "Home",
   },
   {
     name: "Towing",
     serviceProviders: " Shell, Engen, Caltex",
-    image: require("../../../assets/pics/Towing.png"),
+    image: require("../../../assets/pics/Everthing.png"),
     deliveryTime: "30min",
     id: 2,
     nav: "Home",
@@ -65,7 +65,7 @@ const servicesData = [
   {
     name: "Flat Tyre",
     serviceProviders: " Shell, Engen, Caltex",
-    image: require("../../../assets/pics/fuel.png"),
+    image: require("../../../assets/pics/Everthing.png"),
     deliveryTime: "30min",
     id: 3,
     nav: "Home",
@@ -73,7 +73,7 @@ const servicesData = [
   {
     name: "Oil and Water",
     serviceProviders: " Shell, Engen, Caltex",
-    image: require("../../../assets/pics/fuel.png"),
+    image: require("../../../assets/pics/Everthing.png"),
     deliveryTime: "30min",
     id: 4,
     nav: "Home",
@@ -81,7 +81,7 @@ const servicesData = [
   {
     name: "Jump Start",
     serviceProviders: " Shell, Engen, Caltex",
-    image: require("../../../assets/pics/fuel.png"),
+    image: require("../../../assets/pics/Everthing.png"),
     deliveryTime: "30min",
     id: 4,
     nav: "Home",
@@ -89,7 +89,7 @@ const servicesData = [
   {
     name: "LockSmith",
     serviceProviders: " Shell, Engen, Caltex",
-    image: require("../../../assets/pics/fuel.png"),
+    image: require("../../../assets/pics/Everthing.png"),
     deliveryTime: "30min",
     id: 4,
     nav: "Home",
@@ -123,13 +123,13 @@ const ServicesToRequest = () => {
               <Button.Group space={2}>
                 <Button
                   variant="outline"
-                  colorScheme="success"
+                  colorScheme="blue"
                   onPress={onClose}
                   ref={cancelRef}
                 >
                   Schedule
                 </Button>
-                <Button colorScheme="success" onPress={onClose}>
+                <Button colorScheme="blue" onPress={onClose}>
                   Order Now
                 </Button>
               </Button.Group>
