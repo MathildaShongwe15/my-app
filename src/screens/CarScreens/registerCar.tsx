@@ -28,7 +28,7 @@ const Register = () => {
   const navigation = useNavigation();
   return (
     <NativeBaseProvider>
-      <View>
+      <View style={styles.Container}>
 
         <Heading
             mt="5"
@@ -101,7 +101,7 @@ const Register = () => {
             </FormControl.ErrorMessage>
           </FormControl>
           <FormControl w="3/4" maxW="300">
-            <FormControl.Label>Number plate</FormControl.Label>
+            <FormControl.Label>Registration Number</FormControl.Label>
             <Input variant="rounded" placeholder="Registration Number" />
           </FormControl>
           <FormControl w="3/4" maxW="300">
@@ -126,7 +126,7 @@ const Register = () => {
             mt="5"
             colorScheme="blue"
             variant={"outline"}
-            onPress={() => navigation.navigate("Services")}
+            onPress={() => navigation.navigate("RequestFuel")}
           >
             Submit
           </Button>
@@ -172,6 +172,6 @@ const Register = () => {
 };
 
 const styles = StyleSheet.create({
-  Container: { flex: 1, backgroundColor: "#D7E4C0", alignItems: "center" },
+  Container: { flex: 1, backgroundColor: "white"},
 });
 export default Register;

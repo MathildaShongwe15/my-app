@@ -37,17 +37,16 @@ const HomeScreen = () => {
   return (
     <NativeBaseProvider>
       <View style={styles.Container}>
-        <Center style={{ marginVertical: 10 }}>
+        <Center style={{ marginVertical: 10, marginTop:200}}>
           <Image
-            source={require("../../../assets/pics/Everthing.png")}
+            source={require("../../../assets/pics/Logo (2).png")}
             style={{
-              height: Dimensions.get("window").width,
-              width: Dimensions.get("window").width,
+              height: Dimensions.get("window").width - 100,
+              width: Dimensions.get("window").width -100,
             }}
           />
 
-          <Text style={{ fontSize: 40 }}>Easy to</Text>
-          <Text style={{ fontSize: 50, fontWeight: "700" }}>TankIt</Text>
+
           <Text
             style={{
               marginTop: 10,
@@ -55,15 +54,16 @@ const HomeScreen = () => {
               paddingLeft: 60,
               paddingRight: 60,
               marginLeft: 50,
+              color:"#FFB400"
             }}
           >
-            Easy access to Road Assistance when you need it
+
           </Text>
 
           <VStack space={4} alignItems="center" >
             <Button
-
-              color="#07137D"
+              // style={styles.btn}
+              color="#FFB400"
               title="Login"
               onPress={() => navigation.navigate("Login")}
             />
@@ -79,9 +79,12 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   Container: {
     flex: 1,
-    backgroundColor: "#AEBDCA",
+    backgroundColor: "#ffff",
     alignItems: "center",
   },
+  btn:{
+      width:200,
+  }
 });
 
 export default HomeScreen;

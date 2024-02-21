@@ -7,12 +7,9 @@ const ServiceCard =(props: any) =>{
     //console.log(props)
     return(
         <View style={styles.cardContainer}>
-
-
            <View style={styles.infoStyle}>
              <Text style={styles.titleStyle}>{props.info.name}</Text>
-
-
+             <Text style={styles.categoryStyle}>{props.info.RegNumber}</Text>
            </View>
 
 
@@ -27,11 +24,11 @@ const ServiceCard =(props: any) =>{
 const deviceWidth = Math.round(Dimensions.get('window').width)
 const styles = StyleSheet.create({
     cardContainer:{
-        height:100,
+        height:70,
         width: deviceWidth - 25,
-        marginTop:50,
+        marginTop:25,
         marginLeft:10,
-        backgroundColor: '#D7E4C0',
+        backgroundColor: '#07137D',
         borderRadius: 20,
         shadowColor:'#000',
         shadowOffset: {
@@ -45,13 +42,18 @@ const styles = StyleSheet.create({
     },
 
     titleStyle:{
-       fontSize:19,
-       fontWeight:'800',
-       marginLeft:3
+       fontSize:15,
+       fontWeight:'400',
+       textAlign:'center',
+       marginTop:15,
+       color:"#FFB400",
+
     },
     categoryStyle:{
         fontWeight:'200',
-
+        fontSize:12,
+        textAlign:'center',
+        color:"#FFB400",
     }
     ,infoStyle:{
         marginLeft:15

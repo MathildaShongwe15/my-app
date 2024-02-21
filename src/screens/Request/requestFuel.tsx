@@ -4,36 +4,54 @@ import {
   CheckIcon,
   FormControl,
   HStack,
+  Heading,
   Input,
   NativeBaseProvider,
   Select,
   VStack,
+  View,
+  Button,
   WarningOutlineIcon,
 } from "native-base";
 import React, { useState } from "react";
 import {  } from "react-native-gesture-handler";
-import {Dimensions, Modal, Text,TouchableOpacity,Image} from 'react-native'
+import {Dimensions, Modal, Text,TouchableOpacity,Image,StyleSheet} from 'react-native'
 import { Calendar } from "react-native-calendars";
+import { useNavigation } from "@react-navigation/native";
 
 const Example = () => {
+  const navigation = useNavigation();
 
   const [showModal,setShowModal] = useState(false);
 
   return (
     <NativeBaseProvider>
-    <Center w="100%">
+      <View style={styles.Container}>
+     <Center w="100%">
     <Image
-            source={require("../../../assets/pics/Mobile.png")}
+            source={require("../../../assets/pics/city.png")}
             style={{
-              height: Dimensions.get("window").width - 200,
+              height: Dimensions.get("window").width - 250,
               width: Dimensions.get("window").width -200,
-              marginTop:150
+              marginTop:50
             }}
           />
 
       <VStack>
-      <Box safeArea p="2" w="90%" maxW="290" py="8">
-      <FormControl w="3/4" maxW="300" isRequired isInvalid>
+      <Heading
+            mt="5"
+            ml=""
+            size="lg"
+            color="blue.900"
+            _dark={{
+              color: "blue.900",
+            }}
+            fontWeight="semibold"
+          >
+            Request Fuel below
+          </Heading>
+      <Box safeArea p="2" w="90%" maxW="300" py="8">
+      <FormControl w="" maxW="300" isRequired isInvalid>
      <FormControl.Label>Qauntity</FormControl.Label>
 
         <Select
@@ -57,7 +75,7 @@ const Example = () => {
         </FormControl.ErrorMessage>
       </FormControl>
 
-      <FormControl w="3/4" maxW="300" isRequired isInvalid>
+      <FormControl w="" maxW="300" isRequired isInvalid>
      <FormControl.Label>Type of Fuel</FormControl.Label>
 
         <Select
@@ -81,14 +99,28 @@ const Example = () => {
         </FormControl.ErrorMessage>
 
       </FormControl>
-      <FormControl w="3/4" maxW="300">
-      <FormControl.Label>Password</FormControl.Label>
-          <Input type="password" variant="filled" placeholder="R1500.00" />
+      <FormControl w="" maxW="">
+      <FormControl.Label>Amount</FormControl.Label>
+      <Input variant="outline" placeholder="Amount"  bg="muted.50"/>
       </FormControl>
-      </Box></VStack>
-    </Center>
+      <Button
+                mt="8"
+                w="290"
+                colorScheme="blue"
+                variant="outline"
+               onPress={() => navigation.navigate("CarHistory")}
+              >
+                SIGN UP
+              </Button>
+      </Box>
+
+      </VStack>
+    </Center></View>
     </NativeBaseProvider>
   );
 };
 
 export default Example;
+const styles = StyleSheet.create({
+  Container: { flex: 1, backgroundColor: "white",},
+});

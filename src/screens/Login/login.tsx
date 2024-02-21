@@ -18,7 +18,7 @@ const Login = () =>{
         <Box safeArea  p="2" py="8" w="90%" maxW="290">
          <Center>
          <Image
-            source={require("../../../assets/pics/Mobile.png")}
+            source={require("../../../assets/pics/Mobile1.png")}
             style={{
               height: Dimensions.get("window").width - 200,
               width: Dimensions.get("window").width -200,
@@ -30,8 +30,8 @@ const Login = () =>{
             </Heading>
             <Heading mt="1" _dark={{
                 color: "warmGray.200"
-                }} color="blue.800" fontWeight="medium" size="xs">
-                    Sign in to continue!
+                }} color="blue.800" fontWeight="light" size="xs">
+                    Sign in to continue
           </Heading>
 
          </Center>
@@ -50,20 +50,13 @@ const Login = () =>{
                 Try different from previous passwords.
               </FormControl.ErrorMessage>
               <Checkbox  colorScheme="blue" mt="3" value="test" accessibilityLabel="This is a dummy checkbox" >Admin</Checkbox>
-              <Link _text={{
-              fontSize: "xs",
-              fontWeight: "500",
-              color: "blue.800"
-            }} alignSelf="flex-end" mt="2">
+              <Link _text={{ fontSize: "xs", fontWeight: "500", color: "blue.800"}} alignSelf="flex-end" mt="2">
                 Forget Password?
               </Link>
 
             </FormControl>
-
-
                 <Button size="sm" variant="outline"  colorScheme="blue" mt="0" onPress={() => navigation.navigate("Register")} >
                   SIGN IN
-
                 </Button>
 
 
@@ -100,7 +93,7 @@ const Login = () =>{
   }
 
   const styles = StyleSheet.create({
-    Container:{flex:1, backgroundColor: '', alignItems: 'center'
+    Container:{flex:1, backgroundColor: 'white', alignItems: 'center'
 
     }
   })

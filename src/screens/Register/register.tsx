@@ -22,7 +22,7 @@ const Register = () => {
   const navigation = useNavigation();
   return (
     <NativeBaseProvider>
-      <View>
+      <View style={styles.Container}>
         <Center w="100%">
           <Box safeArea p="2" w="90%" maxW="290" py="8">
             <Heading
@@ -49,19 +49,19 @@ const Register = () => {
             <VStack space={3} mt="2">
               <FormControl>
                 <FormControl.Label>First Name</FormControl.Label>
-                <Input variant="rounded" placeholder="First Name" />
+                <Input variant="rounded" placeholder="First Name"  bg="muted.50"/>
               </FormControl>
               <FormControl>
                 <FormControl.Label>Last Name</FormControl.Label>
-                <Input variant="rounded" placeholder="Last Name" />
+                <Input variant="rounded" placeholder="Last Name"  bg="muted.50" />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Email/EmployeeID</FormControl.Label>
-                <Input variant="rounded" placeholder="Email Address" />
+                <Input variant="rounded" placeholder="Email Address"  bg="muted.50"/>
               </FormControl>
               <FormControl>
                 <FormControl.Label>Phone Number</FormControl.Label>
-                <Input variant="rounded" placeholder="Phone Number" />
+                <Input variant="rounded" placeholder="Phone Number"  bg="muted.50"/>
               </FormControl>
               <FormControl>
                 <FormControl.Label>Password</FormControl.Label>
@@ -69,6 +69,7 @@ const Register = () => {
                   type="password"
                   variant="rounded"
                   placeholder="New Password"
+                  bg="muted.50"
                 />
                 <FormControl.ErrorMessage
                   leftIcon={<WarningOutlineIcon size="xs" />}
@@ -82,11 +83,12 @@ const Register = () => {
                   type="password"
                   variant="rounded"
                   placeholder="Confirm New Password"
+                  bg="muted.50"
                 />
               </FormControl>
 
               <Checkbox
-                colorScheme="green"
+                colorScheme="blue"
                 value="test"
                 accessibilityLabel="This is a dummy checkbox"
               >
@@ -110,6 +112,6 @@ const Register = () => {
 };
 
 const styles = StyleSheet.create({
-  Container: { flex: 1, backgroundColor: "#D7E4C0", alignItems: "center" },
+  Container: { flex: 1, backgroundColor: "white", alignItems: "center" },
 });
 export default Register;

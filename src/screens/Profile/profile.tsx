@@ -39,27 +39,27 @@ const Register = () => {
             <VStack space={3} mt="2">
               <FormControl>
                 <FormControl.Label>First Name</FormControl.Label>
-                <Input variant="filled" placeholder="John " />
+                <Input variant="filled" placeholder="John"  bg="muted.50" />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Last Name</FormControl.Label>
-                <Input variant="filled" placeholder="Doe " />
+                <Input variant="filled" placeholder="Doe"  bg="muted.50"/>
               </FormControl>
               <FormControl>
                 <FormControl.Label>Email</FormControl.Label>
-                <Input variant="filled" placeholder="JonDoe@gmail.com" />
+                <Input variant="filled" placeholder="JonDoe@gmail.com"  bg="muted.50"/>
               </FormControl>
               <FormControl>
                 <FormControl.Label>Phone Number</FormControl.Label>
-                <Input variant="filled" placeholder="0718893654" />
+                <Input variant="filled" placeholder="0718893654" bg="muted.50" />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Current Password</FormControl.Label>
-                <Input type="password" variant="filled" placeholder="***********" />
+                <Input type="password" variant="filled" placeholder="***********"  bg="muted.50"/>
               </FormControl>
               <FormControl>
                 <FormControl.Label>New Password</FormControl.Label>
-                <Input type="password" variant="filled" placeholder="***********" />
+                <Input type="password" variant="filled" placeholder="***********"  bg="muted.50"/>
               </FormControl>
               <Button
                 color="#07137D"
@@ -75,6 +75,6 @@ const Register = () => {
 };
 
 const styles = StyleSheet.create({
-  Container: { flex: 1, backgroundColor: "", alignItems: "center" },
+  Container: { flex: 1, backgroundColor: "white", alignItems: "center" },
 });
 export default Register;
