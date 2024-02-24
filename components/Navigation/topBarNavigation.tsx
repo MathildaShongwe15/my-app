@@ -21,7 +21,9 @@ import RequestsScreen from "../../src/screens/Request/viewRequests"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import TabNav from "./tabBarNavigation"
 import SidebarNav from './sideBarNavigation'
-
+import MapsScreen from "../../src/screens/Map/pinLocation"
+import RouteScreen from "../../src/screens/Map/RouteMap"
+// import GoogleMapsScreen from "../../middleware/api"
 const App = () => {
 
   const Stack = createNativeStackNavigator();
@@ -55,6 +57,9 @@ const App = () => {
         <Stack.Screen name="CarHistory" component={CarHistoryScreen} />
         <Stack.Screen name="Order" component={OrderScreen} />
         <Stack.Screen name="Tyre" component={TyreScreen} />
+        <Stack.Screen name="Maps" component={MapsScreen} />
+        <Stack.Screen name="RouteMap" component={RouteScreen} />
+        {/* <Stack.Screen name="GoogleMaps" component={GoogleMapsScreen} /> */}
         {/* <Stack.Screen name="Requests" component={RequestsScreen}  options={{ headerShown: false }} /> */}
         <Stack.Screen name ="Homee"  component={TabNav}/>
         <Stack.Screen name ="Homeye"  component={SidebarNav}   options={{ headerShown: false }}/>

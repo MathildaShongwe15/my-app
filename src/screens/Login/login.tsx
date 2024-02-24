@@ -54,8 +54,8 @@ const Login = () =>{
 
         <Select
           minWidth="200"
-          accessibilityLabel="  Qauntity"
-          placeholder="Qauntity"
+          accessibilityLabel="Role"
+          placeholder="Role"
           _selectedItem={{
             bg: "teal.600",
             endIcon: <CheckIcon size={5} />,

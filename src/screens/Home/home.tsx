@@ -37,7 +37,7 @@ const HomeScreen = () => {
 
   return (
     <NativeBaseProvider>
-      <Noti/>
+
       <View style={styles.Container}>
         <Center style={{ marginVertical: 10, marginTop:200}}>
           <Image
@@ -67,7 +67,7 @@ const HomeScreen = () => {
               // style={styles.btn}
               color="#FFB400"
               title="Login"
-              onPress={() => navigation.navigate("Login")}
+              onPress={() => navigation.navigate("RouteMap")}
             />
             {/* <Icon name="cog" /> */}
           </VStack>

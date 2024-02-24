@@ -24,6 +24,7 @@ import TopNav from "../my-app/components/Navigation/topBarNavigation"
 import Noti from "../my-app/middleware/notifications"
 
 
+
 const App = () => {
 
   const Stack = createNativeStackNavigator();
