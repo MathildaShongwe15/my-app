@@ -22,7 +22,7 @@ const TowingQuery = () => {
             }}
             alt="Description of the image"
           />
-                <Heading style={styles.Title} >Describe your towing request</Heading>
+                <Heading style={styles.Title} >Give us more information about your situation</Heading>
 
                         <Checkbox value="one" my={3}>Do you have Spare tyre?</Checkbox>
 

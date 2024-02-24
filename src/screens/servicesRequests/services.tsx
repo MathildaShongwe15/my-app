@@ -19,7 +19,7 @@ import {
   VStack,
 } from "native-base";
 import React, { useMemo } from "react";
-import AppTabNav from "../../../components/BarComponent/tabBar";
+import AppTabNav from "../../../components/Navigation/tabBarNavigation";
 
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import CardComp from "../../../components/CardComponent/Card";

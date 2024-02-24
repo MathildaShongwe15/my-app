@@ -128,7 +128,7 @@ const Register = () => {
             variant={"outline"}
             onPress={() => navigation.navigate("RequestFuel")}
           >
-            Submit
+            Register
           </Button>
           {/*
             <HStack bg="indigo.600" alignItems="center" safeAreaBottom shadow={6}>

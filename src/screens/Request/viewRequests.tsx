@@ -1,5 +1,7 @@
-import { Avatar, Box, FlatList, HStack, Heading, Spacer, VStack,Text, NativeBaseProvider} from "native-base";
+import { Avatar, Box, FlatList, HStack, Heading, Spacer, VStack,Text, NativeBaseProvider, Button} from "native-base";
 import React from "react";
+import SideBar from "../../../components/Navigation/sideBarNavigation"
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
 const Example = () => {
     const data = [{
@@ -27,17 +29,23 @@ const Example = () => {
       recentText: "Towing Request",
       avatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr01zI37DYuR8bMV5exWQBSw28C1v_71CAh8d7GP1mplcmTgQA6Q66Oo--QedAN1B4E1k&usqp=CAU"
     }, ];
-    return <NativeBaseProvider><Box>
+   // const switchNavigator = createSwitchNavigator();
+   const navigation = useNavigation();
+    return <NativeBaseProvider>
+
+       {/* <SideBar/> */}
+      <Box>
+
         <Heading fontSize="xl" p="4" pb="3">
           Requests Pending
         </Heading>
         <FlatList data={data} renderItem={({
         item
-      }) => <Box borderBottomWidth="1" _dark={{
+      }) => <Box borderBottomWidth="0.2" _dark={{
         borderColor: "muted.50"
-      }} borderColor="muted.800" pl={["0", "4"]} pr={["0", "5"]} py="2">
+      }} borderColor="blue.900" pl={["0", "4"]} pr={["0", "5"]} py="2">
               <HStack space={[2, 3]} justifyContent="space-between">
-                <Avatar size="48px" source={{
+                <Avatar size="48px" marginLeft="3" source={{
             uri: item.avatarUrl
           }} />
                 <VStack>
@@ -51,13 +59,33 @@ const Example = () => {
             }}>
                     {item.recentText}
                   </Text>
-                </VStack>
-                <Spacer />
-                <Text fontSize="xs" _dark={{
+                  <Text fontSize="xs" _dark={{
             color: "warmGray.50"
           }} color="coolGray.800" alignSelf="flex-start">
                   {item.timeStamp}
                 </Text>
+                </VStack>
+                <Spacer />
+                <Button
+                mt="8"
+                ml=""
+                w="100"
+                colorScheme="green"
+                variant="outline"
+               onPress={() => navigation.navigate("Services")}
+              >
+                Approve
+              </Button>
+              <Button
+                mt="8"
+                mr="50"
+                w="100"
+                colorScheme="red"
+                variant="outline"
+               onPress={() => navigation.navigate("Tyre")}
+              >
+                Decline
+              </Button>
               </HStack>
             </Box>} keyExtractor={item => item.id} />
       </Box></NativeBaseProvider>

@@ -16,12 +16,7 @@ import {
 // const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 //const navigation = useNavigation();
 
-export type RootStackParamList = {
-  Home: undefined;
-  Login: undefined;
-  Register: undefined;
-  Services: undefined;
-  Profile: undefined;
-  Registration: undefined;
-  Loading: undefined;
+export default {
+ LOGIN: '',
+ REGISTER: ''
 };

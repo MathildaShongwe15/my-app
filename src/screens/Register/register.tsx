@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Center,
+  CheckIcon,
   Checkbox,
   FormControl,
   HStack,
@@ -11,6 +12,7 @@ import {
   Input,
   Link,
   NativeBaseProvider,
+  Select,
   VStack,
   View,
   WarningOutlineIcon,
@@ -86,20 +88,35 @@ const Register = () => {
                   bg="muted.50"
                 />
               </FormControl>
+              <FormControl w="" maxW="300" isRequired isInvalid>
+     <FormControl.Label>Role</FormControl.Label>
 
-              <Checkbox
-                colorScheme="blue"
-                value="test"
-                accessibilityLabel="This is a dummy checkbox"
-              >
-                Customer
-              </Checkbox>
+        <Select
+          minWidth="200"
+          height={10}
+          accessibilityLabel="Role"
+          placeholder="Role"
+          _selectedItem={{
+            bg: "teal.600",
+            endIcon: <CheckIcon size={5} />,
+          }}
+          mt="1"
+        >
+          <Select.Item label="Service Provider" value="1.5L" />
+          <Select.Item label="Customer" value="2.0L" />
+
+
+        </Select>
+        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+          Please make a selection!
+        </FormControl.ErrorMessage>
+      </FormControl>
 
               <Button
                 mt="2"
                 colorScheme="blue"
                 variant="outline"
-                onPress={() => navigation.navigate("Profile")}
+                onPress={() => navigation.navigate("Homee")}
               >
                 SIGN UP
               </Button>

@@ -17,43 +17,20 @@ import OrderScreen from "./src/screens/OrderScreens/orderConfirmed";
 // import TowingScreen from "./src/screens/Request/requestTowing";
 import TyreScreen from "./src/screens/Request/requestTyre";
 import RequestsScreen from "./src/screens/Request/viewRequests"
+import DrawerNav from "./components/Navigation/sideBarNavigation"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import TabNav from "../my-app/components/Navigation/tabBarNavigation"
+import TopNav from "../my-app/components/Navigation/topBarNavigation"
+import Noti from "../my-app/middleware/notifications"
 
 
-const Stack = createNativeStackNavigator();
+const App = () => {
 
-function App() {
+  const Stack = createNativeStackNavigator();
+
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          statusBarColor: "#07137D",
-          headerStyle: {
-            backgroundColor: "#07137D",
-          },
-          headerTintColor: "#fff",
-          headerTitleAlign: "center",
-        }}
-      >
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Services" component={ServicesScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen name="RequestFuel" component={RequestFuelScreen} />
-        <Stack.Screen name="RegistrationCarDets" component={RegistrationScreen} />
-        <Stack.Screen name="CarHistory" component={CarHistoryScreen} />
-        <Stack.Screen name="Order" component={OrderScreen} />
-        <Stack.Screen name="Towing" component={TyreScreen} />
-        <Stack.Screen name="Requests" component={RequestsScreen} />
-
-
-
-      </Stack.Navigator>
+      <TopNav/>
     </NavigationContainer>
   );
 }

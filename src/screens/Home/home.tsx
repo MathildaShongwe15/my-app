@@ -25,6 +25,7 @@ import { LinearGradient } from "react-native-svg";
 import Carsousel from "react-native-snap-carousel";
 import Carousel from "react-native-snap-carousel";
 import Bottom from "../../../components/BottomSheetComponent/bottomSheet";
+import Noti from "../../../middleware/notifications"
 // import {colors} from ""
 // const HomeContainer = styled(Container)`
 //   background-color: ${colors.secondary}`
@@ -36,6 +37,7 @@ const HomeScreen = () => {
 
   return (
     <NativeBaseProvider>
+      <Noti/>
       <View style={styles.Container}>
         <Center style={{ marginVertical: 10, marginTop:200}}>
           <Image

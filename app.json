@@ -17,19 +17,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mshongwe.myapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.mshongwe.myapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-
-    ]
+    "plugins": [],
+    "extra": {
+      "eas": {
+        "projectId": "29353589-3776-4b3a-bcef-35787c287b73"
+      }
+    }
   }
 }

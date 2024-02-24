@@ -18,7 +18,7 @@ import {  } from "react-native-gesture-handler";
 import {Dimensions, Modal, Text,TouchableOpacity,Image,StyleSheet} from 'react-native'
 import { Calendar } from "react-native-calendars";
 import { useNavigation } from "@react-navigation/native";
-
+import TabBar from "../../../components/Navigation/tabBarNavigation"
 const Example = () => {
   const navigation = useNavigation();
 
@@ -110,12 +110,13 @@ const Example = () => {
                 variant="outline"
                onPress={() => navigation.navigate("CarHistory")}
               >
-                SIGN UP
+                Request
               </Button>
       </Box>
 
       </VStack>
-    </Center></View>
+    </Center>
+    <TabBar/></View>
     </NativeBaseProvider>
   );
 };

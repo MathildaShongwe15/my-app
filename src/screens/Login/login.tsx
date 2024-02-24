@@ -49,7 +49,29 @@ const Login = () =>{
               <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
                 Try different from previous passwords.
               </FormControl.ErrorMessage>
-              <Checkbox  colorScheme="blue" mt="3" value="test" accessibilityLabel="This is a dummy checkbox" >Admin</Checkbox>
+              <FormControl w="" maxW="300" isRequired isInvalid>
+     <FormControl.Label>Role</FormControl.Label>
+
+        <Select
+          minWidth="200"
+          accessibilityLabel="  Qauntity"
+          placeholder="Qauntity"
+          _selectedItem={{
+            bg: "teal.600",
+            endIcon: <CheckIcon size={5} />,
+          }}
+          mt="1"
+        >
+          <Select.Item label="Service Provider" value="1.5L" />
+          <Select.Item label="Customer" value="2.0L" />
+
+
+        </Select>
+        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
+          Please make a selection!
+        </FormControl.ErrorMessage>
+      </FormControl>
+
               <Link _text={{ fontSize: "xs", fontWeight: "500", color: "blue.800"}} alignSelf="flex-end" mt="2">
                 Forget Password?
               </Link>
