@@ -1,18 +1,4 @@
-import {
-  Box,
-  Center,
-  CheckIcon,
-  FormControl,
-  HStack,
-  Heading,
-  Input,
-  NativeBaseProvider,
-  Select,
-  VStack,
-  View,
-  Button,
-  WarningOutlineIcon,
-} from "native-base";
+import {Box,Center,CheckIcon,FormControl,HStack,Heading,Input,NativeBaseProvider,Select,VStack,View,Button,WarningOutlineIcon,} from "native-base";
 import React, { useState } from "react";
 import {  } from "react-native-gesture-handler";
 import {Dimensions, Modal, Text,TouchableOpacity,Image,StyleSheet} from 'react-native'

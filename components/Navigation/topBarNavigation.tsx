@@ -10,7 +10,7 @@ import LoginScreen from "../../src/screens/Login/login";
 import RegisterScreen from "../../src/screens/Register/register";
 import ServicesScreen from "../../src/screens/servicesRequests/services";
 import ProfileScreen from "../../src/screens/Profile/profile";
-import RegistrationScreen from "../../src/screens/Register/register";
+import RegistrationScreen from "../../src/screens/CarScreens/registerCar";
 import RequestFuelScreen from "../../src/screens/Request/requestFuel";
 import CarHistoryScreen from "../../src/screens/CarScreens/Vehicles";
 import OrderScreen from "../../src/screens/OrderScreens/orderConfirmed";
@@ -44,14 +44,13 @@ const App = () => {
 
       >
         <Stack.Screen
+        // {state.UserToken == null ?}
           name="Home"
           component={HomeScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
-        {/* <Stack.Screen name="Services" component={ServicesScreen} /> */}
-        {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
         <Stack.Screen name="RequestFuel" component={RequestFuelScreen} />
         <Stack.Screen name="RegistrationCarDets" component={RegistrationScreen} />
         <Stack.Screen name="CarHistory" component={CarHistoryScreen} />

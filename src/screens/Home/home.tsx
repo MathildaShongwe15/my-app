@@ -1,7 +1,7 @@
 /* components/Homescreen.js */
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -26,14 +26,11 @@ import Carsousel from "react-native-snap-carousel";
 import Carousel from "react-native-snap-carousel";
 import Bottom from "../../../components/BottomSheetComponent/bottomSheet";
 import Noti from "../../../middleware/notifications"
-// import {colors} from ""
-// const HomeContainer = styled(Container)`
-//   background-color: ${colors.secondary}`
 
-// const TopSection = styled.View`
-// `;
+
 const HomeScreen = () => {
   const navigation = useNavigation();
+
 
   return (
     <NativeBaseProvider>
@@ -59,7 +56,6 @@ const HomeScreen = () => {
               color:"#FFB400"
             }}
           >
-
           </Text>
 
           <VStack space={4} alignItems="center" >
@@ -67,8 +63,9 @@ const HomeScreen = () => {
               // style={styles.btn}
               color="#FFB400"
               title="Login"
-              onPress={() => navigation.navigate("RouteMap")}
+              onPress={() => navigation.navigate("Login")}
             />
+
             {/* <Icon name="cog" /> */}
           </VStack>
         </Center>

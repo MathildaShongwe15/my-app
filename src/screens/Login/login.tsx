@@ -1,15 +1,59 @@
 import { Avatar, Box, Button , Center, CheckIcon, Checkbox, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Select, VStack, View, WarningOutlineIcon } from "native-base";
-import React from "react";
-import {StatusBar , Pressable} from "react-native";
+import React, { useState } from "react";
+import {StatusBar , Pressable, Alert} from "react-native";
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
 import { useNavigation } from '@react-navigation/native';
 import {  Text,Image, Dimensions,StyleSheet } from 'react-native';
 //const navigation = useNavigation();
 
+var BASE_URL = "http://localhost:3000/Login";
 
-const Login = () =>{
+
+// const [token, setToken] = useState();
+
+const LoginStatus = async () => {
+
+    const result = await fetch(BASE_URL, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+       // Authorization:token,
+      },
+      body: JSON.stringify({
+
+        EmailParam: '',
+        PasswordParam: ''
+
+      })
+    });
+
+  }
+
+  //on success
+
+
+
+
+
+const Login = () => {
+
+
+const [email,setEmail] = useState();
+const [password, setPassword] = useState();
+
+// const handleSubmit = async() =>{
+//       const token = await LoginUser({
+//         email,
+//         password
+//       })
+//       setToken(token)
+// }
+
   const navigation = useNavigation();
+
+
     return (
     <NativeBaseProvider >
       <View style={styles.Container}>
@@ -37,15 +81,14 @@ const Login = () =>{
          </Center>
 
           <VStack space={3} mt="5">
-
             <FormControl>
               <FormControl.Label>Email ID/Employee ID</FormControl.Label>
-              <Input variant="rounded" bg="muted.50"  placeholder="Enter Email or Employee Id"/>
+              <Input  value={email} variant="rounded" bg="muted.50"  placeholder="Enter Email or Employee Id" onChangeText={text => setEmail(text)}/>
             </FormControl>
 
             <FormControl>
               <FormControl.Label>Password</FormControl.Label>
-              <Input variant="rounded" bg="muted.50"  type="password"  placeholder="Enter Password"/>
+              <Input value={password} variant="rounded" bg="muted.50"  type="password"  placeholder="Enter Password"onChangeText={text => setPassword(text)}/>
               <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
                 Try different from previous passwords.
               </FormControl.ErrorMessage>

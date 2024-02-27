@@ -17,10 +17,49 @@ import {
   View,
   WarningOutlineIcon,
 } from "native-base";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 
 const Register = () => {
+
+  const [data, setData] = useState({});
+  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setpassword] = useState('');
+  const [role, setRole] = useState('');
+
+  useEffect(() => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        phoneNumber:phoneNumber,
+        password:password,
+        role:role
+      })
+    };
+    fetch('http://192.168.1.103:3000/Auth', options)
+
+      .then((response) =>{
+      if(!response.ok){
+        throw new Error("Something went wrong");
+
+      }
+      return response.json()})
+      .then((result) =>{
+        setData(result);
+      })
+      .catch(error => console.log(error.message));
+  }, []);
+
+
   const navigation = useNavigation();
   return (
     <NativeBaseProvider>
@@ -51,28 +90,23 @@ const Register = () => {
             <VStack space={3} mt="2">
               <FormControl>
                 <FormControl.Label>First Name</FormControl.Label>
-                <Input variant="rounded" placeholder="First Name"  bg="muted.50"/>
+                <Input variant="rounded" placeholder="First Name"  bg="muted.50" value={firstName} onChangeText={text => setFirstName(text)}/>
               </FormControl>
               <FormControl>
                 <FormControl.Label>Last Name</FormControl.Label>
-                <Input variant="rounded" placeholder="Last Name"  bg="muted.50" />
+                <Input variant="rounded" placeholder="Last Name"  bg="muted.50" value={lastName} onChangeText={text => setLastName(text)} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Email/EmployeeID</FormControl.Label>
-                <Input variant="rounded" placeholder="Email Address"  bg="muted.50"/>
+                <Input variant="rounded" placeholder="Email Address"  bg="muted.50" value={email} onChangeText={text => setEmail(text)}/>
               </FormControl>
               <FormControl>
                 <FormControl.Label>Phone Number</FormControl.Label>
-                <Input variant="rounded" placeholder="Phone Number"  bg="muted.50"/>
+                <Input variant="rounded" placeholder="Phone Number"  bg="muted.50" value={phoneNumber} onChangeText={text => setPhoneNumber(text)}/>
               </FormControl>
               <FormControl>
                 <FormControl.Label>Password</FormControl.Label>
-                <Input
-                  type="password"
-                  variant="rounded"
-                  placeholder="New Password"
-                  bg="muted.50"
-                />
+                <Input type="password" variant="rounded" placeholder="New Password" bg="muted.50" value={password} onChangeText={text => setpassword(text)}/>
                 <FormControl.ErrorMessage
                   leftIcon={<WarningOutlineIcon size="xs" />}
                 >
@@ -116,7 +150,7 @@ const Register = () => {
                 mt="2"
                 colorScheme="blue"
                 variant="outline"
-                onPress={() => navigation.navigate("Homee")}
+                onPress={() => navigation.navigate("RegistrationCarDets")}
               >
                 SIGN UP
               </Button>

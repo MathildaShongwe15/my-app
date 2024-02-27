@@ -21,10 +21,13 @@ import {
   WarningOutlineIcon,
   Text,
 } from "native-base";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Dimensions, StyleSheet } from "react-native";
 
 const Register = () => {
+
+
+
   const navigation = useNavigation();
   return (
     <NativeBaseProvider>
@@ -49,7 +52,7 @@ const Register = () => {
             <Select variant="rounded"
               minWidth="200"
               accessibilityLabel="Choose Service"
-              placeholder="Choose the Make"
+              placeholder="Choose the Brand"
               _selectedItem={{
                 bg: "teal.600",
                 endIcon: <CheckIcon size={5} />,
@@ -174,4 +177,5 @@ const Register = () => {
 const styles = StyleSheet.create({
   Container: { flex: 1, backgroundColor: "white"},
 });
+
 export default Register;

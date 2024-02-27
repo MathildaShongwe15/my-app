@@ -18,7 +18,7 @@ import {
   StatusBar,
   VStack,
 } from "native-base";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import AppTabNav from "../../../components/Navigation/tabBarNavigation";
 
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
@@ -29,25 +29,37 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Bottom from "../../../components/BottomSheetComponent/bottomSheet";
 
 //API CALL
-// export default function Requests(){
-//     useEffect(() =>{
-//         const fetchRequests = async () =>{
-//             const response =await fetch(`${BASE_URL}/requests`);
-//             const requests = await response.json();
-//             //response.json().then(json => {
-//                 //console.log(json);
-//            // })
-//         };
-//     }, []);
 
-//     return(
+export default function ServicesDataList(){
 
-//     )
-// }
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    const options = {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }
+    };
+    fetch('http://192.168.1.103:3000/AllServices', options)
+
+      .then((response) =>{
+      if(!response.ok){
+        throw new Error("Something went wrong");
+
+      }
+      return response.json()})
+      .then((data1) =>{
+        setData(data1);
+      })
+      .catch(error => console.log(error.message));
+  }, []);
+
 
 const servicesData = [
   {
-    name: "Out of Fuel",
+    name: <Text>{JSON.stringify(data)}</Text>,
     serviceProviders: " Shell, Engen, Caltex",
     deliveryTime: "30min",
     image: require("../../../assets/pics/Everthing.png"),
@@ -154,7 +166,7 @@ const ServicesToRequest = () => {
     </NativeBaseProvider>
   );
 };
-
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -170,4 +182,5 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 });
-export default ServicesToRequest;
+
+
