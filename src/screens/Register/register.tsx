@@ -19,10 +19,12 @@ import {
 } from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
+import uuid from 'react-native-uuid';
 
 const Register = () => {
 
   const [data, setData] = useState({});
+  const [Id ,setId = uuid.v4()] = useState('');
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -30,37 +32,33 @@ const Register = () => {
   const [password, setpassword] = useState('');
   const [role, setRole] = useState('');
 
-  useEffect(() => {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: email,
-        firstName: firstName,
-        lastName: lastName,
-        phoneNumber:phoneNumber,
-        password:password,
-        role:role
-      })
-    };
-    fetch('http://192.168.1.103:3000/Auth', options)
 
-      .then((response) =>{
-      if(!response.ok){
-        throw new Error("Something went wrong");
+   const savaData = async () =>{
 
-      }
-      return response.json()})
-      .then((result) =>{
-        setData(result);
-      })
-      .catch(error => console.log(error.message));
-  }, []);
+      console.warn(email);
+      console.warn(firstName);
+      console.warn(lastName);
+      console.warn(phoneNumber);
+      console.warn(password);
+      console.warn(role);
 
+    const data = {Id: Id,First_Name:firstName,Last_Name:lastName,email:email,phoneNumber:phoneNumber,password:password, role:role}
+
+    let result = fetch('http://192.168.1.103:3000/Auth',{
+
+        method: 'POST',
+        headers:{
+          'Accept': 'application/json',
+          'Content-Type':'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+      result = (await result).json();
+      console.warn(result);
+}
 
   const navigation = useNavigation();
+
   return (
     <NativeBaseProvider>
       <View style={styles.Container}>
@@ -120,6 +118,7 @@ const Register = () => {
                   variant="rounded"
                   placeholder="Confirm New Password"
                   bg="muted.50"
+
                 />
               </FormControl>
               <FormControl w="" maxW="300" isRequired isInvalid>
@@ -135,10 +134,12 @@ const Register = () => {
             endIcon: <CheckIcon size={5} />,
           }}
           mt="1"
+          onValueChange={(value) =>{
+            setRole(value);
+          }}
         >
-          <Select.Item label="Service Provider" value="1.5L" />
-          <Select.Item label="Customer" value="2.0L" />
-
+          <Select.Item label="Service Provider" value="Service Provider" />
+          <Select.Item label="Customer" value="Customer" />
 
         </Select>
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
@@ -150,7 +151,7 @@ const Register = () => {
                 mt="2"
                 colorScheme="blue"
                 variant="outline"
-                onPress={() => navigation.navigate("RegistrationCarDets")}
+                onPress={() => navigation.navigate("Profile")}
               >
                 SIGN UP
               </Button>

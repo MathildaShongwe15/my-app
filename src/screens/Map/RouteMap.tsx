@@ -13,7 +13,7 @@ const coordinates = [
          longitude: 28.0644444
     }
 ]
-const GOOGLE_MAPS_APIKEY = '';
+const GOOGLE_MAPS_APIKEY = 'AIzaSyBE7eraggD4Ut8Nybtq-1KaPCE8LG4P8eU';
 
 
 const RouteMap = () => {

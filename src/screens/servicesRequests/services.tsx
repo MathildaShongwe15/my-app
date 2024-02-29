@@ -30,36 +30,36 @@ import Bottom from "../../../components/BottomSheetComponent/bottomSheet";
 
 //API CALL
 
-export default function ServicesDataList(){
+// export default function ServicesDataList(){
 
-  const [data, setData] = useState({});
+//   const [data, setData] = useState({});
 
-  useEffect(() => {
-    const options = {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      }
-    };
-    fetch('http://192.168.1.103:3000/AllServices', options)
+  // useEffect(() => {
+  //   const options = {
+  //     method: 'GET',
+  //     headers: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     }
+  //   };
+  //   fetch('http://192.168.1.103:3000/AllServices', options)
 
-      .then((response) =>{
-      if(!response.ok){
-        throw new Error("Something went wrong");
+  //     .then((response) =>{
+  //     if(!response.ok){
+  //       throw new Error("Something went wrong");
 
-      }
-      return response.json()})
-      .then((data1) =>{
-        setData(data1);
-      })
-      .catch(error => console.log(error.message));
-  }, []);
+  //     }
+  //     return response.json()})
+  //     .then((data1) =>{
+  //       setData(data1);
+  //     })
+  //     .catch(error => console.log(error.message));
+  // }, []);
 
 
 const servicesData = [
-  {
-    name: <Text>{JSON.stringify(data)}</Text>,
+  {//<Text>{JSON.stringify(data)}</Text>
+    name: "Fuel",
     serviceProviders: " Shell, Engen, Caltex",
     deliveryTime: "30min",
     image: require("../../../assets/pics/Everthing.png"),
@@ -166,7 +166,7 @@ const ServicesToRequest = () => {
     </NativeBaseProvider>
   );
 };
-}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -183,4 +183,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
+export default ServicesToRequest;

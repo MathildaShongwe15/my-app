@@ -58,8 +58,10 @@ const App = () => {
         <Stack.Screen name="Tyre" component={TyreScreen} />
         <Stack.Screen name="Maps" component={MapsScreen} />
         <Stack.Screen name="RouteMap" component={RouteScreen} />
-        {/* <Stack.Screen name="GoogleMaps" component={GoogleMapsScreen} /> */}
-        {/* <Stack.Screen name="Requests" component={RequestsScreen}  options={{ headerShown: false }} /> */}
+        <Stack.Screen name="Services" component={ServicesScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+         {/* <Stack.Screen name="GoogleMaps" component={GoogleMapsScreen} /> */}
+        <Stack.Screen name="Requests" component={RequestsScreen}  options={{ headerShown: false }} />
         <Stack.Screen name ="Homee"  component={TabNav}/>
         <Stack.Screen name ="Homeye"  component={SidebarNav}   options={{ headerShown: false }}/>
       </Stack.Navigator>
