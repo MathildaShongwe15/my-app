@@ -1,61 +1,60 @@
 import { Avatar, Box, Button , Center, CheckIcon, Checkbox, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Select, VStack, View, WarningOutlineIcon } from "native-base";
-import React, { useState } from "react";
-import {StatusBar , Pressable, Alert} from "react-native";
+import React, { useState, useContext } from "react";
+import {StatusBar , Pressable, Alert, ActivityIndicator} from "react-native";
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
 import { useNavigation } from '@react-navigation/native';
 import {  Text,Image, Dimensions,StyleSheet } from 'react-native';
+import { AuthContext } from "../../../Context/AuthContext";
 //const navigation = useNavigation();
-
-var BASE_URL = "http://localhost:3000/Login";
-
-
-// const [token, setToken] = useState();
-
-const LoginStatus = async () => {
-
-    const result = await fetch(BASE_URL, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-       // Authorization:token,
-      },
-      body: JSON.stringify({
-
-        EmailParam: '',
-        PasswordParam: ''
-
-      })
-    });
-
-  }
-
-  //on success
-
-
 
 
 
 const Login = () => {
 
+const [token, setToken] = useState();
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+const [role, setRole] = useState('')
+const [signUpLoading, setSignUpLoading] = useState(false);
+const [verifyLoading, setVerifyLoading] = useState(false);
 
-const [email,setEmail] = useState();
-const [password, setPassword] = useState();
+const {login} = useContext(AuthContext);
+// localStorage.setItem("user", JSON.stringify({role:'SERVICE PROVIDER'}))
 
-// const handleSubmit = async() =>{
-//       const token = await LoginUser({
-//         email,
-//         password
-//       })
-//       setToken(token)
-// }
+  const savaData = async () =>{
+
+    console.warn(email);
+    console.warn(password);
+    const data = {email: email, password:password}
+try{
+  let result = fetch('http://192.168.1.103:3000/Login',{
+
+      method: 'POST',
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    result = (await result).json();
+    console.warn(result);
+    setSignUpLoading(true);
+    setToken(token)
+  }
+    catch(e){
+      console.error(e);
+
+  }
+}
+
 
   const navigation = useNavigation();
 
 
     return (
     <NativeBaseProvider >
+      <ActivityIndicator size="small" color="#0000ff" />
       <View style={styles.Container}>
     <Center w="100%" h="100%">
 
@@ -77,7 +76,7 @@ const [password, setPassword] = useState();
                 }} color="blue.800" fontWeight="light" size="xs">
                     Sign in to continue
           </Heading>
-
+         {/* <Text>{test}</Text> */}
          </Center>
 
           <VStack space={3} mt="5">
@@ -120,7 +119,7 @@ const [password, setPassword] = useState();
               </Link>
 
             </FormControl>
-                <Button size="sm" variant="outline"  colorScheme="blue" mt="0" onPress={() => navigation.navigate("Register")} >
+                <Button size="sm" variant="outline"  colorScheme="blue" mt="0" onPress={() => {login()}} >
                   SIGN IN
                 </Button>
 

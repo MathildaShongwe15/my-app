@@ -32,6 +32,10 @@ const Register = () => {
   const [password, setpassword] = useState('');
   const [role, setRole] = useState('');
 
+  const [signed, setSigned] = useState(false);
+  const [signUpLoading, setSignUpLoading] = useState(false);
+  const [verifyLoading, setVerifyLoading] = useState(false);
+
 
    const savaData = async () =>{
 
@@ -43,7 +47,7 @@ const Register = () => {
       console.warn(role);
 
     const data = {Id: Id,First_Name:firstName,Last_Name:lastName,email:email,phoneNumber:phoneNumber,password:password, role:role}
-
+  try{
     let result = fetch('http://192.168.1.103:3000/Auth',{
 
         method: 'POST',
@@ -55,13 +59,25 @@ const Register = () => {
       });
       result = (await result).json();
       console.warn(result);
+      setSignUpLoading(true);
+      setSigned(true);
+    }
+    catch(e){
+      console.error(e);
+      setVerifyLoading(false);
+
+    }
+
 }
+
+
 
   const navigation = useNavigation();
 
   return (
     <NativeBaseProvider>
       <View style={styles.Container}>
+
         <Center w="100%">
           <Box safeArea p="2" w="90%" maxW="290" py="8">
             <Heading

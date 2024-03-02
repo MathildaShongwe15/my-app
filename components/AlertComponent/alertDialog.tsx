@@ -1,29 +1,29 @@
 import { AlertDialog, Button, Center, NativeBaseProvider } from "native-base"
 import React from "react";
 
-const AlertDialogComponent = () => {
+const AlertDialogComponent = (props:any) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
    const onClose = () => setIsOpen(false);
- 
+
    const cancelRef = React.useRef(null);
-  
+
 <Center>
-     
+
 <AlertDialog leastDestructiveRef={cancelRef} isOpen={isOpen} onClose={onClose}>
   <AlertDialog.Content>
     <AlertDialog.CloseButton />
-    <AlertDialog.Header>Order Petrol</AlertDialog.Header>
+    <AlertDialog.Header>{props.info.Heading}</AlertDialog.Header>
     <AlertDialog.Body>
-      Fuel delivery to your pinned location
+      {props.info.Description}
     </AlertDialog.Body>
     <AlertDialog.Footer>
       <Button.Group space={2}>
         <Button variant="outline" colorScheme="success" onPress={onClose} ref={cancelRef}>
-           Schedule
+           {props.info.Btn}
         </Button>
         <Button colorScheme="blue" onPress={onClose}>
-         Order Now
+        {props.info.Btn2}
         </Button>
       </Button.Group>
     </AlertDialog.Footer>
@@ -31,4 +31,5 @@ const AlertDialogComponent = () => {
 </AlertDialog>
 </Center>
 }
+ export default AlertDialogComponent;
 
