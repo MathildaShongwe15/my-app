@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import {NativeStackScreenProps,createNativeStackNavigator} from "@react-navigation/native-stack";
 import TopNav from "../my-app/components/Navigation/topBarNavigation"
 import {AuthProvider} from "../my-app/Context/AuthContext"
+import { NativeBaseProvider } from "native-base";
 
 
 const App = () => {
@@ -11,11 +12,14 @@ const App = () => {
   const Stack = createNativeStackNavigator();
 
   return (
-    <AuthProvider>
+   <NativeBaseProvider>
 
-      <TopNav/>
+        <TopNav/>
 
-    </AuthProvider>
+   </NativeBaseProvider>
+
+
+
   );
 }
 export default App;

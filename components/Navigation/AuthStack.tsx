@@ -36,28 +36,26 @@ const App = () => {
         }}
 
       >
-        <Stack.Screen
-        // {state.UserToken == null ?}
-          name="Home"
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
+
 
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false }}></Stack.Screen>
+         <Stack.Screen name="Profile" component={ProfileScreen} />
+
+
         <Stack.Screen name="RequestFuel" component={RequestFuelScreen} />
         <Stack.Screen name="RegistrationCarDets" component={RegistrationScreen} />
         <Stack.Screen name="CarHistory" component={CarHistoryScreen} />
         <Stack.Screen name="Order" component={OrderScreen} />
         <Stack.Screen name="Tyre" component={TyreScreen} />
         <Stack.Screen name="Maps" component={MapsScreen} />
-        <Stack.Screen name="RouteMap" component={RouteScreen} />
         <Stack.Screen name="Services" component={ServicesScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+
          {/* <Stack.Screen name="GoogleMaps" component={GoogleMapsScreen} /> */}
         <Stack.Screen name="Requests" component={RequestsScreen}  options={{ headerShown: false }} />
         <Stack.Screen name ="Homee"  component={TabNav}/>
-        <Stack.Screen name ="Homeye"  component={SidebarNav}   options={{ headerShown: false }}/>
+
       </Stack.Navigator>
 
   );

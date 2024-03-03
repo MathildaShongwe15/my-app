@@ -25,6 +25,7 @@ import Icon from 'react-native-vector-icons/AntDesign'
                   },
                   }}
                 >
+
                   <Tab.Screen name="Home" component={HomeScreen}
                    options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"home"} size={20} color={"#07137D"} />),
                    }} >

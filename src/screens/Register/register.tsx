@@ -19,12 +19,12 @@ import {
 } from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import uuid from 'react-native-uuid';
+
 
 const Register = () => {
 
   const [data, setData] = useState({});
-  const [Id ,setId = uuid.v4()] = useState('');
+  const [Id ,setId] = useState('');
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -59,7 +59,7 @@ const Register = () => {
       });
       result = (await result).json();
       console.warn(result);
-      setSignUpLoading(true);
+      setSignUpLoading(false);
       setSigned(true);
     }
     catch(e){
@@ -167,7 +167,7 @@ const Register = () => {
                 mt="2"
                 colorScheme="blue"
                 variant="outline"
-                onPress={() => navigation.navigate("Profile")}
+                onPress={savaData}
               >
                 SIGN UP
               </Button>

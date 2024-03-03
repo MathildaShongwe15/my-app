@@ -63,7 +63,7 @@ const HomeScreen = () => {
               // style={styles.btn}
               color="#FFB400"
               title="Login"
-              onPress={() => navigation.navigate("Login")}
+              onPress={() => navigation.navigate("Profile")}
             />
 
             {/* <Icon name="cog" /> */}

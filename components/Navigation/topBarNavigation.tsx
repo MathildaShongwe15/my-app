@@ -20,7 +20,7 @@ const App = () => {
   }
   return (
   <NavigationContainer>
-        {userToken !== null ?<AppSideStack/> : <Authstack/>}
+        {userToken !== null ?<Authstack/> :<AppSideStack/> }
   </NavigationContainer>
 
   );

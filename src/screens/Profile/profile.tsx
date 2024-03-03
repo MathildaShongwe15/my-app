@@ -14,10 +14,40 @@ import {
   View,
   WarningOutlineIcon,
 } from "native-base";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Button } from "react-native";
 
 const Register = () => {
+
+  const [isLoading, setIsloading] = useState(false);
+  const [userToken, setToken] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [userInfo, setUserInfo] = useState('');
+
+  const savaData = async () =>{
+
+    const data = {email, password}
+   try{
+        let result = fetch('http://192.168.1.103:3000/Users/2b0ea48b-6fab-423f-b582-a2d9258906b2',{
+
+            method: 'GET',
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type':'application/json'
+            },
+
+            });
+            result = (await result).json();
+            console.log(await result)
+
+
+  }
+    catch(e){
+      console.error(e);
+
+  }
+}
   const navigation = useNavigation();
   return (
     <NativeBaseProvider>
@@ -64,7 +94,7 @@ const Register = () => {
               <Button
                 color="#07137D"
                 title="Update"
-                onPress={() => navigation.navigate("RegistrationCarDets")}
+                onPress={savaData}
               />
             </VStack>
           </Box>

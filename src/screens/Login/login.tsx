@@ -1,5 +1,5 @@
 import { Avatar, Box, Button , Center, CheckIcon, Checkbox, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Select, VStack, View, WarningOutlineIcon } from "native-base";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, isValidElement } from "react";
 import {StatusBar , Pressable, Alert, ActivityIndicator} from "react-native";
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
@@ -7,46 +7,30 @@ import { useNavigation } from '@react-navigation/native';
 import {  Text,Image, Dimensions,StyleSheet } from 'react-native';
 import { AuthContext } from "../../../Context/AuthContext";
 //const navigation = useNavigation();
-
+import uuid from 'react-native-uuid';
 
 
 const Login = () => {
-
-const [token, setToken] = useState();
-const [email, setEmail] = useState('');
-const [password, setPassword] = useState('');
+;
 const [role, setRole] = useState('')
 const [signUpLoading, setSignUpLoading] = useState(false);
 const [verifyLoading, setVerifyLoading] = useState(false);
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
 
 const {login} = useContext(AuthContext);
-// localStorage.setItem("user", JSON.stringify({role:'SERVICE PROVIDER'}))
+//check email format
+// const validate = () =>
+// {
+//   const expression =  /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
 
-  const savaData = async () =>{
+//   if(email.match(expression)){
+//     // setEmail();
+//   }
 
-    console.warn(email);
-    console.warn(password);
-    const data = {email: email, password:password}
-try{
-  let result = fetch('http://192.168.1.103:3000/Login',{
 
-      method: 'POST',
-      headers:{
-        'Accept': 'application/json',
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-    result = (await result).json();
-    console.warn(result);
-    setSignUpLoading(true);
-    setToken(token)
-  }
-    catch(e){
-      console.error(e);
-
-  }
-}
+//   return expression.test(String(email).toLowerCase())
+// }
 
 
   const navigation = useNavigation();
@@ -82,7 +66,7 @@ try{
           <VStack space={3} mt="5">
             <FormControl>
               <FormControl.Label>Email ID/Employee ID</FormControl.Label>
-              <Input  value={email} variant="rounded" bg="muted.50"  placeholder="Enter Email or Employee Id" onChangeText={text => setEmail(text)}/>
+              <Input  value={email} variant="rounded" bg="muted.50"  placeholder="Enter Email Address" onChangeText={text => setEmail(text)} type="email"/>
             </FormControl>
 
             <FormControl>
@@ -119,7 +103,7 @@ try{
               </Link>
 
             </FormControl>
-                <Button size="sm" variant="outline"  colorScheme="blue" mt="0" onPress={() => {login()}} >
+                <Button size="sm" variant="outline"  colorScheme="blue" mt="0" onPress={() => {login(email,password)}} >
                   SIGN IN
                 </Button>
 
