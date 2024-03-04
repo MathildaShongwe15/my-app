@@ -10,7 +10,8 @@ import RequestFuelScreen from "../../src/screens/Request/requestFuel";
 import CarHistoryScreen from "../../src/screens/CarScreens/Vehicles";
 import OrderScreen from "../../src/screens/OrderScreens/orderConfirmed";
 import TyreScreen from "../../src/screens/Request/requestTyre";
-import RequestsScreen from "../../src/screens/Request/viewRequests"
+import RequestsScreen from "../../src/screens/Request/viewRequests";
+import ResetScreen from "../../src/screens/Profile/resetPassword";
 import TabNav from "./tabBarNavigation"
 import SidebarNav from './sideBarNavigation'
 import MapsScreen from "../../src/screens/Map/pinLocation"
@@ -51,6 +52,7 @@ const App = () => {
         <Stack.Screen name="Tyre" component={TyreScreen} />
         <Stack.Screen name="Maps" component={MapsScreen} />
         <Stack.Screen name="Services" component={ServicesScreen} />
+        <Stack.Screen name="ResetPass"  component={ResetScreen}/>
 
          {/* <Stack.Screen name="GoogleMaps" component={GoogleMapsScreen} /> */}
         <Stack.Screen name="Requests" component={RequestsScreen}  options={{ headerShown: false }} />

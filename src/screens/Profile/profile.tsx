@@ -14,22 +14,22 @@ import {
   View,
   WarningOutlineIcon,
 } from "native-base";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, Button } from "react-native";
 
 const Register = () => {
 
-  const [isLoading, setIsloading] = useState(false);
-  const [userToken, setToken] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [userInfo, setUserInfo] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
 
-  const savaData = async () =>{
+ const [data, setData] = useState({});
 
-    const data = {email, password}
+  const getUserData = async () =>{
+
    try{
-        let result = fetch('http://192.168.1.103:3000/Users/2b0ea48b-6fab-423f-b582-a2d9258906b2',{
+        let result = await fetch('http://192.168.1.103:3000/Users/2b0ea48b-6fab-423f-b582-a2d9258906b2',{
 
             method: 'GET',
             headers:{
@@ -38,17 +38,46 @@ const Register = () => {
             },
 
             });
-            result = (await result).json();
-            console.log(await result)
-
-
+            result = await result.json();
+           setData( await result)
+            console.log(data)
   }
     catch(e){
       console.error(e);
 
   }
 }
+
+useEffect(()=>{
+  getUserData()
+},[])
+
+const updateUserData = async () =>{
+
+  const data1 = {firstName:firstName,lastName:lastName,email:email,phoneNumber:phoneNumber}
+  try{
+       let result = await fetch('http://192.168.1.103:3000/UserUpdate/2b0ea48b-6fab-423f-b582-a2d9258906b2',{
+
+           method: 'PUT',
+           headers:{
+               'Accept': 'application/json',
+               'Content-Type':'application/json'
+           },
+           body: JSON.stringify(data1)
+
+           });
+           result = await result.json();
+           console.log(data1)
+ }
+   catch(e){
+     console.error(e);
+
+ }
+}
+
+
   const navigation = useNavigation();
+
   return (
     <NativeBaseProvider>
       <View style={styles.Container}>
@@ -69,32 +98,29 @@ const Register = () => {
             <VStack space={3} mt="2">
               <FormControl>
                 <FormControl.Label>First Name</FormControl.Label>
-                <Input variant="filled" placeholder="John"  bg="muted.50" />
+                <Input variant="filled"  placeholder={"data.user.First_Name"}  bg="muted.50"   value={firstName} onChangeText={text => setFirstName(text)} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Last Name</FormControl.Label>
-                <Input variant="filled" placeholder="Doe"  bg="muted.50"/>
+                <Input variant="filled" placeholder={"data.user.Last_Name" }  bg="muted.50"  value={lastName} onChangeText={text => setLastName(text)} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Email</FormControl.Label>
-                <Input variant="filled" placeholder="JonDoe@gmail.com"  bg="muted.50"/>
+                <Input variant="filled" placeholder={"data.user.Email"}  bg="muted.50"  value={email} onChangeText={text => setEmail(text)} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Phone Number</FormControl.Label>
-                <Input variant="filled" placeholder="0718893654" bg="muted.50" />
-              </FormControl>
-              <FormControl>
-                <FormControl.Label>Current Password</FormControl.Label>
-                <Input type="password" variant="filled" placeholder="***********"  bg="muted.50"/>
-              </FormControl>
-              <FormControl>
-                <FormControl.Label>New Password</FormControl.Label>
-                <Input type="password" variant="filled" placeholder="***********"  bg="muted.50"/>
+                <Input variant="filled" placeholder={"data.user.phone_number"} bg="muted.50"  value={phoneNumber} onChangeText={text => setPhoneNumber(text)}  />
               </FormControl>
               <Button
                 color="#07137D"
-                title="Update"
-                onPress={savaData}
+                title="Update Profile"
+                onPress={updateUserData}
+              />
+              <Button
+                color="#07137D"
+                title="Reset Password"
+                onPress={() => navigation.navigate("ResetPass")}
               />
             </VStack>
           </Box>

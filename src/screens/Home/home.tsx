@@ -21,11 +21,9 @@ import {
   NativeBaseProvider,
   VStack,
 } from "native-base";
-import { LinearGradient } from "react-native-svg";
-import Carsousel from "react-native-snap-carousel";
-import Carousel from "react-native-snap-carousel";
-import Bottom from "../../../components/BottomSheetComponent/bottomSheet";
-import Noti from "../../../middleware/notifications"
+import OnBoarding from '../../../components/OnBoardingComponent/onBoarding'
+
+
 
 
 const HomeScreen = () => {
@@ -33,57 +31,48 @@ const HomeScreen = () => {
 
 
   return (
-    <NativeBaseProvider>
+  //   <NativeBaseProvider>
+       <OnBoarding/>
+  //     <View style={styles.Container}>
+  //       <Center style={{ marginVertical: 10, marginTop:200}}>
+  //         <Image
+  //           source={require("../../../assets/pics/Logo (2).png")}
+  //           style={{
+  //             height: Dimensions.get("window").width - 100,
+  //             width: Dimensions.get("window").width -100,
+  //           }}
+  //         />
 
-      <View style={styles.Container}>
-        <Center style={{ marginVertical: 10, marginTop:200}}>
-          <Image
-            source={require("../../../assets/pics/Logo (2).png")}
-            style={{
-              height: Dimensions.get("window").width - 100,
-              width: Dimensions.get("window").width -100,
-            }}
-          />
 
+  //         <Text
+  //           style={{
+  //             marginTop: 10,
+  //             fontSize: 16,
+  //             paddingLeft: 60,
+  //             paddingRight: 60,
+  //             marginLeft: 50,
+  //             color:"#FFB400"
+  //           }}
+  //         >
+  //         </Text>
 
-          <Text
-            style={{
-              marginTop: 10,
-              fontSize: 16,
-              paddingLeft: 60,
-              paddingRight: 60,
-              marginLeft: 50,
-              color:"#FFB400"
-            }}
-          >
-          </Text>
+  //         <VStack space={4} alignItems="center" >
+  //           <Button
+  //             // style={styles.btn}
+  //             color="#FFB400"
+  //             title="Login"
+  //             onPress={() => navigation.navigate("Profile")}
+  //           />
 
-          <VStack space={4} alignItems="center" >
-            <Button
-              // style={styles.btn}
-              color="#FFB400"
-              title="Login"
-              onPress={() => navigation.navigate("Profile")}
-            />
+  //           {/* <Icon name="cog" /> */}
+  //         </VStack>
+  //       </Center>
+  //     </View>
 
-            {/* <Icon name="cog" /> */}
-          </VStack>
-        </Center>
-      </View>
-
-      {/* <Bottom /> */}
-    </NativeBaseProvider>
-  );
+  //     {/* <Bottom /> */}
+  //   </NativeBaseProvider>
+   );
 };
-const styles = StyleSheet.create({
-  Container: {
-    flex: 1,
-    backgroundColor: "#ffff",
-    alignItems: "center",
-  },
-  btn:{
-      width:200,
-  }
-});
+
 
 export default HomeScreen;
