@@ -1,22 +1,29 @@
-import { NativeBaseProvider,View } from "native-base";
+import { useNavigation } from "@react-navigation/native";
+import { Heading, NativeBaseProvider, } from "native-base";
 import React from "react"
-import { TouchableOpacity,FlatList,useWindowDimensions,Image,StyleSheet,Text} from "react-native"
+import { TouchableOpacity,FlatList,useWindowDimensions,Image,StyleSheet,Text,View,Button} from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
  const onBoardingItem = ({item}) => {
     const {width} = useWindowDimensions();
+    const navigation = useNavigation();
 
     return(
+       <SafeAreaView >
+          <View style={styles.Container}>
 
-        <NativeBaseProvider>
-           <View style={[styles.Container,{width}]}>
-           <Image source={item.image} style={[styles.image, {width, resizeMode:'contain'}]}/>
-
-                <Text >{item.title}</Text>
+           <Image source={item.image} style={[styles.image, {width, resizeMode:'contain'}]} />
+                <Heading >{item.title}</Heading>
                 <Text>{item.description}</Text>
-
-           </View>
-        </NativeBaseProvider>
+                <Button
+              // style={styles.btn}
+              color="#FFB400"
+              title="Login"
+              onPress={() => navigation.navigate("Login")}
+            />
+       </View>
+       </SafeAreaView>
     )
  }
 
@@ -28,20 +35,24 @@ import { TouchableOpacity,FlatList,useWindowDimensions,Image,StyleSheet,Text} fr
     },
     image:{
         flex:0.7,
-        justifyContent:'center',
+        alignItems:'center',
+        height:'45%',
+        width:'50%',
+        resizeMode:'contain',
+        marginTop:30
 
     },
     title:{
 
         fontWeight:'800',
-        fontSize:28,
-        marginBottom:10,
-        color:"#493d8a",
-        textAlign:'center'
+        fontSize:88,
+        color:"#07137D",
+        textAlign:'center',
+
     },
     description: {
         fontWeight:'300',
-        color:"#62656b",
+        color:"#07137D",
         textAlign:'center'
 
     }

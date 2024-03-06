@@ -1,28 +1,62 @@
-import React, {createContext, useEffect, useState} from 'react'
+import React, {createContext, useContext, useEffect, useState} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-export const AuthContext = createContext({} as any);
-type MyComponentProps = React.PropsWithChildren<{}>;
+// export const AuthContext = createContext({} as any);
+// type MyComponentProps = React.PropsWithChildren<{}>;
 
+interface AuthProps{
+   authState?: {token:string|null; authenticated:boolean|null}
+   onRegister?:(email:string, password:string, role:string) => Promise<any>;
+   onLogin?:(email:string, password:string, role:string) => Promise<any>;
+   onLogout?: () => Promise<any>;
+}
 
-export const AuthProvider = ({children} : MyComponentProps) =>{
+//const TOKEN_KEY = "my-jwt";
+export const API_URL = '';
+const AuthContext = createContext<AuthProps>({});
 
-  const [isLoading, setIsloading] = useState(false);
-  const [userToken, setToken] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [userInfo, setUserInfo] = useState('');
+export const useAuth = () =>{
+  return useContext(AuthContext);
+}
 
-  const login =() =>{
-    setToken('djkfnejdfj');
-    AsyncStorage.setItem('userToken', 'djkfnejdfj')
-    const login =() =>{
-        setToken('djkfnejdfj');
-        const savaData = async () =>{
+// AsyncStorage.setItem('tokenKey', );
 
-            const data = {email, password}
-           try{
-                let result = fetch('http://192.168.1.103:3000/Login',{
+export const AuthProvider = ({children}:any) => {
+
+  // const [isLoading, setIsloading] = useState(false);
+
+  const [authState, setAuthState] = useState<{
+    token: string | null;
+    authenticated: boolean | null;
+  }>({
+    token:null,
+    authenticated:null
+  });
+
+  useEffect(() =>{
+    const loadToken = async() =>{
+      const getToken =await AsyncStorage.getItem('tokenKey');
+      console.log("stored",getToken)
+
+      if(getToken){
+
+        setAuthState({
+           token: getToken,
+         authenticated:true
+        });
+
+      }
+    }
+    loadToken();
+
+  },[])
+
+  const login = async (email :string ,password :string, role: string) =>{
+     // setIsloading(true);
+        try{
+            const data = {email, password,role}
+
+                let result = await fetch('http://192.168.1.103:3000/Login',{
 
                     method: 'POST',
                     headers:{
@@ -31,63 +65,46 @@ export const AuthProvider = ({children} : MyComponentProps) =>{
                     },
                     body: JSON.stringify(data)
                     });
-                    result = (await result).json();
-                    let userInfoToken = result;
-                    setUserInfo(userInfo);
-                    setToken(userInfo);
-                    console.warn(result);
+                    result = await result.json();
+                    let currentToken = await JSON.stringify(result.token);
+                    //let currentRole = await JSON.stringify(result.role);
 
-          }
-            catch(e){
-              console.error(e);
+                    setAuthState({
+                      token: currentToken,
+                      authenticated:true
+                    });
+                    await AsyncStorage.setItem('token', JSON.stringify(currentToken))
+                    // AsyncStorage.setItem('Role', JSON.stringify(currentRole));
+                    //setIsloading(false);
+                  }
+                  catch(e){
+                    return {error:true, msg:(e as any).response.msg}
+                  }
+  };
+ //   setIsloading(false);
 
-          }
-        }
-    setIsloading(false);
-  }
+const logout = async()=>{
+   AsyncStorage.removeItem('userToken');
 
-  const logout = () =>{
-    setIsloading(true);
-    setToken('');
-    AsyncStorage.removeItem('userInfo');
-    AsyncStorage.removeItem('userToken');
+   setAuthState({
+    token:null,
+    authenticated:false
+   })
+}
 
-    setIsloading(false);
-  }
-
-  const isLoggedIn = async () =>{
-    try{
-        setIsloading(true);
-
-        let userToken = await AsyncStorage.getItem('userToken');
-        let userInfo = await AsyncStorage.getItem('userInfo');
-        userInfo = JSON.parse(userInfo!);
-
-        if(userInfo){
-            setToken(userToken!);
-            setIsloading(true);
-        }
-        setIsloading(false);
-
-
-    }
-    catch(e){
-        console.log(`isLogged in error ${e}`);
-
-    }
-  }
-
-  useEffect(() => {
-    isLoggedIn();
-  }, []);
+const value ={
+  onLogin: login,
+  onLogout: logout,
+  authState
+} ;
 
     return (
-       <AuthContext.Provider value={{login, logout, isLoading, userToken, userInfo}}>
+       <AuthContext.Provider value={{}}>
         {children}
        </AuthContext.Provider>
 
     )
 }
-}
+
 
 

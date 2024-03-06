@@ -7,19 +7,31 @@ import {AuthProvider} from "../my-app/Context/AuthContext"
 import { NativeBaseProvider } from "native-base";
 
 
-const App = () => {
+export default function App(){
+  return(
+    <AuthProvider>
+      <Layout></Layout>
+    </AuthProvider>
+  )
+}
+
+
+
+
+
+export const Layout = () => {
 
   const Stack = createNativeStackNavigator();
 
   return (
-   <NativeBaseProvider>
 
-        <TopNav/>
+      <NavigationContainer>
+            <TopNav/>
+    </NavigationContainer>
 
-   </NativeBaseProvider>
 
 
 
   );
 }
-export default App;
+

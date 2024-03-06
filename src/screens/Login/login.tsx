@@ -1,24 +1,43 @@
 import { Avatar, Box, Button , Center, CheckIcon, Checkbox, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Select, VStack, View, WarningOutlineIcon } from "native-base";
-import React, { useState, useContext, isValidElement } from "react";
+import React, { useState, useContext, isValidElement, useEffect } from "react";
 import {StatusBar , Pressable, Alert, ActivityIndicator} from "react-native";
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
 import { useNavigation } from '@react-navigation/native';
 import {  Text,Image, Dimensions,StyleSheet } from 'react-native';
-import { AuthContext } from "../../../Context/AuthContext";
+// import { AuthContext } from "../../../Context/AuthContext";
+import Spinner from 'react-native-loading-spinner-overlay';
 //const navigation = useNavigation();
 import uuid from 'react-native-uuid';
+import { useAuth } from "../../../Context/AuthContext";
 
 
-const Login = () => {
+
+const LoginApp = () => {
 ;
 const [role, setRole] = useState('')
-const [signUpLoading, setSignUpLoading] = useState(false);
-const [verifyLoading, setVerifyLoading] = useState(false);
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 
-const {login} = useContext(AuthContext);
+
+const {onLogin}: any= useAuth();
+
+useEffect(() =>{
+  const testCall = async() =>{
+
+  }
+
+  testCall();
+
+},[])
+
+const login = async() =>{
+  const result = await onLogin!(email,password,role);
+  if(result && result.error){
+    alert(result.msg);
+  }
+}
+
 //check email format
 // const validate = () =>
 // {
@@ -27,19 +46,14 @@ const {login} = useContext(AuthContext);
 //   if(email.match(expression)){
 //     // setEmail();
 //   }
-
-
 //   return expression.test(String(email).toLowerCase())
 // }
-
-
   const navigation = useNavigation();
-
-
     return (
-    <NativeBaseProvider >
-      <ActivityIndicator size="small" color="#0000ff" />
+    <NativeBaseProvider>
+      {/* <ActivityIndicator size="small" color="#0000ff" /> */}
       <View style={styles.Container}>
+        {/* <Spinner visible={isLoading}/> */}
     <Center w="100%" h="100%">
 
         <Box safeArea  p="2" py="8" w="90%" maxW="290">
@@ -87,30 +101,24 @@ const {login} = useContext(AuthContext);
             endIcon: <CheckIcon size={5} />,
           }}
           mt="1"
+          onValueChange={text => setRole(text)}
         >
           <Select.Item label="Service Provider" value="1.5L" />
           <Select.Item label="Customer" value="2.0L" />
-
-
         </Select>
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
           Please make a selection!
         </FormControl.ErrorMessage>
       </FormControl>
-
               <Link _text={{ fontSize: "xs", fontWeight: "500", color: "blue.800"}} alignSelf="flex-end" mt="2">
                 Forget Password?
               </Link>
 
             </FormControl>
-                <Button size="sm" variant="outline"  colorScheme="blue" mt="0" onPress={() => {login(email,password)}} >
+                <Button size="sm" variant="outline"  colorScheme="blue" mt="0" onPress={() => {login}} >
                   SIGN IN
                 </Button>
-
-
-
             <HStack mt="3" justifyContent="center">
-
               <Link  _text={{
               color: "blue.800",
               fontWeight: "medium",
@@ -118,14 +126,12 @@ const {login} = useContext(AuthContext);
             }} href="#">
                Don't Have an Account? Sign Up
               </Link>
-
             </HStack>
             <Heading mt="3" fontWeight={"light"} _dark={{
                 color: "warmGray.200"
                 }} color="warmGray.400"  size="2xs">
                By creating or login into an account you are agreeing with our Terms and Conditions and Privacy Statement
               </Heading >
-
           </VStack>
         </Box>
       </Center></View>
@@ -145,4 +151,4 @@ const {login} = useContext(AuthContext);
 
     }
   })
-  export default Login;
+  export default LoginApp;

@@ -16,12 +16,14 @@ import TabNav from "./tabBarNavigation"
 import SidebarNav from './sideBarNavigation'
 import MapsScreen from "../../src/screens/Map/pinLocation"
 import RouteScreen from "../../src/screens/Map/RouteMap"
-import { AuthContext } from "../../Context/AuthContext";
-import {View, ActivityIndicator} from 'react-native';
+
+import {View, ActivityIndicator, Button} from 'react-native';
+import { useAuth } from "../../Context/AuthContext";
+
 
 const App = () => {
+  const{authState, onLogout}:any = useAuth();
   const Stack = createNativeStackNavigator();
-
 
   return (
 
@@ -37,26 +39,22 @@ const App = () => {
         }}
 
       >
-
-
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false }}></Stack.Screen>
-         <Stack.Screen name="Profile" component={ProfileScreen} />
-
+        {authState?.authenticated ?
+          <Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false , headerRight:() => <Button onPress={onLogout} title="SignOut"/>}}></Stack.Screen>:
+          <Stack.Screen name="Login" component={LoginScreen} />
+       }
+       <Stack.Screen name="Register" component={RegisterScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="ResetPass"  component={ResetScreen}/>
 
         <Stack.Screen name="RequestFuel" component={RequestFuelScreen} />
         <Stack.Screen name="RegistrationCarDets" component={RegistrationScreen} />
-        <Stack.Screen name="CarHistory" component={CarHistoryScreen} />
+
         <Stack.Screen name="Order" component={OrderScreen} />
         <Stack.Screen name="Tyre" component={TyreScreen} />
         <Stack.Screen name="Maps" component={MapsScreen} />
-        <Stack.Screen name="Services" component={ServicesScreen} />
-        <Stack.Screen name="ResetPass"  component={ResetScreen}/>
 
-         {/* <Stack.Screen name="GoogleMaps" component={GoogleMapsScreen} /> */}
-        <Stack.Screen name="Requests" component={RequestsScreen}  options={{ headerShown: false }} />
-        <Stack.Screen name ="Homee"  component={TabNav}/>
+
 
       </Stack.Navigator>
 
