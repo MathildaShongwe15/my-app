@@ -1,15 +1,14 @@
 import { NativeBaseProvider,View } from "native-base";
 import React from "react"
-import { TouchableOpacity,FlatList,StyleSheet } from "react-native"
+import {FlatList,StyleSheet } from "react-native"
 import OnBoardingItem from './onBoardingItem'
-import Animated from "react-native-reanimated";
-import { SafeAreaFrameContext, SafeAreaView } from "react-native-safe-area-context";
+
+import { SafeAreaView } from "react-native-safe-area-context";
 const Data = [
     {
       image: require("../../assets/pics/Logo (2).png"),
       title: "Welcome",
       description: "30min",
-
       id: 1,
 
     },

@@ -1,91 +1,94 @@
 import React, {createContext, useContext, useEffect, useState} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-// export const AuthContext = createContext({} as any);
-// type MyComponentProps = React.PropsWithChildren<{}>;
-
 interface AuthProps{
    authState?: {token:string|null; authenticated:boolean|null}
    onRegister?:(email:string, password:string, role:string) => Promise<any>;
    onLogin?:(email:string, password:string, role:string) => Promise<any>;
    onLogout?: () => Promise<any>;
+
 }
 
-//const TOKEN_KEY = "my-jwt";
+const TOKEN_KEY = "my-jwt";
 export const API_URL = '';
 const AuthContext = createContext<AuthProps>({});
 
+
+
 export const useAuth = () =>{
+  AsyncStorage.removeItem(TOKEN_KEY);
   return useContext(AuthContext);
+
 }
 
-// AsyncStorage.setItem('tokenKey', );
+
 
 export const AuthProvider = ({children}:any) => {
 
-  // const [isLoading, setIsloading] = useState(false);
+  console.log( "HELLO",AsyncStorage.getItem(TOKEN_KEY));
 
   const [authState, setAuthState] = useState<{
     token: string | null;
     authenticated: boolean | null;
+
   }>({
     token:null,
-    authenticated:null
+    authenticated:null,
+
   });
 
-  useEffect(() =>{
-    const loadToken = async() =>{
-      const getToken =await AsyncStorage.getItem('tokenKey');
-      console.log("stored",getToken)
-
-      if(getToken){
-
-        setAuthState({
-           token: getToken,
-         authenticated:true
-        });
-
-      }
-    }
-    loadToken();
-
-  },[])
 
   const login = async (email :string ,password :string, role: string) =>{
-     // setIsloading(true);
-        try{
-            const data = {email, password,role}
 
-                let result = await fetch('http://192.168.1.103:3000/Login',{
-
-                    method: 'POST',
+                await fetch('https://9f56-105-186-238-168.ngrok-free.app/Login',{
+                    method:'POST',
                     headers:{
-                        'Accept': 'application/json',
-                        'Content-Type':'application/json'
+                        'Content-Type':'application/json',
                     },
-                    body: JSON.stringify(data)
-                    });
-                    result = await result.json();
-                    let currentToken = await JSON.stringify(result.token);
-                    //let currentRole = await JSON.stringify(result.role);
+                    body: JSON.stringify({Email:email,Password:password,Role:role})
+                    })
+                    .then(response => {
+                      if(!response.ok){
+                        throw new Error('Network response not ok'),
+                        console.log(response)
+                      }
+                      console.log("response is okay", response)
+
+                      return response.json();
+
+                    })
+                    .then(data =>(AsyncStorage.setItem("ROLE",data.role) ,AsyncStorage.setItem(TOKEN_KEY, data.token)))
+
+                    .then(data =>
 
                     setAuthState({
-                      token: currentToken,
+                      token: TOKEN_KEY,
                       authenticated:true
-                    });
-                    await AsyncStorage.setItem('token', JSON.stringify(currentToken))
-                    // AsyncStorage.setItem('Role', JSON.stringify(currentRole));
-                    //setIsloading(false);
-                  }
-                  catch(e){
-                    return {error:true, msg:(e as any).response.msg}
-                  }
+                     }))
+
+                    .catch(err => console.log(err))
   };
- //   setIsloading(false);
+
+
+ useEffect(() =>{
+
+  const loadToken = async() =>{
+    const getToken =await AsyncStorage.getItem(TOKEN_KEY);
+
+    if( getToken){
+      setAuthState({
+         token:  getToken,
+         authenticated:true
+      });
+
+    }
+    console.log("stored",await AsyncStorage.getItem(TOKEN_KEY))
+  }
+  loadToken();
+},[])
 
 const logout = async()=>{
-   AsyncStorage.removeItem('userToken');
-
+   AsyncStorage.removeItem(TOKEN_KEY);
    setAuthState({
     token:null,
     authenticated:false
@@ -99,7 +102,7 @@ const value ={
 } ;
 
     return (
-       <AuthContext.Provider value={{}}>
+       <AuthContext.Provider value={value}>
         {children}
        </AuthContext.Provider>
 

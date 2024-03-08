@@ -48,7 +48,7 @@ const Register = () => {
 
     const data = {Id: Id,First_Name:firstName,Last_Name:lastName,email:email,phoneNumber:phoneNumber,password:password, role:role}
   try{
-    let result = fetch('http://192.168.1.103:3000/Auth',{
+    let result = fetch('https://9f56-105-186-238-168.ngrok-free.app/Auth',{
 
         method: 'POST',
         headers:{

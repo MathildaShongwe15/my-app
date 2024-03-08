@@ -1,12 +1,12 @@
 
-import { AlertDialog, Button, Center, IconButton, NativeBaseProvider, VStack } from "native-base";
+import { AlertDialog, Button, Center,  NativeBaseProvider, VStack } from "native-base";
 import React from "react";
 import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet } from "react-native";
 import SmallCard from "../../../components/CardComponent/CardSmall"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/AntDesign';
-import TabBar from '../../../components/Navigation/tabBarNavigation';
+
 
 const HistoryData = [
     {

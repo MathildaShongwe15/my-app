@@ -14,41 +14,39 @@ import { useAuth } from "../../../Context/AuthContext";
 
 
 const LoginApp = () => {
-;
+const {onLogin} = useAuth();
+
 const [role, setRole] = useState('')
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
+console.log(email,password,role);
 
 
-const {onLogin}: any= useAuth();
-
-useEffect(() =>{
-  const testCall = async() =>{
-
-  }
-
-  testCall();
-
-},[])
 
 const login = async() =>{
-  const result = await onLogin!(email,password,role);
-  if(result && result.error){
-    alert(result.msg);
+  const result =  onLogin!(email,password,role);
+  console.log("SEEE ME",result);
+  if(result )
+  {
+    console.warn(result);
   }
 }
 
+useEffect(() =>{
+
+
+ },[])
 //check email format
 // const validate = () =>
 // {
 //   const expression =  /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
-
 //   if(email.match(expression)){
 //     // setEmail();
 //   }
 //   return expression.test(String(email).toLowerCase())
 // }
-  const navigation = useNavigation();
+
+ // const navigation = useNavigation();
     return (
     <NativeBaseProvider>
       {/* <ActivityIndicator size="small" color="#0000ff" /> */}
@@ -85,7 +83,7 @@ const login = async() =>{
 
             <FormControl>
               <FormControl.Label>Password</FormControl.Label>
-              <Input value={password} variant="rounded" bg="muted.50"  type="password"  placeholder="Enter Password"onChangeText={text => setPassword(text)}/>
+              <Input value={password} variant="rounded" bg="muted.50"  type="password"  placeholder="Enter Password" onChangeText={text => setPassword(text)}/>
               <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
                 Try different from previous passwords.
               </FormControl.ErrorMessage>
@@ -103,8 +101,8 @@ const login = async() =>{
           mt="1"
           onValueChange={text => setRole(text)}
         >
-          <Select.Item label="Service Provider" value="1.5L" />
-          <Select.Item label="Customer" value="2.0L" />
+          <Select.Item label="SERVICE PROVIDER" value="SERVICE PROVIDER" />
+          <Select.Item label="Customer" value="Customer" />
         </Select>
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
           Please make a selection!
@@ -115,7 +113,7 @@ const login = async() =>{
               </Link>
 
             </FormControl>
-                <Button size="sm" variant="outline"  colorScheme="blue" mt="0" onPress={() => {login}} >
+                <Button size="sm" variant="outline"  colorScheme="blue" mt="0" onPress={() => {login()}} >
                   SIGN IN
                 </Button>
             <HStack mt="3" justifyContent="center">
@@ -138,13 +136,6 @@ const login = async() =>{
       </NativeBaseProvider>);
   };
 
-  function ImageFunc() {
-    return <Center>
-        {/* <Image size={150} borderRadius={100} source={{
-        uri: "https://wallpaperaccess.com/full/317501.jpg"
-      }} alt="Alternate Text" /> */}
-      </Center>;
-  }
 
   const styles = StyleSheet.create({
     Container:{flex:1, backgroundColor: 'white', alignItems: 'center'

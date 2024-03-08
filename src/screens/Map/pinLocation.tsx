@@ -2,11 +2,8 @@ import * as React from "react";
 import { Button, View, Text, TextInput } from "react-native";
 import {useState, useEffect} from 'react';
 import * as Location from 'expo-location';
-import {GooglePlacesAutoComplete} from 'react-native-google-places-autocomplete'
 
-
-
-const App = () => {
+const pinLocation = () => {
 
     const [location,setLocation] = useState();
     const [address, setAddress] = useState();
@@ -50,4 +47,5 @@ const App = () => {
    <Button title="Reverse Address" onPress={reverseGeocode}></Button></View>
   );
 }
-export default App;
+export default pinLocation;
+;

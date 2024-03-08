@@ -21,14 +21,15 @@ import {
   WarningOutlineIcon,
   Text,
 } from "native-base";
-import React, { useEffect, useState } from "react";
-import { Dimensions, StyleSheet } from "react-native";
+import React from "react";
+import {  StyleSheet } from "react-native";
 
 const Register = () => {
 
 
+const navigation = useNavigation();
 
-  const navigation = useNavigation();
+
   return (
     <NativeBaseProvider>
       <View style={styles.Container}>

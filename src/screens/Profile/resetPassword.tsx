@@ -1,27 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
-import {
-  Avatar,
-  Box,
-  Center,
-  Checkbox,
-  FormControl,
-  HStack,
-  Heading,
-  Input,
-  Link,
-  NativeBaseProvider,
-  VStack,
-  View,
-  WarningOutlineIcon,
-} from "native-base";
-import React, { useEffect, useState } from "react";
+import {Box,Center,FormControl,Heading,Input,NativeBaseProvider,VStack,View,} from "native-base";
+import React, { useState } from "react";
 import { StyleSheet, Button, Dimensions } from "react-native";
 import {  Image } from 'react-native';
 const Register = () => {
 
   const [password, setpassword] = useState('');
-
- const [data, setData] = useState({});
 
 const updatePassword = async () =>{
 
@@ -45,9 +29,6 @@ const updatePassword = async () =>{
 
  }
 }
-
-
-  const navigation = useNavigation();
 
   return (
     <NativeBaseProvider>

@@ -1,19 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import {
-  Avatar,
-  Box,
-  Center,
-  Checkbox,
-  FormControl,
-  HStack,
-  Heading,
-  Input,
-  Link,
-  NativeBaseProvider,
-  VStack,
-  View,
-  WarningOutlineIcon,
-} from "native-base";
+import { Avatar,Box,Center,FormControl,Input,NativeBaseProvider,VStack,View,} from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Button } from "react-native";
 
@@ -56,7 +42,7 @@ const updateUserData = async () =>{
 
   const data1 = {firstName:firstName,lastName:lastName,email:email,phoneNumber:phoneNumber}
   try{
-       let result = await fetch('http://192.168.1.103:3000/UserUpdate/2b0ea48b-6fab-423f-b582-a2d9258906b2',{
+       let result = await fetch('https://9f56-105-186-238-168.ngrok-free.app/UserUpdate/2b0ea48b-6fab-423f-b582-a2d9258906b2',{
 
            method: 'PUT',
            headers:{
@@ -74,8 +60,6 @@ const updateUserData = async () =>{
 
  }
 }
-
-
   const navigation = useNavigation();
 
   return (

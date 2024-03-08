@@ -1,6 +1,5 @@
 import { Avatar, Box, FlatList, HStack, Heading, Spacer, VStack,Text, NativeBaseProvider, Button} from "native-base";
 import React from "react";
-import SideBar from "../../../components/Navigation/sideBarNavigation"
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
 const Example = () => {
