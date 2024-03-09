@@ -1,27 +1,83 @@
 
 import { AlertDialog, Button, Center,  NativeBaseProvider, VStack } from "native-base";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet } from "react-native";
 import SmallCard from "../../../components/CardComponent/CardSmall"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/AntDesign';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
 
 
+const CarHistory =()=> {
+  const [brand, setVehicleBrand] = useState([]);
+  const [reg, setVehicleReg] = useState([]);
+  const [id,setId]=useState('');
+
+
+  const getVehicles = async () =>{
+
+    await fetch('https://c43a-41-76-96-122.ngrok-free.app/GetAllVehicles',{
+        method:'GET',
+        headers:{
+            'Content-Type':'application/json',
+        },})
+        .then(response => {
+          if(!response.ok){
+            throw new Error('Network response not ok'),
+            console.log(response)
+          }
+          console.log("response is okay", response)
+          return response.json();
+        })
+        .then(data => (setVehicleReg(data.vehicle[0].VehicleModel),(setVehicleBrand(data.vehicle[0].VehicleBrand)),(setId(data.vehicle[1].Id))))
+        .catch(err => console.log(err))
+        AsyncStorage.setItem("ID",id)
+        console.log("id has arrived",await AsyncStorage.getItem("ID"))
+};
+
+
+const DeleteVechicle = async() =>{
+
+
+  const ID = AsyncStorage.getItem("ID");
+
+  console.log(await ID);
+  await fetch('https://c43a-41-76-96-122.ngrok-free.app/DeleteVehicle/2bqo0e8b-6fab-423f-b582-a2d9258906b2',{
+      method:'DELETE',
+      headers:{
+          'Content-Type':'application/json',
+      },
+    })
+      .then(response => {
+        if(!response.ok){
+          throw new Error('Network response not ok'),
+          console.log(response)
+        }
+        console.log("response is okay", response)
+        return response.json();
+      })
+      .catch(err => console.log(err))
+};
+
+useEffect(() =>{
+  getVehicles()
+},[])
+const count: Int32 = 0;
 const HistoryData = [
     {
-      name: "Car 1: Honda Hatchback",
-      RegNumber:"Registration Number: HHM556GP",
+      name: "Car " + (count  + 1) +": " + brand ,
+      RegNumber:"Registration Number:" + reg  ,
       id:1
     },
     {
-      name: "Car 2: Honda Sedan",
-      RegNumber:"Registration Number: HHM556GP",
+      name: "Car 2:"  ,
+      RegNumber:"Registration Number:" ,
       id:2
     },
   ];
 
-const CarHistory = () => {
     const Tab = createBottomTabNavigator();
     const navigation = useNavigation();
     const [isOpen, setIsOpen] = React.useState(false);
@@ -49,7 +105,7 @@ const CarHistory = () => {
               <Button.Group space={2}>
                 <Button
                   colorScheme="red"
-                  onPress={onClose}
+                  onPress={DeleteVechicle}
                   ref={cancelRef}
                 >
                   Delete

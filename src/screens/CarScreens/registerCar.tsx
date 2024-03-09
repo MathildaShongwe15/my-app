@@ -1,35 +1,44 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import {
-  Avatar,
-  Box,
-  Button,
-  Center,
-  CheckIcon,
-  Checkbox,
-  FormControl,
-  HStack,
-  Heading,
-  Icon,
-  Input,
-  Link,
-  NativeBaseProvider,
-  Pressable,
-  Select,
-  TextArea,
-  VStack,
-  View,
-  WarningOutlineIcon,
-  Text,
-} from "native-base";
-import React from "react";
+import {Button,Center,CheckIcon,FormControl,Heading,Input,NativeBaseProvider,Select,TextArea,View,WarningOutlineIcon} from "native-base";
+import React, { useState } from "react";
 import {  StyleSheet } from "react-native";
 
-const Register = () => {
 
+
+const RegisterVehicle = () => {
+
+  const [brand, setBrand] = useState('')
+  const [model, setModel] = useState('');
+  const [Reg, setReg] = useState('');
+  const [color, setColor] = useState('')
+  const [description, setDescription] = useState('')
+  const [ID, SetId] = useState('')
+
+  const RegisterVehicle = async (Id:string,Brand :string ,Model :string,RegNo:string ,Color : string,Description:string) =>{
+    console.log(Brand,Model,RegNo,Color,Description)
+    const getUserId = await AsyncStorage.getItem("UserID");
+
+    await fetch('https://c43a-41-76-96-122.ngrok-free.app/CreateVehicle',{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+        },
+        body: JSON.stringify({Id:"aakakk-155-kwmf",UserId:getUserId,vehicleBrand:Brand,vehicleModel:Model,regNo:RegNo,color: Color, description: Description})
+        })
+        .then(response => {
+          if(!response.ok){
+            throw new Error('Network response not ok'),
+            console.log(response)
+          }
+          console.log("response is okay", response)
+          return response.json();
+        })
+        .then(data =>(AsyncStorage.setItem("BRAND",data.carInfo.VehicleBrand) ,AsyncStorage.setItem("MODEL", data.carInfo.VehicleModel),AsyncStorage.setItem("REG", data.carInfo.RegNo)))
+        .catch(err => console.log(err))
+};
 
 const navigation = useNavigation();
-
-
   return (
     <NativeBaseProvider>
       <View style={styles.Container}>
@@ -59,6 +68,7 @@ const navigation = useNavigation();
                 endIcon: <CheckIcon size={5} />,
               }}
               mt="1"
+              onValueChange={text => setBrand(text)}
             >
               <Select.Item label="Honda" value="Honda" />
               <Select.Item label="Hondayi" value="Hondayi" />
@@ -86,6 +96,7 @@ const navigation = useNavigation();
                 endIcon: <CheckIcon size={5} />,
               }}
               mt="1"
+              onValueChange={text => setModel(text)}
             >
               <Select.Item label="Sedan" value="Sedan" />
               <Select.Item label="Hatchback" value="Hatchback" />
@@ -106,11 +117,11 @@ const navigation = useNavigation();
           </FormControl>
           <FormControl w="3/4" maxW="300">
             <FormControl.Label>Registration Number</FormControl.Label>
-            <Input variant="rounded" placeholder="Registration Number" />
+            <Input variant="rounded" placeholder="Registration Number" value={Reg} onChangeText={text => setReg(text)}/>
           </FormControl>
           <FormControl w="3/4" maxW="300">
             <FormControl.Label>Color</FormControl.Label>
-            <Input variant="rounded" placeholder="Color" />
+            <Input variant="rounded" placeholder="Color" value={color} onChangeText={text => setColor(text)}/>
           </FormControl>
           <FormControl.Label w="3/4" maxW="300">
             Other information
@@ -121,7 +132,7 @@ const navigation = useNavigation();
             placeholder="Text Area Placeholder"
             w="75%"
             maxW="300"
-
+            value={description} onChangeText={text => setDescription(text)}
           />
 
           <Button
@@ -130,9 +141,9 @@ const navigation = useNavigation();
             mt="5"
             colorScheme="blue"
             variant={"outline"}
-            onPress={() => navigation.navigate("RequestFuel")}
+            onPress={() => RegisterVehicle(brand,model,Reg,color,description)}
           >
-            Register
+            Register with this Vehicle
           </Button>
           {/*
             <HStack bg="indigo.600" alignItems="center" safeAreaBottom shadow={6}>
@@ -179,4 +190,4 @@ const styles = StyleSheet.create({
   Container: { flex: 1, backgroundColor: "white"},
 });
 
-export default Register;
+export default RegisterVehicle;

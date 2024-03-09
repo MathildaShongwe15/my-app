@@ -11,7 +11,7 @@ import TyreScreen from "../../src/screens/Request/requestTyre";
 import ResetScreen from "../../src/screens/Profile/resetPassword";
 import MapsScreen from "../../src/screens/Map/pinLocation"
 import RouteScreen from "../../src/screens/Map/RouteMap"
-
+import VehiclesScreen from"../../src/screens/CarScreens/Vehicles";
 import { Button} from 'react-native';
 import { useAuth } from "../../Context/AuthContext";
 
@@ -45,12 +45,12 @@ const App = () => {
         <Stack.Screen name="ResetPass"  component={ResetScreen}/>
 
         <Stack.Screen name="RequestFuel" component={RequestFuelScreen} />
-        <Stack.Screen name="RegistrationCarDets" component={RegistrationScreen} />
+        <Stack.Screen name="Registration Car" component={RegistrationScreen} />
 
         <Stack.Screen name="Order" component={OrderScreen} />
         <Stack.Screen name="Tyre" component={TyreScreen} />
         <Stack.Screen name="Maps" component={MapsScreen} />
-
+        <Stack.Screen name="CarHistory" component={VehiclesScreen} ></Stack.Screen>
       </Stack.Navigator>
 
   );

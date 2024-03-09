@@ -33,7 +33,7 @@ const  BottomTabs = () =>{
                   }}>
 
                   </Tab.Screen>
-                  <Tab.Screen name="CarHistory" component={VehiclesScreen} ></Tab.Screen>
+                  {/* <Tab.Screen name="CarHistory" component={VehiclesScreen} ></Tab.Screen> */}
 
 
                 </Tab.Navigator>

@@ -2,7 +2,7 @@ import React, {createContext, useContext, useEffect, useState} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 interface AuthProps{
-   authState?: {token:string|null; authenticated:boolean|null}
+   authState?: {token:string|null; authenticated:boolean|null, isLoading:boolean}
    onRegister?:(email:string, password:string, role:string) => Promise<any>;
    onLogin?:(email:string, password:string, role:string) => Promise<any>;
    onLogout?: () => Promise<any>;
@@ -30,17 +30,19 @@ export const AuthProvider = ({children}:any) => {
   const [authState, setAuthState] = useState<{
     token: string | null;
     authenticated: boolean | null;
+    isLoading:boolean |null;
 
   }>({
     token:null,
     authenticated:null,
+    isLoading:null
 
   });
 
 
   const login = async (email :string ,password :string, role: string) =>{
 
-                await fetch('https://9f56-105-186-238-168.ngrok-free.app/Login',{
+                await fetch('https://c43a-41-76-96-122.ngrok-free.app/Login',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json',
@@ -57,13 +59,14 @@ export const AuthProvider = ({children}:any) => {
                       return response.json();
 
                     })
-                    .then(data =>(AsyncStorage.setItem("ROLE",data.role) ,AsyncStorage.setItem(TOKEN_KEY, data.token)))
+                    .then(data =>(AsyncStorage.setItem("ROLE",data.role) ,AsyncStorage.setItem(TOKEN_KEY, data.token) ,(AsyncStorage.setItem("UserID",data.Id))))
 
                     .then(data =>
 
                     setAuthState({
                       token: TOKEN_KEY,
-                      authenticated:true
+                      authenticated:true,
+                      isLoading:true
                      }))
 
                     .catch(err => console.log(err))
@@ -78,7 +81,9 @@ export const AuthProvider = ({children}:any) => {
     if( getToken){
       setAuthState({
          token:  getToken,
-         authenticated:true
+         authenticated:true,
+         isLoading:true
+
       });
 
     }
@@ -91,7 +96,8 @@ const logout = async()=>{
    AsyncStorage.removeItem(TOKEN_KEY);
    setAuthState({
     token:null,
-    authenticated:false
+    authenticated:false,
+    isLoading:false
    })
 }
 
@@ -102,6 +108,7 @@ const value ={
 } ;
 
     return (
+
        <AuthContext.Provider value={value}>
         {children}
        </AuthContext.Provider>

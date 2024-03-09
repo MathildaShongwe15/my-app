@@ -20,7 +20,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
               // style={styles.btn}
               color="#FFB400"
               title="Login"
-              onPress={() => navigation.navigate("Login")}
+              onPress={() => navigation.navigate("CarHistory")}
             />
        </View>
        </SafeAreaView>
