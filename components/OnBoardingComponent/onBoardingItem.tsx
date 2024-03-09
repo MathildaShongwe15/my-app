@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
-import { Heading, NativeBaseProvider, } from "native-base";
+import { Heading, NativeBaseProvider,Button } from "native-base";
 import React from "react"
-import { TouchableOpacity,FlatList,useWindowDimensions,Image,StyleSheet,Text,View,Button} from "react-native"
+import { TouchableOpacity,FlatList,useWindowDimensions,Image,StyleSheet,Text,View} from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
@@ -10,20 +10,21 @@ import { SafeAreaView } from "react-native-safe-area-context";
     const navigation = useNavigation();
 
     return(
-       <SafeAreaView >
+  <NativeBaseProvider>
           <View style={styles.Container}>
-
+          <Heading style={styles.Heading}>{item.title}</Heading>
+          <Text style={styles.Subtitle}>{item.description}</Text>
            <Image source={item.image} style={[styles.image, {width, resizeMode:'contain'}]} />
-                <Heading >{item.title}</Heading>
-                <Text>{item.description}</Text>
-                <Button
-              // style={styles.btn}
-              color="#FFB400"
-              title="Login"
-              onPress={() => navigation.navigate("CarHistory")}
-            />
+           <Button size="lg" colorScheme="blue" mt="10" width={280} backgroundColor={"#07137D"}  onPress={() => navigation.navigate("Menu")}>
+                  Sign In
+            </Button>
+            <Button size="lg" variant="outline"  colorScheme="#07137D" mt="5" width={280} color={"#07137D"} fontSize={5}>
+                  Sign Up
+            </Button>
+            <Text style={styles.smTitle}>Terms of Service</Text>
        </View>
-       </SafeAreaView>
+
+</NativeBaseProvider>
     )
  }
 
@@ -55,5 +56,21 @@ import { SafeAreaView } from "react-native-safe-area-context";
         color:"#07137D",
         textAlign:'center'
 
+    },
+    Heading:{
+      marginTop:115,
+      fontSize:28,
+      color:"#07137D"
+
+    },
+    Subtitle:{
+      marginTop:10,
+      color:"#B4B4B3",
+      fontSize:15
+    },
+    smTitle:{
+      marginTop:100,
+      color:"#B4B4B3",
+      fontSize:12
     }
   })

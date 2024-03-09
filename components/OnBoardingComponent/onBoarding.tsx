@@ -7,19 +7,17 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const Data = [
     {
       image: require("../../assets/pics/Logo (2).png"),
-      title: "Welcome",
-      description: "30min",
       id: 1,
 
     },
     {
-      title: "Add your Vehicle",
-      description: "30min",
+      title: "Add Your Vehicle",
+      description: "On a click of a button, add your vehicle",
       image: require("../../assets/pics/car3.png"),
       id: 2,
     },
     {
-      title: "Choose services",
+      title: "Choose Services",
       description:  "We offer Towing, fuel, oil & water,flat Tyre. ",
       image: require("../../assets/pics/hell.png"),
       id: 3,
