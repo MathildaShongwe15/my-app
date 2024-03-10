@@ -31,46 +31,7 @@ const HomeScreen = () => {
 
 
   return (
-  //   <NativeBaseProvider>
        <OnBoarding/>
-  //     <View style={styles.Container}>
-  //       <Center style={{ marginVertical: 10, marginTop:200}}>
-  //         <Image
-  //           source={require("../../../assets/pics/Logo (2).png")}
-  //           style={{
-  //             height: Dimensions.get("window").width - 100,
-  //             width: Dimensions.get("window").width -100,
-  //           }}
-  //         />
-
-
-  //         <Text
-  //           style={{
-  //             marginTop: 10,
-  //             fontSize: 16,
-  //             paddingLeft: 60,
-  //             paddingRight: 60,
-  //             marginLeft: 50,
-  //             color:"#FFB400"
-  //           }}
-  //         >
-  //         </Text>
-
-  //         <VStack space={4} alignItems="center" >
-  //           <Button
-  //             // style={styles.btn}
-  //             color="#FFB400"
-  //             title="Login"
-  //             onPress={() => navigation.navigate("Profile")}
-  //           />
-
-  //           {/* <Icon name="cog" /> */}
-  //         </VStack>
-  //       </Center>
-  //     </View>
-
-  //     {/* <Bottom /> */}
-  //   </NativeBaseProvider>
    );
 };
 

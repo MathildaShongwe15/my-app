@@ -7,6 +7,7 @@ import ProfileScreen from "../../src/screens/Profile/profile";
 import RegistrationScreen from "../../src/screens/CarScreens/registerCar";
 import RequestFuelScreen from "../../src/screens/Request/requestFuel";
 import OrderScreen from "../../src/screens/OrderScreens/orderConfirmed";
+import ServicesScreen from "../../src/screens/servicesRequests/services";
 import TyreScreen from "../../src/screens/Request/requestTyre";
 import ResetScreen from "../../src/screens/Profile/resetPassword";
 import MapsScreen from "../../src/screens/Map/pinLocation"
@@ -38,21 +39,23 @@ const App = () => {
       >
         {authState?.authenticated ?(
           <Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false}}></Stack.Screen>):
-          (<Stack.Screen name="Login" component={LoginScreen} />)
+
+          (<Stack.Screen name='Menu' component={MenuScreen} options={{ headerShown: false}}></Stack.Screen>)
        }
 
-        <Stack.Screen name="Menu" component={MenuScreen} options={{ headerShown: false}}/>
+       <Stack.Screen name="Login" component={LoginScreen} />
        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: true , headerRight:() => <Icon name={"LogoutOutlined"} onPress={onLogout} size={20} color={"#FBF9F1"} />}} />
+        <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: true , headerRight:() => <Button onPress={onLogout}>Logout</Button>}} />
         <Stack.Screen name="ResetPass"  component={ResetScreen} />
 
         <Stack.Screen name="RequestFuel" component={RequestFuelScreen}options={{ headerShown: true , headerRight:() => <Icon name={"LogoutOutlined"} onPress={onLogout} size={20} color={"#FBF9F1"} />}} />
         <Stack.Screen name="Registration Car" component={RegistrationScreen} options={{ headerShown: true , headerRight:() => <Icon name={"LogoutOutlined"} onPress={onLogout} size={20} color={"#FBF9F1"} />}}/>
+        <Stack.Screen name="Services"  component={ResetScreen} />
 
         <Stack.Screen name="Order" component={OrderScreen} options={{ headerShown: true , headerRight:() => <Icon name={"LogoutOutlined"} size={20} color={"#FBF9F1"} onPress={onLogout} />}}/>
         <Stack.Screen name="Tyre" component={TyreScreen} options={{ headerShown: true , headerRight:() => <Icon name={"LogoutOutlined"} size={20} color={"#FBF9F1"} onPress={onLogout}/>}}/>
         <Stack.Screen name="Maps" component={MapsScreen} options={{ headerShown: true , headerRight:() => <Icon name={"LogoutOutlined"} size={20} color={"#FBF9F1"} onPress={onLogout}/>}}/>
-        <Stack.Screen name="CarHistory" component={VehiclesScreen} options={{ headerShown: true , headerRight:() => <Icon name={"Logout"} size={20} color={"#FBF9F1"} onPress={onLogout} />}}></Stack.Screen>
+        <Stack.Screen name="My Vehicles" component={VehiclesScreen} options={{ headerShown: true , headerRight:() => <Icon name={"Logout"} size={20} color={"#FBF9F1"} onPress={onLogout} />}}></Stack.Screen>
       </Stack.Navigator>
 
   );

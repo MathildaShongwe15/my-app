@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
-import { Avatar,Box,Center,FormControl,Input,NativeBaseProvider,VStack,View,} from "native-base";
+import { Avatar,Box,Center,FormControl,Input,NativeBaseProvider,VStack,View,Button} from "native-base";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Button } from "react-native";
+import { StyleSheet } from "react-native";
 
 const Register = () => {
 
@@ -96,16 +96,11 @@ const updateUserData = async () =>{
                 <FormControl.Label>Phone Number</FormControl.Label>
                 <Input variant="filled" placeholder={"data.user.phone_number"} bg="muted.50"  value={phoneNumber} onChangeText={text => setPhoneNumber(text)}  />
               </FormControl>
-              <Button
-                color="#07137D"
-                title="Update Profile"
-                onPress={updateUserData}
-              />
-              <Button
-                color="#07137D"
-                title="Reset Password"
-                onPress={() => navigation.navigate("ResetPass")}
-              />
+
+               <Button size="lg" colorScheme="blue" mt="10" width={280} backgroundColor={"#07137D"}  onPress={updateUserData}>
+                  Update
+            </Button>
+
             </VStack>
           </Box>
         </Center>
@@ -116,5 +111,6 @@ const updateUserData = async () =>{
 
 const styles = StyleSheet.create({
   Container: { flex: 1, backgroundColor: "white", alignItems: "center" },
+
 });
 export default Register;

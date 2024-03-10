@@ -15,12 +15,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
           <Heading style={styles.Heading}>{item.title}</Heading>
           <Text style={styles.Subtitle}>{item.description}</Text>
            <Image source={item.image} style={[styles.image, {width, resizeMode:'contain'}]} />
-           <Button size="lg" colorScheme="blue" mt="10" width={280} backgroundColor={"#07137D"}  onPress={() => navigation.navigate("Menu")}>
-                  Sign In
+           <Button size="lg" colorScheme="blue" mt="10" width={280} backgroundColor={"#07137D"}  onPress={() => navigation.navigate("Login")}>
+                  Let's Begin!
             </Button>
-            <Button size="lg" variant="outline"  colorScheme="#07137D" mt="5" width={280} color={"#07137D"} fontSize={5}>
-                  Sign Up
-            </Button>
+
             <Text style={styles.smTitle}>Terms of Service</Text>
        </View>
 

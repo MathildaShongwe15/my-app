@@ -1,13 +1,28 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { Center, CheckIcon, Checkbox, FormControl, Heading, Input, NativeBaseProvider, Select, WarningOutlineIcon,Image, Button} from "native-base";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
 
 
 const TowingQuery = () => {
+const navigation = useNavigation();
 
-    const navigation = useNavigation();
-    const [groupValues, setGroupValues] = React.useState([]);
+  const [value, setValue] =  useState("");
+
+  const CheckTyre = (number :string) =>{
+    if(number =="0") {
+      alert("Choose Towing");
+    }
+    else if(number == ""){
+      alert("Choose number of Spare Tyres!");
+    }
+    else{
+      AsyncStorage.setItem("SPARE",number);
+      navigation.navigate("My Vehicles");
+    }
+  }
 
     return (
      <NativeBaseProvider>
@@ -16,15 +31,15 @@ const TowingQuery = () => {
             <Image
             source={require("../../../assets/pics/driver.png")}
             style={{
-              height: Dimensions.get("window").width - 200,
-              width: Dimensions.get("window").width -200,
-              marginTop:10
+              height: Dimensions.get("window").width - 150,
+              width: Dimensions.get("window").width -150,
+              marginTop:8
             }}
             alt="Description of the image"
           />
                 <Heading style={styles.Title} >Give us more information about your situation</Heading>
 
-                        <Checkbox value="one" my={3}>Do you have Spare tyre?</Checkbox>
+                        <Checkbox value="one"   bgColor={"coolGray.400"}my={3}>Do you have Spare tyre?</Checkbox>
 
                         <FormControl mt="2" w="3/4" maxW="300" isRequired isInvalid>
 
@@ -37,11 +52,13 @@ const TowingQuery = () => {
                             endIcon: <CheckIcon size={5} />,
                         }}
                         mt="1"
+                        onValueChange={text => setValue(text)}
                         >
-                        <Select.Item label="1" value="Honda" />
-                        <Select.Item label="2" value="Hondayi" />
-                        <Select.Item label="3" value="Ford" />
-                        <Select.Item label="4" value="Volkswagen" />
+                        <Select.Item label="0" value="0" />
+                        <Select.Item label="1" value="1" />
+                        <Select.Item label="2" value="2" />
+                        <Select.Item label="3" value="3" />
+                        <Select.Item label="4" value="4" />
 
                         </Select>
                         <FormControl.ErrorMessage
@@ -50,7 +67,7 @@ const TowingQuery = () => {
                         Please make a selection!
                         </FormControl.ErrorMessage>
                     </FormControl>
-                    <Button  size="md" variant="outline"  colorScheme="blue" mt="10" w="300" onPress={() => navigation.navigate("Register")} >
+                    <Button  size="md" variant="outline"  colorScheme="blue" mt="10" w="300" onPress={() =>{CheckTyre(value)}} >
                   Submit
                 </Button>
 

@@ -2,6 +2,7 @@ import { AlertDialog, Button, Center,  Heading,  NativeBaseProvider, VStack } fr
 import React, { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet,Text } from "react-native";
 import BlockCard from "../../../components/CardComponent/BlockCard"
+import LgBlockCard from "../../../components/CardComponent/LgBlockCard"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -10,37 +11,81 @@ import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
 
 
 const Menu =()=> {
+  const [data, setData] = useState([]);
+  const navigation = useNavigation();
 
+  const getServices = async () =>{
+    await fetch('https://c43a-41-76-96-122.ngrok-free.app/AllServices',{
+      method:'GET',
+      headers:{
+          'Content-Type':'application/json',
+      },})
+      .then(response => {
+        if(!response.ok){
+          throw new Error('Network response not ok'),
+          console.log(response)
+        }
+        console.log("response is okay", response)
+        return response.json();
+      })
+      .then(data => (setData(data.services)))
+      .catch(err => console.log(err))
+      AsyncStorage.setItem("ID",id)
+      console.log("id has arrived",await AsyncStorage.getItem("ID"))
 
+};
+
+useEffect(() =>{
+  getServices()
+
+},[])
 const count: Int32 = 0;
-const HistoryData = [
+const Categories = [
     {
       image: require("../../../assets/pics/Prof.png"),
       name: "Home " ,
       RegNumber:"Return home" ,
+      nav:"Home",
       id:1
     },
     {
-      image: require("../../../assets/pics/cart.png"),
-      name: "Cart"  ,
-      RegNumber:"Add requests" ,
+      image: require("../../../assets/pics/carIcon.png"),
+      name: "My Vehicles"  ,
+      RegNumber:"Vehicles Added" ,
+      nav:"My Vehicles",
       id:2
+    },
+    {
+      image: require("../../../assets/pics/cart.png"),
+      name: "Requests",
+      RegNumber:"Pending requests" ,
+      id:3
     },
     {
       image: require("../../../assets/pics/img.png"),
       name: "Profile"  ,
-      RegNumber:"Update user" ,
-      id:2
+      RegNumber:"Update user Profile" ,
+      nav:"Profile",
+      id:4
     },
     {
-        image1: require("../../../assets/pics/img.png"),
-        name1: "hey"  ,
-        RegNumber1:"Update user" ,
+        image: require("../../../assets/pics/History.png"),
+        name: "Request History"  ,
+        RegNumber:"Past Requests" ,
+        id:5
+      },
+      {
+        image: require("../../../assets/pics/settings.png"),
+        name: "Settings"  ,
+        RegNumber:"Manage account" ,
         id:5
       },
 
 
+
   ];
+
+
 
 
      return(
@@ -53,22 +98,46 @@ const HistoryData = [
        </Heading>
        <Text style={styles.sub}>Navigate more</Text>
         <FlatList
-          data={HistoryData}
+          data={Categories}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity >
+              <TouchableOpacity  onPress={() => navigation.navigate(item.nav)} >
                  <BlockCard info={item}/>
 
               </TouchableOpacity>
             );
           }}
           keyExtractor={(items) => items.id.toString()}
+          horizontal
+          // showsHorizontalScrollIndicator={false}
+          alwaysBounceVertical={false}
 
         />
 
+       <Heading style={styles.Heading1}>
+         Browse Services
+
+       </Heading>
+       <Text style={styles.sub}>Request Services You Need</Text>
+        <FlatList
+          data={data}
+          renderItem={({item}) => {
+            return (
+              <TouchableOpacity  onPress={() => navigation.navigate(item.nav)} >
+                 <LgBlockCard info={item}/>
+              </TouchableOpacity>
+            );
+          }}
+
+          horizontal
+          showsHorizontalScrollIndicator={false}
 
 
-    </View>
+        />
+
+ </View>
+
+
       </NativeBaseProvider>
 
 
@@ -79,7 +148,8 @@ const HistoryData = [
 export default Menu;
 
 const styles = StyleSheet.create({
-  Container: { flex: 1, backgroundColor: "white",},
+  Container: { flex: 1, backgroundColor: "white", },
   Heading:{marginLeft:20,marginTop:30,color:"#07137D"},
-  sub:{marginLeft:20,marginTop:10,color:"#AAAAAA"}
+  Heading1:{marginLeft:20,marginTop:20,color:"#07137D"},
+  sub:{marginLeft:20,marginTop:5,color:"#AAAAAA"}
 });

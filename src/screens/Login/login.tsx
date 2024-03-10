@@ -89,14 +89,14 @@ const validatePassword = (text:string) =>{
           <VStack space={3} mt="5">
             <FormControl>
               <FormControl.Label>Email ID/Employee ID</FormControl.Label>
-              <Input  value={email} variant="rounded" bg="muted.50"  placeholder="Enter Email Address" onChangeText={text => {setEmail(text); validateEmail(text);}} type="email"/>
+              <Input  value={email}  bg="muted.50"  placeholder="Enter Email Address" onChangeText={text => {setEmail(text); validateEmail(text);}} type="email"/>
               {emailValidError ? <Text style={{color:"#C51605",fontSize:12, marginLeft:10}}>{emailValidError}</Text> : null}
 
             </FormControl>
 
             <FormControl>
               <FormControl.Label>Password</FormControl.Label>
-              <Input value={password} variant="rounded" bg="muted.50"  type="password"  placeholder="Enter Password" onChangeText={text => validatePassword(text)}/>
+              <Input value={password} bg="muted.50"  type="password"  placeholder="Enter Password" onChangeText={text => validatePassword(text)}/>
               {passwordValidError ? <Text style={{color:"#C51605", fontSize:12, marginLeft:10}}>{passwordValidError}</Text> : null}
 
               <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>

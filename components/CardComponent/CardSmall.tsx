@@ -1,15 +1,17 @@
 import { Icon } from "native-base"
 import React from "react"
 import { View, Text, StyleSheet, Dimensions, Image} from "react-native"
-import IconLabel from "../IconLabelComponent/IconLabel"
+
 
 const ServiceCard =(props: any) =>{
     //console.log(props)
+    let count =0;
     return(
         <View style={styles.cardContainer}>
+             {/* <Image source={require("../../assets/pics/carIcon.png")}/> */}
            <View style={styles.infoStyle}>
-             <Text style={styles.titleStyle}>{props.info.name}</Text>
-             <Text style={styles.categoryStyle}>{props.info.RegNumber}</Text>
+             <Text style={styles.titleStyle}> {props.info.VehicleModel}</Text>
+             <Text style={styles.categoryStyle}>Registration Number: {props.info.RegNo}</Text>
            </View>
 
 
@@ -28,7 +30,7 @@ const styles = StyleSheet.create({
         width: deviceWidth - 25,
         marginTop:25,
         marginLeft:10,
-        backgroundColor: '#07137D',
+        backgroundColor: '#F5F5F5',
         borderRadius: 20,
         shadowColor:'#000',
         shadowOffset: {
@@ -46,14 +48,14 @@ const styles = StyleSheet.create({
        fontWeight:'400',
        textAlign:'center',
        marginTop:15,
-       color:"#FFB400",
+       color:"#07137D",
 
     },
     categoryStyle:{
-        fontWeight:'200',
+        fontWeight:'400',
         fontSize:12,
         textAlign:'center',
-        color:"#FFB400",
+        color:"#07137D",
     }
     ,infoStyle:{
         marginLeft:15

@@ -1,19 +1,21 @@
-
-import { Center, HStack, NativeBaseProvider, VStack } from "native-base"
+import { Badge, Center, HStack, NativeBaseProvider, VStack , Text} from "native-base"
 import React from "react"
-import { View, Text, StyleSheet, Dimensions, Image} from "react-native"
+import { View, StyleSheet, Dimensions, Image} from "react-native"
 
 
-const BlockCard =(props: any) =>{
+const BlockCard1 =(props: any) =>{
     return(
         <NativeBaseProvider>
 
         <View style={styles.cardContainer}>
+
            <View style={styles.infoStyle}>
             <Center>
-           <Image source={props.info.image} style={styles.ImageStyle}/></Center>
-             <Text style={styles.titleStyle}>{props.info.name}</Text>
-             <Text style={styles.categoryStyle}>{props.info.RegNumber}</Text>
+
+            </Center>
+             <Text style={styles.titleStyle}>{props.info.Type}</Text>
+             <Text style={styles.categoryStyle}>{props.info.Description}</Text>
+           
            </View>
         </View>
 
@@ -26,20 +28,20 @@ const BlockCard =(props: any) =>{
 const deviceWidth = Math.round(Dimensions.get('window').width)
 const styles = StyleSheet.create({
     cardContainer:{
-        width:150,
+        width:380,
         height:150,
         marginTop:55,
-        marginLeft:30,
+        marginLeft:15,
         borderStyle:"solid",
         borderRadius: 20,
         borderColor:"red",
-        backgroundColor: "#F5F5F5",
+        backgroundColor: "#818FB4",
 
 
     },
 
     titleStyle:{
-       fontSize:16,
+       fontSize:20,
        fontWeight:'800',
        textAlign:'center',
        marginTop:15,
@@ -48,7 +50,7 @@ const styles = StyleSheet.create({
     },
     categoryStyle:{
         fontWeight:'400',
-        fontSize:10,
+        fontSize:13,
         textAlign:'center',
         color:"#07137D",
     }
@@ -62,4 +64,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default BlockCard;
+export default BlockCard1;

@@ -13,6 +13,8 @@ import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
 const CarHistory =()=> {
   const [brand, setVehicleBrand] = useState([]);
   const [reg, setVehicleReg] = useState([]);
+  const [data, setData] = useState([]);
+  const[length, getlength] = useState(0);
   const [id,setId]=useState('');
 
 
@@ -31,13 +33,23 @@ const CarHistory =()=> {
           console.log("response is okay", response)
           return response.json();
         })
-        .then(data => (setVehicleReg(data.vehicle[0].VehicleModel),(setVehicleBrand(data.vehicle[0].VehicleBrand)),(setId(data.vehicle[1].Id))))
+        .then(data => (setData(data.vehicle),getlength(data.vehicle.length),setVehicleReg(data.vehicle[0].VehicleModel),(setVehicleBrand(data.vehicle[0].VehicleBrand)),(setId(data.vehicle[1].Id))))
+      //   .then(data => {const renderData = data.vehicle.forEach(element => {
+      //     return(
+      //     <SmallCard info={element}/>
+      // )
+      //   });})
         .catch(err => console.log(err))
         AsyncStorage.setItem("ID",id)
         console.log("id has arrived",await AsyncStorage.getItem("ID"))
 };
 
-
+console.log("Bitch",data);
+const loopingId =()=>{
+ for(let i = 0; i < data.length;i++){
+     return data[i].Id;
+ }
+}
 const DeleteVechicle = async() =>{
 
 
@@ -63,21 +75,20 @@ const DeleteVechicle = async() =>{
 
 useEffect(() =>{
   getVehicles()
+
 },[])
 const count: Int32 = 0;
+
+
 const HistoryData = [
-    {
+   {
       name: "Car " + (count  + 1) +": " + brand ,
       RegNumber:"Registration Number:" + reg  ,
       id:1
     },
-    {
-      name: "Car 2:"  ,
-      RegNumber:"Registration Number:" ,
-      id:2
-    },
-  ];
 
+  ];
+   // countT = 0;
     const Tab = createBottomTabNavigator();
     const navigation = useNavigation();
     const [isOpen, setIsOpen] = React.useState(false);
@@ -120,18 +131,20 @@ const HistoryData = [
       </Center>
          <SafeAreaView>
         <FlatList
-          data={HistoryData}
+          data={data}
+          // keyExtractor={(x,i :Int32 =0) => i}
           renderItem={({item}) => {
             return (
               <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
                  <SmallCard info={item}/>
-
               </TouchableOpacity>
+
+
+
             );
           }}
-          keyExtractor={(services) => services.id.toString()}
         />
-       <Button onPress={() => navigation.navigate("Requests")}  marginTop={"490"} marginLeft={"350"} width={"50"} height={"50"} bgColor={"blue.900"}><Icon name="pluscircle" size={20} color={"white"}/></Button>
+       {/* <Button onPress={() => navigation.navigate("Requests")}  marginTop={"490"} marginLeft={"350"} width={"50"} height={"50"} bgColor={"blue.900"}><Icon name="pluscircle" size={20} color={"white"}/></Button> */}
 
       </SafeAreaView></View>
       </NativeBaseProvider>
