@@ -1,96 +1,124 @@
-import { Avatar, Box, FlatList, HStack, Heading, Spacer, VStack,Text, NativeBaseProvider, Button} from "native-base";
+import { Avatar, Box, FlatList, HStack, Heading, Spacer, VStack,Text, NativeBaseProvider, Button, Center} from "native-base";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StyleSheet} from "react-native";
+const RequestsCart = ({route}) => {
 
-const Example = () => {
-    
-   
+
    const navigation = useNavigation();
-   
-  const getVehicles = async () =>{
+   const data = [{
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    headingVehicle: "Vehicle:",
+    headingRegistration: "Registration number:",
+    headingService:"Service Type:",
+    headingLocation:"Location:",
 
-    await fetch('https://c43a-41-76-96-122.ngrok-free.app/GetAllVehicles',{
-        method:'GET',
-        headers:{
-            'Content-Type':'application/json',
-        },})
-        .then(response => {
-          if(!response.ok){
-            throw new Error('Network response not ok'),
-            console.log(response)
-          }
-          console.log("response is okay", response)
-          return response.json();
-        })
-        .then(data => (setData(data.vehicle),getlength(data.vehicle.length),setVehicleReg(data.vehicle[0].VehicleModel),(setVehicleBrand(data.vehicle[0].VehicleBrand)),(setId(data.vehicle[1].Id))))
-      //   .then(data => {const renderData = data.vehicle.forEach(element => {
-      //     return(
-      //     <SmallCard info={element}/>
-      // )
-      //   });})
-        .catch(err => console.log(err))
-        AsyncStorage.setItem("IDReq",id)
-        console.log("id has arrived",await AsyncStorage.getItem("ID"))
-};
+    valueVehicle: route.params.paramKey[0],
+    valueReg: route.params.paramKey[1],
+    valueService:"Flat Tyre",
+    valueLocation:"2nd cross, Hossar Road Ashok, Banglore",
 
-    return <NativeBaseProvider>
-      <Box>
+  },
+  {
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    headingVehicle: "Booking Charge:",
+    headingRegistration: "Service Charge:",
+    headingService:"Taxes:",
+    headingLocation:"Total:",
 
-        <Heading fontSize="xl" p="4" pb="3">
-          Requests Pending
-        </Heading>
-        <FlatList data={data} renderItem={({
-        item
-      }) => <Box borderBottomWidth="0.2" _dark={{
-        borderColor: "muted.50"
-      }} borderColor="blue.900" pl={["0", "4"]} pr={["0", "5"]} py="2">
-              <HStack space={[2, 3]} justifyContent="space-between">
-                <Avatar size="48px" marginLeft="3" source={{
-            uri: item.avatarUrl
-          }} />
-                <VStack>
-                  <Text _dark={{
-              color: "warmGray.50"
-            }} color="coolGray.800" bold>
-                    {item.fullName}
-                  </Text>
-                  <Text color="coolGray.600" _dark={{
-              color: "warmGray.200"
-            }}>
-                    {item.recentText}
-                  </Text>
-                  <Text fontSize="xs" _dark={{
+    valueVehicle:"R 50.00",
+    valueReg:"R 150.00",
+    valueService:"R 27.00",
+    valueLocation:"R 227.00",
+  },
+
+];
+  return <Box>
+
+      <Heading fontSize="xl" p="4" pb="3" >
+        Review Request Reciept
+      </Heading>
+      <Text  style={styles.SubTitle}>Request Number: R02563</Text>
+      <FlatList data={data} renderItem={({
+      item
+    }) => <Box borderBottomWidth="1" _dark={{
+      borderColor: "muted.50"
+    }} borderColor="muted.800" pl={["0", "4"]} pr={["0", "5"]} py="2"  backgroundColor={"#EEEDEB"}>
+            <HStack space={[2, 3]} justifyContent="space-between">
+
+              <VStack marginLeft={5}>
+                <Text _dark={{
             color: "warmGray.50"
-          }} color="coolGray.800" alignSelf="flex-start">
-                  {item.timeStamp}
+          }} color="warmGray.600" bold marginTop={0} fontSize={"md"}>
+                  {item.headingVehicle}
                 </Text>
-                </VStack>
-                <Spacer />
-                <Button
-                mt="8"
-                ml=""
-                w="100"
-                colorScheme="green"
-                variant="outline"
-               onPress={() => navigation.navigate("Services")}
-              >
-                Approve
-              </Button>
-              <Button
-                mt="8"
-                mr="50"
-                w="100"
-                colorScheme="red"
-                variant="outline"
-               onPress={() => navigation.navigate("Tyre")}
-              >
-                Decline
-              </Button>
-              </HStack>
-            </Box>} keyExtractor={item => item.id} />
-      </Box></NativeBaseProvider>
-      ;
-  };
+                <Text color="coolGray.600" _dark={{
+            color: "warmGray.200"
+          }} bold  marginTop={3} fontSize={"md"}>
+                  {item.headingRegistration}
+                </Text>
+                <Text color="coolGray.600" _dark={{
+            color: "warmGray.200",
+          }} bold marginTop={3} fontSize={"md"}>
+                  {item.headingService}
+                </Text>
+                <Text color="coolGray.600" _dark={{
+            color: "warmGray.200"
+          }} bold marginTop={3} fontSize={"md"}>
+                  {item.headingLocation}
+                </Text>
+              </VStack>
+              <Spacer />
+              <VStack>
+              <Text fontSize="sm" _dark={{
+          color: "warmGray.50"
+        }} color="coolGray.500" alignSelf="flex-start">
+                {item.valueVehicle}
+              </Text>
+              <Text fontSize="sm" _dark={{
+          color: "warmGray.50"
+        }} color="coolGray.500" alignSelf="flex-start"  marginRight={20} marginTop={4} >
+                {item.valueReg}
+              </Text>
+              <Text fontSize="sm" _dark={{
+          color: "warmGray.50"
+        }} color="coolGray.500" alignSelf="flex-start"  marginRight={20} marginTop={5} >
+                {item.valueService}
+              </Text>
+              <Text fontSize="sm" _dark={{
+          color: "warmGray.50"
+        }} color="coolGray.500" alignSelf="flex-start"  marginRight={20} marginTop={4} >
+                {item.valueLocation}
+              </Text>
+          </VStack>
+            </HStack>
 
-  export default Example;
+          </Box>} keyExtractor={item => item.id} />
+          <Center>
+
+<Text style={styles.SubTitle2}>Please Note: Payment will be completed onsite</Text>
+
+</Center>
+          <Center>
+            <Button  size="md" variant="outline"  colorScheme="blue" mt="10" w="300" onPress={() =>{navigation.navigate('Order')}} >
+              Confirm Request
+            </Button>
+
+          </Center>
+
+
+    </Box>;
+
+
+
+  };
+  const styles = StyleSheet.create({
+    Container: { flex: 1, backgroundColor: "white"},
+    Title:{marginTop:50, color:"#07137D"},
+    SubTitle:{marginTop:0,color:"#07137D", marginLeft:20,fontWeight:"700"},
+    SubTitle2:{marginTop:10, padding:0,color:"#A8A196"},
+    Img:{marginTop:20}
+
+  });
+  export default RequestsCart;

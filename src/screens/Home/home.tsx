@@ -25,7 +25,6 @@ import OnBoarding from '../../../components/OnBoardingComponent/onBoarding'
 
 
 
-
 const HomeScreen = () => {
   const navigation = useNavigation();
 

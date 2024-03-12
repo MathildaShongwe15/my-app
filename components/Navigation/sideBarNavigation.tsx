@@ -6,7 +6,7 @@ import 'react-native-gesture-handler';
 import HomeS from "../../src/screens/Home/home";
 import Requests from "../../src/screens/Request/viewRequests";
 import Profile from "../../src/screens/Profile/profile";
-import ServiceScreen from '../../src/screens/servicesRequests/services'
+
 import RouteScreen from "../../src/screens/Map/RouteMap"
 import HomeScreen from "../../src/screens/Home/home";
 
@@ -18,7 +18,7 @@ const AppBarNav = () =>{
                     overlayColor: '#F0F3FF',}}>
                      <Drawer.Screen name='Requests' component={Requests}></Drawer.Screen>
                      <Drawer.Screen name='Profile' component={Profile}></Drawer.Screen>
-                     <Drawer.Screen name="RouteMap" component={RouteScreen} />
+                     {/* <Drawer.Screen name="RouteMap" component={RouteScreen} /> */}
             </Drawer.Navigator>
     )
 }

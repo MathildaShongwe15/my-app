@@ -17,7 +17,7 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyBE7eraggD4Ut8Nybtq-1KaPCE8LG4P8eU';
 
 
 const RouteMap = () => {
- 
+
     return (
 
         <MapView   style={styles.map}>
@@ -29,11 +29,6 @@ const RouteMap = () => {
                 strokeWidth={3}
                 strokeColor="red">
             </MapViewDirections>
-
-
-            
-
-            
         </MapView>
     )
 }

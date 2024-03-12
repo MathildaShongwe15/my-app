@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     cardContainer:{
         width:150,
         height:150,
-        marginTop:55,
-        marginLeft:30,
+        marginTop:25,
+        marginLeft:15,
         borderStyle:"solid",
         borderRadius: 20,
         borderColor:"red",

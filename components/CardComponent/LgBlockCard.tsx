@@ -1,27 +1,47 @@
+import { useNavigation } from "@react-navigation/native";
 import { Badge, Center, HStack, NativeBaseProvider, VStack , Text} from "native-base"
 import React from "react"
-import { View, StyleSheet, Dimensions, Image} from "react-native"
+import { View, StyleSheet, Dimensions, Image, TouchableOpacity} from "react-native"
 
 
 const BlockCard1 =(props: any) =>{
+    const navigation = useNavigation();
+
+    const handleItemPress = (item) => {
+        // Navigate to different screens based on item data
+        if (item === 'oil and water') {
+          navigation.navigate('Maps');
+        } else if (item === 'Jump Start') {
+          navigation.navigate('Maps');
+        }
+       else if (item === 'Tyre Change') {
+        navigation.navigate('Tyre');
+       }
+       else if (item === 'Fuel') {
+       navigation.navigate('Fuel');
+      }
+       else if (item === 'Towing') {
+        navigation.navigate('Maps');
+      } else if (item === 'Locked-out') {
+      navigation.navigate('Maps');
+
+      }
+    }
+
     return(
         <NativeBaseProvider>
-
+       <TouchableOpacity  onPress={() => handleItemPress(props.info.Type)} >
         <View style={styles.cardContainer}>
-
            <View style={styles.infoStyle}>
             <Center>
-
             </Center>
              <Text style={styles.titleStyle}>{props.info.Type}</Text>
              <Text style={styles.categoryStyle}>{props.info.Description}</Text>
            
            </View>
-        </View>
-
-
-
-</NativeBaseProvider>
+           </View>
+      </TouchableOpacity>
+    </NativeBaseProvider>
     )
 }
 

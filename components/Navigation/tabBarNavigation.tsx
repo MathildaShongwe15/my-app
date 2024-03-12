@@ -13,31 +13,27 @@ const  BottomTabs = () =>{
 
     const Tab = createBottomTabNavigator();
 
-           return(
-                <Tab.Navigator
-                 screenOptions={{
-                  headerShown: false,
-                  headerStyle: {
-                  backgroundColor: "#07137D",},}}>
+//            return(
+//                 <Tab.Navigator
+//                  screenOptions={{
+//                   headerShown: false,
+//                   headerStyle: {
+//                   backgroundColor: "#07137D",},}}>
+// {/*
+//                   <Tab.Screen name="Profile"  component={ProfileScreen}
+//                    options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"user"} size={20} color={"#07137D"} />),
+//                   }}>
+//                   </Tab.Screen> */}
+//                   {/* <Tab.Screen name="Requests"  component={}
+//                    options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"user"} size={20} color={"#07137D"} />),
+//                   }}>
+//                   </Tab.Screen> */}
 
-                  <Tab.Screen name="Profile"  component={ProfileScreen}
-                   options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"user"} size={20} color={"#07137D"} />),
-                  }}>
-                  </Tab.Screen>
-                  {/* <Tab.Screen name="Requests"  component={}
-                   options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"user"} size={20} color={"#07137D"} />),
-                  }}>
-                  </Tab.Screen> */}
-                  <Tab.Screen name="Services"  component={ServiceScreen}
-                   options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"car"} size={20} color={"#07137D"} />),
-                  }}>
-
-                  </Tab.Screen>
-                  {/* <Tab.Screen name="CarHistory" component={VehiclesScreen} ></Tab.Screen> */}
+//                   {/* <Tab.Screen name="CarHistory" component={VehiclesScreen} ></Tab.Screen> */}
 
 
-                </Tab.Navigator>
-    );
+//                 </Tab.Navigator>
+//     );
         }
 
 const styles = StyleSheet.create({

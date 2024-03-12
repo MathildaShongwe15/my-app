@@ -1,9 +1,10 @@
 import { NativeBaseProvider,View } from "native-base";
-import React from "react"
+import React, { useEffect } from "react"
 import {FlatList,StyleSheet } from "react-native"
 import OnBoardingItem from './onBoardingItem'
 
 import { SafeAreaView } from "react-native-safe-area-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Data = [
     {
       image: require("../../assets/pics/Logo (2).png"),
@@ -43,6 +44,7 @@ const Data = [
 
 
   ];
+
 
  const onBoarding = () => {
     const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);

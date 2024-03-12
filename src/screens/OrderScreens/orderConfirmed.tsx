@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
-import { Center, Heading, NativeBaseProvider } from "native-base";
+import { Center, Heading, NativeBaseProvider,Button } from "native-base";
 import React from "react";
-import { StyleSheet, Button,Text, View, Dimensions } from "react-native";
+import { StyleSheet,Text, View, Dimensions,Image} from "react-native";
 
 
 const OrderConfirmed = () => {
@@ -12,10 +12,20 @@ const OrderConfirmed = () => {
      <NativeBaseProvider>
         <View style={styles.Container}>
             <Center >
+                <Image style={styles.Img} source={require("../../../assets/pics/check.png")}/>
+                <Heading style={styles.Title}>Order Confirmed!</Heading>
+                <Text style={styles.SubTitle2}>request Number: R02563</Text>
+                <Text style={styles.SubTitle}>Thank you for placing your order on fuel.Check your status under history to track your request</Text>
 
-                <Heading style={styles.Title}>Order Confirmed</Heading>
-                <Text style={styles.SubTitle}>Thank you for placing your order on fuel.Check your status under history to tarck</Text>
+
+                <Button  size="md" variant="outline"  colorScheme="blue" mt="10" w="300"  >
+                  Proceed to Requests
+                </Button>
+                <Button  size="md" variant="outline"  colorScheme="blue" mt="10" w="300"  >
+                  Back to Menu
+                </Button>
             </Center>
+
         </View>
 
      </NativeBaseProvider>
@@ -25,7 +35,10 @@ const OrderConfirmed = () => {
 }
 const styles = StyleSheet.create({
     Container: { flex: 1, backgroundColor: "white"},
-    Title:{marginTop:50},
-    SubTitle:{marginTop:0, padding:70}
+    Title:{marginTop:50, color:"#07137D"},
+    SubTitle:{marginTop:0, padding:70,color:"#07137D"},
+    SubTitle2:{marginTop:10, padding:0, fontWeight:"700",color:"#07137D"},
+    Img:{marginTop:20}
+
   });
 export default OrderConfirmed;

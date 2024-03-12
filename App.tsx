@@ -12,13 +12,7 @@ export default function App(){
   )
 }
 
-
-
-
-
 export const Layout = () => {
-
-  // const Stack = createNativeStackNavigator();
 
   return (
 

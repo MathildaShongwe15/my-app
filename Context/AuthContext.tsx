@@ -2,7 +2,7 @@ import React, {createContext, useContext, useEffect, useState} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 interface AuthProps{
-   authState?: {token:string|null; authenticated:boolean|null, isLoading:boolean}
+   authState?: {token:string|null; authenticated:boolean|null}
    onRegister?:(email:string, password:string, role:string) => Promise<any>;
    onLogin?:(email:string, password:string, role:string) => Promise<any>;
    onLogout?: () => Promise<any>;
@@ -16,9 +16,7 @@ const AuthContext = createContext<AuthProps>({});
 
 
 export const useAuth = () =>{
-  AsyncStorage.removeItem(TOKEN_KEY);
   return useContext(AuthContext);
-
 }
 
 
@@ -30,19 +28,19 @@ export const AuthProvider = ({children}:any) => {
   const [authState, setAuthState] = useState<{
     token: string | null;
     authenticated: boolean | null;
-    isLoading:boolean |null;
+
 
   }>({
     token:null,
     authenticated:null,
-    isLoading:null
+
 
   });
 
 
   const login = async (email :string ,password :string, role: string) =>{
 
-                await fetch('https://c43a-41-76-96-122.ngrok-free.app/Login',{
+                await fetch('https://31b4-41-76-96-122.ngrok-free.app/Login',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json',
@@ -66,7 +64,7 @@ export const AuthProvider = ({children}:any) => {
                     setAuthState({
                       token: TOKEN_KEY,
                       authenticated:true,
-                      isLoading:true
+
                      }))
 
                     .catch(err => console.log(err))
@@ -74,15 +72,14 @@ export const AuthProvider = ({children}:any) => {
 
 
  useEffect(() =>{
-
+  AsyncStorage.getItem(TOKEN_KEY)
   const loadToken = async() =>{
     const getToken =await AsyncStorage.getItem(TOKEN_KEY);
 
     if( getToken){
       setAuthState({
-         token:  getToken,
+         token: getToken,
          authenticated:true,
-         isLoading:true
 
       });
 
@@ -93,11 +90,11 @@ export const AuthProvider = ({children}:any) => {
 },[])
 
 const logout = async()=>{
-   AsyncStorage.removeItem(TOKEN_KEY);
+
    setAuthState({
     token:null,
     authenticated:false,
-    isLoading:false
+
    })
 }
 

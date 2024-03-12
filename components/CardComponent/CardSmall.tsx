@@ -8,10 +8,12 @@ const ServiceCard =(props: any) =>{
     let count =0;
     return(
         <View style={styles.cardContainer}>
-             {/* <Image source={require("../../assets/pics/carIcon.png")}/> */}
+
            <View style={styles.infoStyle}>
+           {/* <Image source={require("../../assets/pics/icon.png")}/> */}
              <Text style={styles.titleStyle}> {props.info.VehicleModel}</Text>
              <Text style={styles.categoryStyle}>Registration Number: {props.info.RegNo}</Text>
+             <Text style={styles.categoryStyle}>{props.info.Id}</Text>
            </View>
 
 
@@ -45,8 +47,8 @@ const styles = StyleSheet.create({
 
     titleStyle:{
        fontSize:15,
-       fontWeight:'400',
-       textAlign:'center',
+       fontWeight:'800',
+
        marginTop:15,
        color:"#07137D",
 
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
     categoryStyle:{
         fontWeight:'400',
         fontSize:12,
-        textAlign:'center',
+
         color:"#07137D",
     }
     ,infoStyle:{

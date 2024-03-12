@@ -20,7 +20,7 @@ const navigation = useNavigation();
     }
     else{
       AsyncStorage.setItem("SPARE",number);
-      navigation.navigate("My Vehicles");
+      navigation.navigate("MyVehicles");
     }
   }
 

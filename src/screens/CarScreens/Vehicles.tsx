@@ -20,7 +20,7 @@ const CarHistory =()=> {
 
   const getVehicles = async () =>{
 
-    await fetch('https://c43a-41-76-96-122.ngrok-free.app/GetAllVehicles',{
+    await fetch('https://31b4-41-76-96-122.ngrok-free.app/GetAllVehicles',{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
@@ -44,11 +44,9 @@ const CarHistory =()=> {
         console.log("id has arrived",await AsyncStorage.getItem("ID"))
 };
 
-console.log("Bitch",data);
-const loopingId =()=>{
- for(let i = 0; i < data.length;i++){
-     return data[i].Id;
- }
+// console.log("Bitch",data[1].Id);
+const storeVehicleRequest =()=>{
+  AsyncStorage.getItem("vehicleId", )
 }
 const DeleteVechicle = async() =>{
 
@@ -56,7 +54,7 @@ const DeleteVechicle = async() =>{
   const ID = AsyncStorage.getItem("ID");
 
   console.log(await ID);
-  await fetch('https://c43a-41-76-96-122.ngrok-free.app/DeleteVehicle/2bqo0e8b-6fab-423f-b582-a2d9258906b2',{
+  await fetch('https://31b4-41-76-96-122.ngrok-free.app/DeleteVehicle/2bqo0e8b-6fab-423f-b582-a2d9258906b2',{
       method:'DELETE',
       headers:{
           'Content-Type':'application/json',
@@ -121,7 +119,7 @@ const HistoryData = [
                 >
                   Delete
                 </Button>
-                <Button variant="outline" colorScheme="blue" onPress={onClose}>
+                <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('Requests', {paramKey: [brand,reg] } )}>
                   Choose this vehicle
                 </Button>
               </Button.Group>
@@ -138,6 +136,7 @@ const HistoryData = [
               <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
                  <SmallCard info={item}/>
               </TouchableOpacity>
+
 
 
 

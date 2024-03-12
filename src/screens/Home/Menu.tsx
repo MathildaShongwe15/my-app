@@ -8,14 +8,14 @@ import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
-
+import AntIcon from "react-native-vector-icons/AntDesign";
 
 const Menu =()=> {
   const [data, setData] = useState([]);
   const navigation = useNavigation();
 
   const getServices = async () =>{
-    await fetch('https://c43a-41-76-96-122.ngrok-free.app/AllServices',{
+    await fetch('https://31b4-41-76-96-122.ngrok-free.app/AllServices',{
       method:'GET',
       headers:{
           'Content-Type':'application/json',
@@ -52,13 +52,14 @@ const Categories = [
       image: require("../../../assets/pics/carIcon.png"),
       name: "My Vehicles"  ,
       RegNumber:"Vehicles Added" ,
-      nav:"My Vehicles",
+      nav:"MyVehicles",
       id:2
     },
     {
       image: require("../../../assets/pics/cart.png"),
       name: "Requests",
-      RegNumber:"Pending requests" ,
+      RegNumber:"Pending requests",
+      nav:"Requests",
       id:3
     },
     {
@@ -78,13 +79,53 @@ const Categories = [
         image: require("../../../assets/pics/settings.png"),
         name: "Settings"  ,
         RegNumber:"Manage account" ,
+        id:6
+      },
+  ];
+  const requests = [
+    {
+      image: require("../../../assets/pics/Prof.png"),
+      name: "Home " ,
+      RegNumber:"Return home" ,
+      nav:"Home",
+      id:1
+    },
+    {
+      image: require("../../../assets/pics/carIcon.png"),
+      name: "My Vehicles"  ,
+      RegNumber:"Vehicles Added" ,
+      nav:"MyVehicles",
+      id:2
+    },
+    {
+      image: require("../../../assets/pics/cart.png"),
+      name: "Requests",
+      RegNumber:"Pending requests",
+      nav:"Requests",
+      id:3
+    },
+    {
+      image: require("../../../assets/pics/img.png"),
+      name: "Profile"  ,
+      RegNumber:"Update user Profile" ,
+      nav:"Profile",
+      id:4
+    },
+    {
+        image: require("../../../assets/pics/History.png"),
+        name: "Request History"  ,
+        RegNumber:"Past Requests" ,
         id:5
       },
-
-
-
+      {
+        image: require("../../../assets/pics/settings.png"),
+        name: "Settings"  ,
+        RegNumber:"Manage account" ,
+        id:6
+      },
   ];
 
+  // Function to handle item press
 
 
 
@@ -109,23 +150,25 @@ const Categories = [
           }}
           keyExtractor={(items) => items.id.toString()}
           horizontal
-          // showsHorizontalScrollIndicator={false}
-          alwaysBounceVertical={false}
 
+          // showsHorizontalScrollIndicator={false}
+        //  alwaysBounceVertical={false}
         />
 
        <Heading style={styles.Heading1}>
-         Browse Services
+         Make a new Request
+
 
        </Heading>
        <Text style={styles.sub}>Request Services You Need</Text>
+
         <FlatList
           data={data}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity  onPress={() => navigation.navigate(item.nav)} >
+
                  <LgBlockCard info={item}/>
-              </TouchableOpacity>
+
             );
           }}
 
