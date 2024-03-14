@@ -40,7 +40,7 @@ export const AuthProvider = ({children}:any) => {
 
   const login = async (email :string ,password :string, role: string) =>{
 
-                await fetch('https://31b4-41-76-96-122.ngrok-free.app/Login',{
+                await fetch('https://0c3c-41-76-96-122.ngrok-free.app/Login',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json',
@@ -72,7 +72,7 @@ export const AuthProvider = ({children}:any) => {
 
 
  useEffect(() =>{
-  AsyncStorage.getItem(TOKEN_KEY)
+
   const loadToken = async() =>{
     const getToken =await AsyncStorage.getItem(TOKEN_KEY);
 

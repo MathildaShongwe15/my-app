@@ -12,10 +12,10 @@ const BlockCard1 =(props: any) =>{
         if (item === 'oil and water') {
           navigation.navigate('Maps');
         } else if (item === 'Jump Start') {
-          navigation.navigate('Maps');
+          navigation.navigate('My Vehicles',{Paramskeys: item});
         }
        else if (item === 'Tyre Change') {
-        navigation.navigate('Tyre');
+        navigation.navigate('Tyre',{Paramskeys: item});
        }
        else if (item === 'Fuel') {
        navigation.navigate('Fuel');
@@ -30,14 +30,14 @@ const BlockCard1 =(props: any) =>{
 
     return(
         <NativeBaseProvider>
-       <TouchableOpacity  onPress={() => handleItemPress(props.info.Type)} >
+       <TouchableOpacity  onPress={() => handleItemPress(props.info.Type)}>
         <View style={styles.cardContainer}>
            <View style={styles.infoStyle}>
             <Center>
             </Center>
              <Text style={styles.titleStyle}>{props.info.Type}</Text>
              <Text style={styles.categoryStyle}>{props.info.Description}</Text>
-           
+
            </View>
            </View>
       </TouchableOpacity>

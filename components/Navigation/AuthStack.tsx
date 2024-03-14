@@ -47,20 +47,20 @@ const App = () => {
        <Stack.Screen name="Login" component={LoginScreen} />
 
        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: true , headerRight:() => <Button title="logout"  onPress={onLogout}></Button>}} />
+        <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}} />
         <Stack.Screen name="ResetPass"  component={ResetScreen} />
 
-        <Stack.Screen name="RequestFuel" component={RequestFuelScreen}options={{ headerShown: true , headerRight:() => <Button title="logout"  onPress={onLogout}></Button>}} />
-        <Stack.Screen name="Registration Car" component={RegistrationScreen} options={{ headerShown: true , headerRight:() => <Button title="logout"  onPress={onLogout}></Button>}}/>
+        <Stack.Screen name="RequestFuel" component={RequestFuelScreen}options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}} />
+        <Stack.Screen name="Registration Car" component={RegistrationScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}/>
         <Stack.Screen name="Services"  component={ResetScreen} />
         <Stack.Screen name="Route"  component={RouteScreen} />
         <Stack.Screen name="Fuel"  component={FuelScreen} />
 
-        <Stack.Screen name="Order" component={OrderScreen} options={{ headerShown: true , headerRight:() =><AntIcon name="logout" color="orange" size={50} onPress={onLogout}/>}}/>
-        <Stack.Screen name="Tyre" component={TyreScreen} options={{ headerShown: true , headerRight:() => <Button title="logout"  onPress={onLogout}></Button>}}/>
-        <Stack.Screen name="Maps" component={MapsScreen} options={{ headerShown: true , headerRight:() => <Button title="logout"  onPress={onLogout}></Button>}}/>
-        <Stack.Screen name="MyVehicles" component={VehiclesScreen} options={{ headerShown: true , headerRight:() => <Button onPress={onLogout} title="logout" ></Button>}}></Stack.Screen>
-        <Stack.Screen name="Requests" component={RequestsScreen} options={{ headerShown: true , headerRight:() => <Button onPress={onLogout} title="logout" ></Button>}}></Stack.Screen>
+        <Stack.Screen name="Order" component={OrderScreen} options={{ headerShown: true , headerRight:() =><AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}/>
+        <Stack.Screen name="Tyre" component={TyreScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}/>
+        <Stack.Screen name="Maps" component={MapsScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}/>
+        <Stack.Screen name="My Vehicles" component={VehiclesScreen} options={{ headerShown: true , headerRight:() =><AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
+        <Stack.Screen name="Requests" component={RequestsScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
       </Stack.Navigator>
 
   );

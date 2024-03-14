@@ -18,7 +18,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
            <Button size="lg" colorScheme="blue" mt="10" width={280} backgroundColor={"#07137D"}  onPress={() => navigation.navigate("Login")}>
                   Let's Begin!
             </Button>
-
             <Text style={styles.smTitle}>Terms of Service</Text>
        </View>
 

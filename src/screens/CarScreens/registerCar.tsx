@@ -8,23 +8,25 @@ import {  StyleSheet } from "react-native";
 
 const RegisterVehicle = () => {
 
-  const [brand, setBrand] = useState('')
+  const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
   const [Reg, setReg] = useState('');
-  const [color, setColor] = useState('')
-  const [description, setDescription] = useState('')
-  const [ID, SetId] = useState('')
+  const [color, setColor] = useState('');
+  const [description, setDescription] = useState('');
+  const [ID, SetId] = useState('');
 
-  const RegisterVehicle = async (Id:string,Brand :string ,Model :string,RegNo:string ,Color : string,Description:string) =>{
+
+
+  const RegisterVehicle = async (Id:string,UserId:string,Brand :string ,Model :string,RegNo:string ,Color : string,Description:string) =>{
     console.log(Brand,Model,RegNo,Color,Description)
     const getUserId = await AsyncStorage.getItem("UserID");
 
-    await fetch('https://31b4-41-76-96-122.ngrok-free.app/CreateVehicle',{
+    await fetch('https://0c3c-41-76-96-122.ngrok-free.app/CreateVehicle',{
         method:'POST',
         headers:{
             'Content-Type':'application/json',
         },
-        body: JSON.stringify({Id:"aakakk-155-kwmf",UserId:getUserId,vehicleBrand:Brand,vehicleModel:Model,regNo:RegNo,color: Color, description: Description})
+        body: JSON.stringify({Id:"2bh90b-88ekb-423f-7882-a2dee8589786k5",UserId:getUserId,vehicleBrand:brand,vehicleModel:model,regNo:Reg,color: color, description: description})
         })
         .then(response => {
           if(!response.ok){
@@ -40,6 +42,7 @@ const RegisterVehicle = () => {
 
 const navigation = useNavigation();
   return (
+
     <NativeBaseProvider>
       <View style={styles.Container}>
 

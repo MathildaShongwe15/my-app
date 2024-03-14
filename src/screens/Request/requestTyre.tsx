@@ -6,21 +6,27 @@ import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
 
 
-const TowingQuery = () => {
+const TowingQuery = ({route}) => {
 const navigation = useNavigation();
+
+
+let typeService:string = route.params.Paramskeys ?? 'no Data';
+console.warn(typeService)
 
   const [value, setValue] =  useState("");
 
   const CheckTyre = (number :string) =>{
     if(number =="0") {
       alert("Choose Towing");
+
+
     }
     else if(number == ""){
       alert("Choose number of Spare Tyres!");
     }
     else{
-      AsyncStorage.setItem("SPARE",number);
-      navigation.navigate("MyVehicles");
+
+      navigation.navigate("My Vehicles",{Paramskeys:typeService});
     }
   }
 
@@ -28,6 +34,7 @@ const navigation = useNavigation();
      <NativeBaseProvider>
         <View style={styles.Container}>
             <Center >
+
             <Image
             source={require("../../../assets/pics/driver.png")}
             style={{

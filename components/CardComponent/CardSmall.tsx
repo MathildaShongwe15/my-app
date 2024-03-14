@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Icon } from "native-base"
 import React from "react"
 import { View, Text, StyleSheet, Dimensions, Image} from "react-native"
@@ -6,6 +7,7 @@ import { View, Text, StyleSheet, Dimensions, Image} from "react-native"
 const ServiceCard =(props: any) =>{
     //console.log(props)
     let count =0;
+
     return(
         <View style={styles.cardContainer}>
 

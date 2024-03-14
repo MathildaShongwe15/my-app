@@ -1,9 +1,11 @@
 import { Avatar, Box, FlatList, HStack, Heading, Spacer, VStack,Text, NativeBaseProvider, Button, Center} from "native-base";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { StyleSheet} from "react-native";
 const RequestsCart = ({route}) => {
+
+
 
 
    const navigation = useNavigation();
@@ -11,12 +13,14 @@ const RequestsCart = ({route}) => {
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
     headingVehicle: "Vehicle:",
     headingRegistration: "Registration number:",
+    headingColor:"Color:",
     headingService:"Service Type:",
     headingLocation:"Location:",
 
-    valueVehicle: route.params.paramKey[0],
-    valueReg: route.params.paramKey[1],
-    valueService:"Flat Tyre",
+    valueVehicle: route.params.paramKey[0] + " " +route.params.paramKey[3],
+    valueReg:route.params.paramKey[1],
+    valueColor:route.params.paramKey[2],
+    valueService:route.params.paramKey[4],
     valueLocation:"2nd cross, Hossar Road Ashok, Banglore",
 
   },
@@ -34,6 +38,20 @@ const RequestsCart = ({route}) => {
   },
 
 ];
+function RemovePendingRequest ()  {
+
+
+route.params.paramKey.length = 0;
+route.params.paramKey[0] = "";
+console.warn(route.params.paramKey[0]);
+
+
+}
+
+useEffect(() =>{
+
+
+},[])
   return <Box>
 
       <Heading fontSize="xl" p="4" pb="3" >
@@ -57,6 +75,11 @@ const RequestsCart = ({route}) => {
             color: "warmGray.200"
           }} bold  marginTop={3} fontSize={"md"}>
                   {item.headingRegistration}
+                </Text>
+                <Text color="coolGray.600" _dark={{
+            color: "warmGray.200"
+          }} bold  marginTop={3} fontSize={"md"}>
+                  {item.headingColor}
                 </Text>
                 <Text color="coolGray.600" _dark={{
             color: "warmGray.200",
@@ -83,6 +106,11 @@ const RequestsCart = ({route}) => {
               </Text>
               <Text fontSize="sm" _dark={{
           color: "warmGray.50"
+        }} color="coolGray.500" alignSelf="flex-start"  marginRight={20} marginTop={4} >
+                {item.valueColor}
+              </Text>
+              <Text fontSize="sm" _dark={{
+          color: "warmGray.50"
         }} color="coolGray.500" alignSelf="flex-start"  marginRight={20} marginTop={5} >
                 {item.valueService}
               </Text>
@@ -103,6 +131,9 @@ const RequestsCart = ({route}) => {
           <Center>
             <Button  size="md" variant="outline"  colorScheme="blue" mt="10" w="300" onPress={() =>{navigation.navigate('Order')}} >
               Confirm Request
+            </Button>
+            <Button size="md" variant="outline"  colorScheme="blue" mt="10" w="300" onPress={() => RemovePendingRequest()} >
+              Clear Request
             </Button>
 
           </Center>

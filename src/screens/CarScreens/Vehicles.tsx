@@ -6,21 +6,35 @@ import SmallCard from "../../../components/CardComponent/CardSmall"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/AntDesign';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
 
 
-const CarHistory =()=> {
-  const [brand, setVehicleBrand] = useState([]);
-  const [reg, setVehicleReg] = useState([]);
+
+const CarHistory =({route} :any)=> {
+
+  let typeService:string = route.params.Paramskeys ?? 'no Data';
+
+ console.warn(typeService)
+  const [brand, setVehicleBrand] = useState("");
+  const [brand1, setVehicleBrand1] = useState("");
+  const [reg1, setVehicleReg1] = useState("");
+  const [color1, setColor] = useState("");
+  const [model1, setVehicleModel1] = useState("");
+
+
+  // setserviceType(type1);
+  // console.warn(type);
+
   const [data, setData] = useState([]);
   const[length, getlength] = useState(0);
   const [id,setId]=useState('');
+  const [id2,setId2]=useState([]);
+
+
 
 
   const getVehicles = async () =>{
 
-    await fetch('https://31b4-41-76-96-122.ngrok-free.app/GetAllVehicles',{
+    await fetch('https://0c3c-41-76-96-122.ngrok-free.app/GetAllVehicles',{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
@@ -33,28 +47,15 @@ const CarHistory =()=> {
           console.log("response is okay", response)
           return response.json();
         })
-        .then(data => (setData(data.vehicle),getlength(data.vehicle.length),setVehicleReg(data.vehicle[0].VehicleModel),(setVehicleBrand(data.vehicle[0].VehicleBrand)),(setId(data.vehicle[1].Id))))
-      //   .then(data => {const renderData = data.vehicle.forEach(element => {
-      //     return(
-      //     <SmallCard info={element}/>
-      // )
-      //   });})
+        .then(data => (setData(data.vehicle), console.log(data.vehicle)))
         .catch(err => console.log(err))
-        AsyncStorage.setItem("ID",id)
-        console.log("id has arrived",await AsyncStorage.getItem("ID"))
+
 };
 
-// console.log("Bitch",data[1].Id);
-const storeVehicleRequest =()=>{
-  AsyncStorage.getItem("vehicleId", )
-}
+
 const DeleteVechicle = async() =>{
 
-
-  const ID = AsyncStorage.getItem("ID");
-
-  console.log(await ID);
-  await fetch('https://31b4-41-76-96-122.ngrok-free.app/DeleteVehicle/2bqo0e8b-6fab-423f-b582-a2d9258906b2',{
+  await fetch(`https://0c3c-41-76-96-122.ngrok-free.app/DeleteVehicle/${id2}`,{
       method:'DELETE',
       headers:{
           'Content-Type':'application/json',
@@ -75,19 +76,7 @@ useEffect(() =>{
   getVehicles()
 
 },[])
-const count: Int32 = 0;
 
-
-const HistoryData = [
-   {
-      name: "Car " + (count  + 1) +": " + brand ,
-      RegNumber:"Registration Number:" + reg  ,
-      id:1
-    },
-
-  ];
-   // countT = 0;
-    const Tab = createBottomTabNavigator();
     const navigation = useNavigation();
     const [isOpen, setIsOpen] = React.useState(false);
 
@@ -119,7 +108,7 @@ const HistoryData = [
                 >
                   Delete
                 </Button>
-                <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('Requests', {paramKey: [brand,reg] } )}>
+                <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('Requests', {paramKey:[brand1,reg1, color1, model1,typeService]})}>
                   Choose this vehicle
                 </Button>
               </Button.Group>
@@ -127,25 +116,19 @@ const HistoryData = [
           </AlertDialog.Content>
         </AlertDialog>
       </Center>
-         <SafeAreaView>
+    <SafeAreaView>
         <FlatList
           data={data}
-          // keyExtractor={(x,i :Int32 =0) => i}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity onPress={() => setIsOpen(!isOpen)}>
+              <TouchableOpacity onPress={() => {setIsOpen(!isOpen),setId2(item.Id), setVehicleBrand1(item.VehicleBrand), setVehicleReg1(item.RegNo), setVehicleModel1(item.VehicleModel), setColor(item.Color)}}>
                  <SmallCard info={item}/>
               </TouchableOpacity>
-
-
-
-
             );
           }}
-        />
-       {/* <Button onPress={() => navigation.navigate("Requests")}  marginTop={"490"} marginLeft={"350"} width={"50"} height={"50"} bgColor={"blue.900"}><Icon name="pluscircle" size={20} color={"white"}/></Button> */}
-
-      </SafeAreaView></View>
+        /></SafeAreaView>
+        <Button onPress={() => navigation.navigate("Registration Car")}  marginTop={"490"} marginLeft={"350"} width={"50"} height={"50"} bgColor={"blue.900"}><Icon name="pluscircle" size={20} color={"white"}/></Button>
+                </View>
       </NativeBaseProvider>
 
 

@@ -11,7 +11,10 @@ import BottomSheet from "../../../components/BottomSheetComponent/bottomSheet";
 
 
 
-const PinLocation = () => {
+const PinLocation = ({route}:any) => {
+
+  let typeService:string = route.params.Paramskeys ?? 'no Data';
+  console.warn(typeService);
 
   const [location,setLocation] = useState();
   const [address, setAddress] = useState();
@@ -96,6 +99,7 @@ const PinLocation = () => {
     <TextInput placeholder="Address" value={formattedaddress} />
    {/* <Button title="GeoCode Address" onPress={geocode}></Button> */}
    <Button  title="Get Current Address" onPress={reverseGeocode} ></Button>
+
    </Center>
 
 

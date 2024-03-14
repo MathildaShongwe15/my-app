@@ -6,16 +6,23 @@ import LgBlockCard from "../../../components/CardComponent/LgBlockCard"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/AntDesign';
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
 import AntIcon from "react-native-vector-icons/AntDesign";
 
 const Menu =()=> {
   const [data, setData] = useState([]);
+  const [serviceId, setServiceId] = useState("");
+  const [serviceType, setServiceType] = useState("");
   const navigation = useNavigation();
 
+
+
+
+
+
   const getServices = async () =>{
-    await fetch('https://31b4-41-76-96-122.ngrok-free.app/AllServices',{
+    await fetch('https://0c3c-41-76-96-122.ngrok-free.app/AllServices',{
       method:'GET',
       headers:{
           'Content-Type':'application/json',
@@ -30,11 +37,28 @@ const Menu =()=> {
       })
       .then(data => (setData(data.services)))
       .catch(err => console.log(err))
-      AsyncStorage.setItem("ID",id)
-      console.log("id has arrived",await AsyncStorage.getItem("ID"))
+
+
 
 };
+const getServicesById = async() =>{
 
+  await fetch(`https://0c3c-41-76-96-122.ngrok-free.app/GetServiceById/${serviceId}`,{
+      method:'GET',
+      headers:{
+          'Content-Type':'application/json',
+      },
+    })
+      .then(response => {
+        if(!response.ok){
+          throw new Error('Network response not ok'),
+          console.log(response)
+        }
+        console.log("response is okay", response)
+        return response.json();
+      })
+      .catch(err => console.log(err))
+};
 useEffect(() =>{
   getServices()
 
@@ -52,7 +76,7 @@ const Categories = [
       image: require("../../../assets/pics/carIcon.png"),
       name: "My Vehicles"  ,
       RegNumber:"Vehicles Added" ,
-      nav:"MyVehicles",
+      nav:"My Vehicles",
       id:2
     },
     {
@@ -88,40 +112,40 @@ const Categories = [
       name: "Home " ,
       RegNumber:"Return home" ,
       nav:"Home",
-      id:1
+      id:6
     },
     {
       image: require("../../../assets/pics/carIcon.png"),
       name: "My Vehicles"  ,
       RegNumber:"Vehicles Added" ,
-      nav:"MyVehicles",
-      id:2
+      nav:"My Vehicles",
+      id:5
     },
     {
       image: require("../../../assets/pics/cart.png"),
       name: "Requests",
       RegNumber:"Pending requests",
       nav:"Requests",
-      id:3
+      id:9
     },
     {
       image: require("../../../assets/pics/img.png"),
       name: "Profile"  ,
       RegNumber:"Update user Profile" ,
       nav:"Profile",
-      id:4
+      id:10
     },
     {
         image: require("../../../assets/pics/History.png"),
         name: "Request History"  ,
         RegNumber:"Past Requests" ,
-        id:5
+        id:14
       },
       {
         image: require("../../../assets/pics/settings.png"),
         name: "Settings"  ,
         RegNumber:"Manage account" ,
-        id:6
+        id:12
       },
   ];
 
@@ -142,7 +166,7 @@ const Categories = [
           data={Categories}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity  onPress={() => navigation.navigate(item.nav)} >
+              <TouchableOpacity  onPress={() => navigation.navigate(item.nav , setServiceId(item.Id))}>
                  <BlockCard info={item}/>
 
               </TouchableOpacity>
