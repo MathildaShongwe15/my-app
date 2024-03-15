@@ -9,10 +9,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 
 
-const CarHistory =({route} :any)=> {
-
-   let typeService:string = route.params.Paramskeys;
-   //let Provider:string = route.params.Paramskeys[1];
+const CarHistory =()=> {
 
  //console.warn(typeService)
   const [brand, setVehicleBrand] = useState("");
@@ -109,7 +106,7 @@ useEffect(() =>{
                 >
                   Delete
                 </Button>
-                <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('Requests', {paramKey:[brand1,reg1, color1, model1,typeService]})}>
+                <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('Requests')}>
                   Choose this vehicle
                 </Button>
               </Button.Group>
@@ -122,7 +119,7 @@ useEffect(() =>{
           data={data}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity onPress={() => {setIsOpen(!isOpen),setId2(item.Id), setVehicleBrand1(item.VehicleBrand), setVehicleReg1(item.RegNo), setVehicleModel1(item.VehicleModel), setColor(item.Color)}}>
+              <TouchableOpacity onPress={() => {setIsOpen(!isOpen),setId2(item.Id)}}>
                  <SmallCard info={item}/>
               </TouchableOpacity>
             );

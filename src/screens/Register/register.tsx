@@ -48,7 +48,7 @@ const Register = () => {
 
     const data = {Id: Id,First_Name:firstName,Last_Name:lastName,email:email,phoneNumber:phoneNumber,password:password, role:role}
   try{
-    let result = fetch('https://0c3c-41-76-96-122.ngrok-free.app/Auth',{
+    let result = fetch('https://9b31-105-224-43-9.ngrok-free.app/Auth',{
 
         method: 'POST',
         headers:{

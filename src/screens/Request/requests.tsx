@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import { StyleSheet} from "react-native";
-const RequestsCart = ({route}) => {
+const RequestsCart = ({route}:any) => {
 
 
 
@@ -15,13 +15,13 @@ const RequestsCart = ({route}) => {
     headingRegistration: "Registration number:",
     headingColor:"Color:",
     headingService:"Service Type:",
-    headingLocation:"Location:",
+    headingLocation:"Service Provider:",
 
     valueVehicle: route.params.paramKey[0] + " " +route.params.paramKey[3],
     valueReg:route.params.paramKey[1],
     valueColor:route.params.paramKey[2],
     valueService:route.params.paramKey[4],
-    valueLocation:"2nd cross, Hossar Road Ashok, Banglore",
+    valueLocation:'route.params.paramKey[5]',
 
   },
   {

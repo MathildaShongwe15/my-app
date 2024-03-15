@@ -7,18 +7,21 @@ import { View, StyleSheet, Dimensions, Image, TouchableOpacity} from "react-nati
 const BlockCard1 =(props: any) =>{
     const navigation = useNavigation();
 
-    const handleItemPress = (item) => {
+    const handleItemPress = (item:string, Id:any) => {
         // Navigate to different screens based on item data
+
+       console.warn("HEYYYYY ID ALL DAY",Id);
+
         if (item === 'oil and water') {
           navigation.navigate('Maps');
         } else if (item === 'Jump Start') {
-          navigation.navigate('My Vehicles',{Paramskeys: item});
+          navigation.navigate('Providers',{ParamKey: [item,Id]});
         }
        else if (item === 'Tyre Change') {
-        navigation.navigate('Tyre',{Paramskeys: item});
+        navigation.navigate('Providers',{ParamKey: [item,Id]});
        }
        else if (item === 'Fuel') {
-       navigation.navigate('Fuel');
+       navigation.navigate('Providers',{ParamKey: [item,Id]});
       }
        else if (item === 'Towing') {
         navigation.navigate('Maps');
@@ -30,7 +33,7 @@ const BlockCard1 =(props: any) =>{
 
     return(
         <NativeBaseProvider>
-       <TouchableOpacity  onPress={() => handleItemPress(props.info.Type)}>
+       <TouchableOpacity  onPress={() => handleItemPress(props.info.Type, props.info.ID)}>
         <View style={styles.cardContainer}>
            <View style={styles.infoStyle}>
             <Center>

@@ -6,7 +6,7 @@ import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
 
 
-const TowingQuery = ({route}) => {
+const TowingQuery = ({route}:any) => {
 const navigation = useNavigation();
 
 

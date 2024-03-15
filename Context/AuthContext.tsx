@@ -40,7 +40,7 @@ export const AuthProvider = ({children}:any) => {
 
   const login = async (email :string ,password :string, role: string) =>{
 
-                await fetch('https://0c3c-41-76-96-122.ngrok-free.app/Login',{
+                await fetch('https://9b31-105-224-43-9.ngrok-free.app/Login',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json',

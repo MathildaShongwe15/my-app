@@ -13,8 +13,11 @@ import ResetScreen from "../../src/screens/Profile/resetPassword";
 import MapsScreen from "../../src/screens/Map/PinLocation";
 import RequestsScreen from "../../src/screens/Request/requests";
 import MenuScreen from "../../src/screens/Home/Menu";
+import ProviderScreen from "../../src/screens/ServiceProvider/serviceProvider";
+
 import RouteScreen from "../../src/screens/Map/RouteMap"
 import VehiclesScreen from"../../src/screens/CarScreens/Vehicles";
+import ViewVehiclesScreen from "../../src/screens/CarScreens/viewVehicles";
 import { Button} from 'react-native';
 import { useAuth } from "../../Context/AuthContext";
 import Icon from "react-native-vector-icons/AntDesign";
@@ -61,6 +64,8 @@ const App = () => {
         <Stack.Screen name="Maps" component={MapsScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}/>
         <Stack.Screen name="My Vehicles" component={VehiclesScreen} options={{ headerShown: true , headerRight:() =><AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
         <Stack.Screen name="Requests" component={RequestsScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
+        <Stack.Screen name="ViewVehicles" component={ViewVehiclesScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
+        <Stack.Screen name="Providers" component={ProviderScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
       </Stack.Navigator>
 
   );

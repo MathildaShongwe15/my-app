@@ -3,26 +3,19 @@ import React, { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet,Text } from "react-native";
 import BlockCard from "../../../components/CardComponent/BlockCard"
 import LgBlockCard from "../../../components/CardComponent/LgBlockCard"
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
-import Icon from 'react-native-vector-icons/AntDesign';
-
 import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
-import AntIcon from "react-native-vector-icons/AntDesign";
+
 
 const Menu =()=> {
   const [data, setData] = useState([]);
   const [serviceId, setServiceId] = useState("");
-  const [serviceType, setServiceType] = useState("");
+
   const navigation = useNavigation();
 
 
-
-
-
-
   const getServices = async () =>{
-    await fetch('https://0c3c-41-76-96-122.ngrok-free.app/AllServices',{
+    await fetch('https://9b31-105-224-43-9.ngrok-free.app/AllServices',{
       method:'GET',
       headers:{
           'Content-Type':'application/json',
@@ -43,7 +36,7 @@ const Menu =()=> {
 };
 const getServicesById = async() =>{
 
-  await fetch(`https://0c3c-41-76-96-122.ngrok-free.app/GetServiceById/${serviceId}`,{
+  await fetch(`https://9b31-105-224-43-9.ngrok-free.app/GetServiceById/${serviceId}`,{
       method:'GET',
       headers:{
           'Content-Type':'application/json',
@@ -69,14 +62,14 @@ const Categories = [
       image: require("../../../assets/pics/Prof.png"),
       name: "Home " ,
       RegNumber:"Return home" ,
-      nav:"Home",
+      nav:"Providers",
       id:1
     },
     {
       image: require("../../../assets/pics/carIcon.png"),
       name: "My Vehicles"  ,
       RegNumber:"Vehicles Added" ,
-      nav:"My Vehicles",
+      nav:"ViewVehicles",
       id:2
     },
     {
