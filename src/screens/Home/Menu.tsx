@@ -15,7 +15,7 @@ const Menu =()=> {
 
 
   const getServices = async () =>{
-    await fetch('https://9b31-105-224-43-9.ngrok-free.app/AllServices',{
+    await fetch('https://5471-41-76-96-122.ngrok-free.app/AllServices',{
       method:'GET',
       headers:{
           'Content-Type':'application/json',
@@ -36,7 +36,7 @@ const Menu =()=> {
 };
 const getServicesById = async() =>{
 
-  await fetch(`https://9b31-105-224-43-9.ngrok-free.app/GetServiceById/${serviceId}`,{
+  await fetch(`https://5471-41-76-96-122.ngrok-free.app/GetServiceById/${serviceId}`,{
       method:'GET',
       headers:{
           'Content-Type':'application/json',
@@ -75,7 +75,7 @@ const Categories = [
     {
       image: require("../../../assets/pics/cart.png"),
       name: "Requests",
-      RegNumber:"Pending requests",
+      RegNumber:"Recent Requests",
       nav:"Requests",
       id:3
     },
@@ -86,17 +86,12 @@ const Categories = [
       nav:"Profile",
       id:4
     },
-    {
-        image: require("../../../assets/pics/History.png"),
-        name: "Request History"  ,
-        RegNumber:"Past Requests" ,
-        id:5
-      },
+
       {
         image: require("../../../assets/pics/settings.png"),
         name: "Settings"  ,
         RegNumber:"Manage account" ,
-        id:6
+        id:5
       },
   ];
   const requests = [

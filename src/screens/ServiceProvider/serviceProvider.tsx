@@ -10,6 +10,7 @@ const Menu =({route}:any)=> {
 
 
   let Id: any = route.params.ParamKey[1];
+  let typeService: any = route.params.ParamKey[0];
 
   const [data, setData] = useState([]);
   const [serviceId, setServiceId] = useState("");
@@ -18,7 +19,7 @@ const Menu =({route}:any)=> {
 
 
   const getProviders = async () =>{
-    await fetch(`https://9b31-105-224-43-9.ngrok-free.app/GetProviderByService/${Id}`,{
+    await fetch(`https://5471-41-76-96-122.ngrok-free.app/GetProviderByService/${Id}`,{
       method:'GET',
       headers:{
           'Content-Type':'application/json',
@@ -42,8 +43,28 @@ useEffect(() =>{
 getProviders()
 
 },[])
+    const handleItemPress = (name:string,servicefee:number) => {
+       // Navigate to different screens based on item data
 
-
+        if (typeService === 'oil and water') {
+          navigation.navigate('My Vehicles',{Paramskeys: [name,typeService,servicefee]});
+        }
+        if (typeService === 'Towing') {
+          navigation.navigate('My Vehicles',{Paramskeys: [name,typeService,servicefee]});
+        }
+        if (typeService === 'Jump Start') {
+          navigation.navigate('My Vehicles',{Paramskeys: [name,typeService,servicefee]});
+         }
+        if (typeService === 'Tyre Change') {
+        navigation.navigate('Tyre',{Paramskeys: [name,typeService,servicefee]});
+        }
+        if (typeService === 'Fuel') {
+         navigation.navigate('Fuel',{Paramskeys: [name,typeService,servicefee]});
+        }
+       if(typeService === 'Lock-Smith') {
+         navigation.navigate('My Vehicles',{Paramskeys: [name,typeService,servicefee]});
+      }
+    }
      return(
 
       <NativeBaseProvider>
@@ -57,8 +78,9 @@ getProviders()
           data={data}
           renderItem={({item}) => {
             return (
+              <TouchableOpacity  onPress={()=> handleItemPress(item.Name,item.ServiceFee)}>
                  <Mdblockcard info={item}/>
-
+                 </TouchableOpacity>
             );
           }}
         />

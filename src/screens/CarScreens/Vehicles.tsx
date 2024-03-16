@@ -11,9 +11,11 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 const CarHistory =({route} :any)=> {
 
-   let typeService:string = route.params.Paramskeys;
-   //let Provider:string = route.params.Paramskeys[1];
 
+
+   let Provider:string = route.params.Paramskeys[0];
+   let type:string = route.params.Paramskeys[1];
+   let fee:number = route.params.Paramskeys[2];
  //console.warn(typeService)
   const [brand, setVehicleBrand] = useState("");
   const [brand1, setVehicleBrand1] = useState("");
@@ -35,7 +37,7 @@ const CarHistory =({route} :any)=> {
 
   const getVehicles = async () =>{
 
-    await fetch('https://9b31-105-224-43-9.ngrok-free.app/GetAllVehicles',{
+    await fetch('https://5471-41-76-96-122.ngrok-free.app/GetAllVehicles',{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
@@ -56,7 +58,7 @@ const CarHistory =({route} :any)=> {
 
 const DeleteVechicle = async() =>{
 
-  await fetch(`https://9b31-105-224-43-9.ngrok-free.app/DeleteVehicle/${id2}`,{
+  await fetch(`https://5471-41-76-96-122.ngrok-free.app/DeleteVehicle/${id2}`,{
       method:'DELETE',
       headers:{
           'Content-Type':'application/json',
@@ -109,7 +111,7 @@ useEffect(() =>{
                 >
                   Delete
                 </Button>
-                <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('Requests', {paramKey:[brand1,reg1, color1, model1,typeService]})}>
+                <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('Requests', {paramKey:[brand1,reg1, color1, model1,Provider,type,fee]})}>
                   Choose this vehicle
                 </Button>
               </Button.Group>

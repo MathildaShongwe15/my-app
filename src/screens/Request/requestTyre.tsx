@@ -10,7 +10,10 @@ const TowingQuery = ({route}:any) => {
 const navigation = useNavigation();
 
 
-let typeService:string = route.params.Paramskeys ?? 'no Data';
+let provider:string = route.params.Paramskeys[0];
+let typeService:string = route.params.Paramskeys[1];
+let fee:number = route.params.Paramskeys[2];
+
 console.warn(typeService)
 
   const [value, setValue] =  useState("");
@@ -26,7 +29,7 @@ console.warn(typeService)
     }
     else{
 
-      navigation.navigate("My Vehicles",{Paramskeys:typeService});
+      navigation.navigate("My Vehicles",{Paramskeys:[provider,typeService,fee]});
     }
   }
 

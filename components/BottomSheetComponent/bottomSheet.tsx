@@ -15,7 +15,7 @@ return(
             <Center>
         <Heading>{props.heading}</Heading>
         <Text>{props.text}</Text>
-        <Button>NEXT</Button>
+
 </Center>
     </View>
         </BottomSheet>

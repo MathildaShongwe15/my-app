@@ -1,20 +1,31 @@
 import * as React from "react";
-import { Button, View, TextInput,StyleSheet, ActivityIndicator } from "react-native";
-import {useState, useEffect} from 'react';
+import { View, TextInput,StyleSheet, ActivityIndicator } from "react-native";
+import {useState, useEffect, useRef} from 'react';
 import * as Location from 'expo-location';
-import { Avatar, Box, FlatList, HStack, Heading, Spacer, VStack ,Text, Center,} from "native-base";
+import { Avatar, Box, FlatList, HStack, Heading, Spacer, VStack ,Text, Center,Button} from "native-base";
 import MapView ,{ PROVIDER_GOOGLE } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import { Marker } from "react-native-maps";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BottomSheet from "../../../components/BottomSheetComponent/bottomSheet";
+import { useNavigation } from "@react-navigation/native";
 
 
 
 const PinLocation = ({route}:any) => {
+  const navigation = useNavigation();
 
-  let typeService:string = route.params.Paramskeys ?? 'no Data';
-  console.warn(typeService);
+  const mapRef = useRef();
+    // let brand:string = route.params.paramKey[0];
+    // let color:string =route.params.paramKey[1];
+    // let reg:string =route.params.paramKey[2];
+    // let model:string = route.params.paramKey[3];
+    // let type:string =route.params.paramKey[5];
+
+    // let fee:number=route.params.paramKey[6];
+
+
+
 
   const [location,setLocation] = useState();
   const [address, setAddress] = useState();
@@ -26,7 +37,7 @@ const PinLocation = ({route}:any) => {
 
     useEffect(() =>{
       getPermissions();
-
+      animateToRegion();
       },[])
 
 
@@ -66,8 +77,8 @@ const PinLocation = ({route}:any) => {
         region: {
           latitude: latitude ? latitude :0,
           longitude: longitude ? longitude:0,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0922,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
         },
       };
 
@@ -82,14 +93,16 @@ const PinLocation = ({route}:any) => {
         console.log(reverseGeocode[0].formattedAddress);
         setformattedAddress(reverseGeocode[0].formattedAddress);
     }
-
+    const animateToRegion = () => {
+      mapRef.current.animateToRegion(state.region, 1000);
+   }
+console.warn("END",route.params.paramkey);
 
   return (
 
 
  <View style={styles.Container}>
-
-     <MapView style={styles.map11}  >
+     <MapView style={styles.map11} ref={mapRef} >
     <Marker coordinate={state.region} title="MY LOCATION" description="SEEME"/>
    </MapView>
     <Center>
@@ -99,12 +112,12 @@ const PinLocation = ({route}:any) => {
     <TextInput placeholder="Address" value={formattedaddress} />
    {/* <Button title="GeoCode Address" onPress={geocode}></Button> */}
    <Button  title="Get Current Address" onPress={reverseGeocode} ></Button>
-
    </Center>
 
 
   <BottomSheet text={formattedaddress} heading={"Current Address:"} />
-
+<Button onPress={()=> navigation.navigate('Order', {paramkey:[formattedaddress,route.params.paramkey[0],route.params.paramkey[1],route.params.paramkey[2]]})}>PRESS ME</Button>
+<Button onPress={()=> onRelocate()}>PRESS ME</Button>
 
 
 </View>

@@ -24,9 +24,9 @@ const BlockCard1 =(props: any) =>{
        navigation.navigate('Providers',{ParamKey: [item,Id]});
       }
        else if (item === 'Towing') {
-        navigation.navigate('Maps');
-      } else if (item === 'Locked-out') {
-      navigation.navigate('Maps');
+        navigation.navigate('Providers',{ParamKey: [item,Id]});
+      } else if (item === 'Locked-Smith') {
+        navigation.navigate('Providers',{ParamKey: [item,Id]});
 
       }
     }

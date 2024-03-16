@@ -6,8 +6,15 @@ import { StyleSheet} from "react-native";
 const RequestsCart = ({route}:any) => {
 
 
-
-
+  let brand:string = route.params.paramKey[0];
+  let color:string =route.params.paramKey[1];
+  let reg:string =route.params.paramKey[2];
+  let model:string = route.params.paramKey[3];
+  let type:string =route.params.paramKey[5];
+  let provider:string=route.params.paramKey[4];
+  let fee:number=route.params.paramKey[6];
+  let VatAdded = (fee + 100) *  0.15;
+  console.warn(provider);
    const navigation = useNavigation();
    const data = [{
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
@@ -17,23 +24,22 @@ const RequestsCart = ({route}:any) => {
     headingService:"Service Type:",
     headingLocation:"Service Provider:",
 
-    valueVehicle: route.params.paramKey[0] + " " +route.params.paramKey[3],
-    valueReg:route.params.paramKey[1],
-    valueColor:route.params.paramKey[2],
-    valueService:route.params.paramKey[4],
-    valueLocation:'route.params.paramKey[5]',
-
+    valueVehicle: brand + " " +model,
+    valueReg:reg,
+    valueColor:color,
+    valueService:type,
+    valueLocation:provider,
   },
   {
     id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    headingVehicle: "Booking Charge:",
-    headingRegistration: "Service Charge:",
-    headingService:"Taxes:",
+    headingVehicle: "Booking fee:",
+    headingRegistration: "Service fee:",
+    headingService:"VAT(15%):",
     headingLocation:"Total:",
 
-    valueVehicle:"R 50.00",
-    valueReg:"R 150.00",
-    valueService:"R 27.00",
+    valueVehicle:"R 100.00",
+    valueReg:"R "+ fee + ".00",
+    valueService:"R " + VatAdded + ".00",
     valueLocation:"R 227.00",
   },
 
@@ -50,14 +56,20 @@ console.warn(route.params.paramKey[0]);
 
 useEffect(() =>{
 
-
 },[])
-  return <Box>
+//const[requestNum,setRequestNum] = useState("");
+const randomRequestNum =()=>{
+  return "RO"+(Math.floor(Math.random() * 1500)+1)
+  //return requestNum;
+
+}
+
+  return( <Box>
 
       <Heading fontSize="xl" p="4" pb="3" >
         Review Request Reciept
       </Heading>
-      <Text  style={styles.SubTitle}>Request Number: R02563</Text>
+      <Text  style={styles.SubTitle}>Request Number:{randomRequestNum()}</Text>
       <FlatList data={data} renderItem={({
       item
     }) => <Box borderBottomWidth="1" _dark={{
@@ -129,26 +141,26 @@ useEffect(() =>{
 
 </Center>
           <Center>
-            <Button  size="md" variant="outline"  colorScheme="blue" mt="10" w="300" onPress={() =>{navigation.navigate('Order')}} >
+            <Button  size="md" variant="outline"  colorScheme="blue" mt="10" w="300" onPress={() =>{navigation.navigate('Maps', {paramkey: [provider,brand,model]})}} >
               Confirm Request
             </Button>
-            <Button size="md" variant="outline"  colorScheme="blue" mt="10" w="300" onPress={() => RemovePendingRequest()} >
+            <Button size="md" variant="outline"  colorScheme="blue" mt="5" w="300" onPress={() => RemovePendingRequest()} >
               Clear Request
             </Button>
 
           </Center>
 
 
-    </Box>;
+    </Box>
 
-
+  );
 
   };
   const styles = StyleSheet.create({
     Container: { flex: 1, backgroundColor: "white"},
     Title:{marginTop:50, color:"#07137D"},
     SubTitle:{marginTop:0,color:"#07137D", marginLeft:20,fontWeight:"700"},
-    SubTitle2:{marginTop:10, padding:0,color:"#A8A196"},
+    SubTitle2:{marginTop:5, padding:0,color:"#A8A196"},
     Img:{marginTop:20}
 
   });
