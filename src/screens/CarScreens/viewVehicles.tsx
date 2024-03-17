@@ -32,7 +32,7 @@ const CarHistory =()=> {
 
   const getVehicles = async () =>{
 
-    await fetch('https://5471-41-76-96-122.ngrok-free.app/GetAllVehicles',{
+    await fetch('https://01d2-41-76-96-122.ngrok-free.app/GetAllVehicles',{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
@@ -53,7 +53,7 @@ const CarHistory =()=> {
 
 const DeleteVechicle = async() =>{
 
-  await fetch(`https://5471-41-76-96-122.ngrok-free.app/DeleteVehicle/${id2}`,{
+  await fetch(`https://01d2-41-76-96-122.ngrok-free.app/DeleteVehicle/${id2}`,{
       method:'DELETE',
       headers:{
           'Content-Type':'application/json',

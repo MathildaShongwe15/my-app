@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import HomeScreen from "../../src/screens/Home/home";
 import LoginScreen from "../../src/screens/Login/login";
@@ -14,19 +14,35 @@ import MapsScreen from "../../src/screens/Map/PinLocation";
 import RequestsScreen from "../../src/screens/Request/requests";
 import MenuScreen from "../../src/screens/Home/Menu";
 import ProviderScreen from "../../src/screens/ServiceProvider/serviceProvider";
+import ViewReqScreen from "../../src/screens/Request/viewRequests";
 
 import RouteScreen from "../../src/screens/Map/RouteMap"
 import VehiclesScreen from"../../src/screens/CarScreens/Vehicles";
 import ViewVehiclesScreen from "../../src/screens/CarScreens/viewVehicles";
-import { Button} from 'react-native';
+import { Button, View,Text,Image} from 'react-native';
 import { useAuth } from "../../Context/AuthContext";
 import Icon from "react-native-vector-icons/AntDesign";
-import AntIcon from "react-native-vector-icons/AntDesign";
-
+import LoadingScreen from "../../src/screens/Home/LoadingPage";
 const App = () => {
   const{authState, onLogout}:any = useAuth();
+
   const Stack = createNativeStackNavigator();
 
+
+  if(authState.isLoading){
+    return (
+    <LoadingScreen/>
+    )
+  }
+  else
+  {
+    return(
+
+  authState?.authenticated ?(
+    // Authenticated show Menu
+  <Stack.Screen name='Menu' component={MenuScreen} options={{ headerShown: true,headerTitle: "Menu", headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>):
+    (<Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false}}></Stack.Screen> )
+ )}
   return (
 
       <Stack.Navigator
@@ -41,6 +57,7 @@ const App = () => {
         }}
 
       >
+
         {authState?.authenticated ?(
           // Authenticated show Menu
         <Stack.Screen name='Menu' component={MenuScreen} options={{ headerShown: true,headerTitle: "Menu", headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>):
@@ -66,6 +83,9 @@ const App = () => {
         <Stack.Screen name="Requests" component={RequestsScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
         <Stack.Screen name="ViewVehicles" component={ViewVehiclesScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
         <Stack.Screen name="Providers" component={ProviderScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
+
+        <Stack.Screen name="ViewReq" component={ViewReqScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
+
       </Stack.Navigator>
 
   );

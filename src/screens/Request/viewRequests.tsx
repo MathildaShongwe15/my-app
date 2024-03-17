@@ -1,35 +1,71 @@
 import { Avatar, Box, FlatList, HStack, Heading, Spacer, VStack,Text, NativeBaseProvider, Button} from "native-base";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 
 const Example = () => {
-    const data = [{
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      fullName: "Aafreen Khan",
-      timeStamp: "12:47 PM",
-      recentText: "Towing Request",
-      avatarUrl: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-    }, {
-      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-      fullName: "Sujitha Mathur",
-      timeStamp: "11:11 PM",
-      recentText: "Petrol Request",
-      avatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyEaZqT3fHeNrPGcnjLLX1v_W4mvBlgpwxnA&usqp=CAU"
-    }, {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      fullName: "Anci Barroco",
-      timeStamp: "6:22 PM",
-      recentText: "Towing Request",
-      avatarUrl: "https://miro.medium.com/max/1400/0*0fClPmIScV5pTLoE.jpg"
-    }, {
-      id: "68694a0f-3da1-431f-bd56-142371e29d72",
-      fullName: "Aniket Kumar",
-      timeStamp: "8:56 PM",
-      recentText: "Towing Request",
-      avatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr01zI37DYuR8bMV5exWQBSw28C1v_71CAh8d7GP1mplcmTgQA6Q66Oo--QedAN1B4E1k&usqp=CAU"
-    }, ];
+    // const data = [{
+    //   id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    //   fullName: "Aafreen Khan",
+    //   timeStamp: "12:47 PM",
+    //   recentText: "Towing Request",
+    //   avatarUrl: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+    // }, {
+    //   id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
+    //   fullName: "Sujitha Mathur",
+    //   timeStamp: "11:11 PM",
+    //   recentText: "Petrol Request",
+    //   avatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyEaZqT3fHeNrPGcnjLLX1v_W4mvBlgpwxnA&usqp=CAU"
+    // }, {
+    //   id: "58694a0f-3da1-471f-bd96-145571e29d72",
+    //   fullName: "Anci Barroco",
+    //   timeStamp: "6:22 PM",
+    //   recentText: "Towing Request",
+    //   avatarUrl: "https://miro.medium.com/max/1400/0*0fClPmIScV5pTLoE.jpg"
+    // }, {
+    //   id: "68694a0f-3da1-431f-bd56-142371e29d72",
+    //   fullName: "Aniket Kumar",
+    //   timeStamp: "8:56 PM",
+    //   recentText: "Towing Request",
+    //   avatarUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr01zI37DYuR8bMV5exWQBSw28C1v_71CAh8d7GP1mplcmTgQA6Q66Oo--QedAN1B4E1k&usqp=CAU"
+    // }, ];
    // const switchNavigator = createSwitchNavigator();
    const navigation = useNavigation();
+   const [serviceName, setServiceName] = useState("");
+   const [userFName, setFName] = useState("");
+   const [userLName, setLName] = useState("");
+   const [timeStamp, setTimeStamp] = useState("");
+   const [data, setData] = useState("");
+
+
+
+   const getReq = async () =>{
+
+    await fetch('https://01d2-41-76-96-122.ngrok-free.app/UserRequestByProviderId/546426ef-30f6-4406-9646-1dd310aa38e6',{
+        method:'GET',
+        headers:{
+            'Content-Type':'application/json',
+        },})
+        .then(response => {
+          if(!response.ok){
+            throw new Error('Network response not ok'),
+            console.log(response)
+          }
+          console.log("response is okay", response)
+          return response.json();
+        })
+        .then(data => (setData(data.requests),setServiceName(data.requests.Services.Type),setFName(data.requests.Users.First_Name),setLName(data.requests.Users.Last_Name),setTimeStamp(data.requests.CreatedAt)))
+        .catch(err => console.log(err))
+
+};
+
+
+useEffect(() =>{
+  getReq()
+
+},[])
+
+
+
     return <NativeBaseProvider>
 
        {/* <SideBar/> */}
@@ -45,29 +81,31 @@ const Example = () => {
       }} borderColor="blue.900" pl={["0", "4"]} pr={["0", "5"]} py="2">
               <HStack space={[2, 3]} justifyContent="space-between">
                 <Avatar size="48px" marginLeft="3" source={{
-            uri: item.avatarUrl
+            uri: "https://img.freepik.com/free-photo/user-profile-icon-front-side_187299-39596.jpg?w=740&t=st=1710661339~exp=1710661939~hmac=02615f98301244ad254bf67ed93759fa934241ff4876a5dc072557483adb2766"
           }} />
                 <VStack>
                   <Text _dark={{
               color: "warmGray.50"
             }} color="coolGray.800" bold>
-                    {item.fullName}
+                    {item.Users.First_Name} {item.Users.Last_Name}
                   </Text>
                   <Text color="coolGray.600" _dark={{
               color: "warmGray.200"
             }}>
-                    {item.recentText}
+
+                    {item.Services.Type} Request
                   </Text>
-                  <Text fontSize="xs" _dark={{
+                <Text fontSize="xs" _dark={{
             color: "warmGray.50"
           }} color="coolGray.800" alignSelf="flex-start">
-                  {item.timeStamp}
+                  {item.CreatedAt}
                 </Text>
                 </VStack>
                 <Spacer />
+                <VStack>
                 <Button
-                mt="8"
-                ml=""
+                mt="0"
+                ml="0"
                 w="100"
                 colorScheme="green"
                 variant="outline"
@@ -76,8 +114,8 @@ const Example = () => {
                 Approve
               </Button>
               <Button
-                mt="8"
-                mr="50"
+                mt="2"
+                mr="2"
                 w="100"
                 colorScheme="red"
                 variant="outline"
@@ -85,6 +123,7 @@ const Example = () => {
               >
                 Decline
               </Button>
+              </VStack>
               </HStack>
             </Box>} keyExtractor={item => item.id} />
       </Box></NativeBaseProvider>

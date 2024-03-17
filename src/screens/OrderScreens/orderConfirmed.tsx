@@ -18,6 +18,11 @@ const OrderConfirmed = ({route}:any) => {
 console.warn(route.params.paramkey[0]);
 console.warn(route.params.paramkey[1]);
 
+const randomRequestNum =()=>{
+  return "RO"+(Math.floor(Math.random() * 1500)+1)
+
+
+}
 
     return (
      <NativeBaseProvider>
@@ -25,16 +30,17 @@ console.warn(route.params.paramkey[1]);
             <Center >
                 <Image style={styles.Img} source={require("../../../assets/pics/check.png")}/>
                 <Heading style={styles.Title}>Order Confirmed!</Heading>
-                <Text style={styles.SubTitle2}>Request Number for your vehicle: {route.params.paramkey[2]} {route.params.paramkey[3]}</Text>
-                <Text style={styles.SubTitle}>Your Pinned Location:</Text>
+                <Text style={styles.SubTitle2}>Request Number: {randomRequestNum()}</Text>
+                <Text style={styles.SubTitle2}>For your vehicle {route.params.paramkey[2]} {route.params.paramkey[3]}</Text>
+                <Text style={styles.SubTitle}>On it's way to your Pinned Location:</Text>
                 <Text style={styles.SubTitle3}>{route.params.paramkey[0]}</Text>
-                <Text style={styles.SubTitle}>Thank you for placing your order with {route.params.paramkey[1]} Check your status under history to track your request</Text>
+                <Text style={styles.SubTitle}>Thank you for placing your request with {route.params.paramkey[1]} Check your status under history to track your request</Text>
 
 
                 <Button  size="md" variant="outline"  colorScheme="blue" mt="10" w="300"  >
                   Proceed to Requests
                 </Button>
-                <Button  size="md" variant="outline"  colorScheme="blue" mt="10" w="300"  >
+                <Button  size="md" variant="outline"  colorScheme="blue" mt="10" w="300" onPress={() => navigation.navigate('ViewReq')}  >
                   Back to Menu
                 </Button>
             </Center>

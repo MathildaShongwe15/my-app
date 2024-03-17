@@ -21,7 +21,7 @@ const RegisterVehicle = () => {
     console.log(Brand,Model,RegNo,Color,Description)
     const getUserId = await AsyncStorage.getItem("UserID");
 
-    await fetch('https://5471-41-76-96-122.ngrok-free.app/CreateVehicle',{
+    await fetch('https://01d2-41-76-96-122.ngrok-free.app/CreateVehicle',{
         method:'POST',
         headers:{
             'Content-Type':'application/json',

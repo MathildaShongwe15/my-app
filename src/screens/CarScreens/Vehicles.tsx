@@ -16,7 +16,10 @@ const CarHistory =({route} :any)=> {
    let Provider:string = route.params.Paramskeys[0];
    let type:string = route.params.Paramskeys[1];
    let fee:number = route.params.Paramskeys[2];
- //console.warn(typeService)
+   let serviceId:number = route.params.Paramskeys[3];
+   let providerId:string =  route.params.Paramskeys[4];
+
+ console.warn(providerId);
   const [brand, setVehicleBrand] = useState("");
   const [brand1, setVehicleBrand1] = useState("");
   const [reg1, setVehicleReg1] = useState("");
@@ -37,7 +40,7 @@ const CarHistory =({route} :any)=> {
 
   const getVehicles = async () =>{
 
-    await fetch('https://5471-41-76-96-122.ngrok-free.app/GetAllVehicles',{
+    await fetch('https://01d2-41-76-96-122.ngrok-free.app/GetAllVehicles',{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
@@ -50,7 +53,7 @@ const CarHistory =({route} :any)=> {
           console.log("response is okay", response)
           return response.json();
         })
-        .then(data => (setData(data.vehicle), console.log(data.vehicle)))
+        .then(data => (setData(data.vehicle),setId(data.vehicle.Id),console.log(data.vehicle)))
         .catch(err => console.log(err))
 
 };
@@ -58,7 +61,7 @@ const CarHistory =({route} :any)=> {
 
 const DeleteVechicle = async() =>{
 
-  await fetch(`https://5471-41-76-96-122.ngrok-free.app/DeleteVehicle/${id2}`,{
+  await fetch(`https://01d2-41-76-96-122.ngrok-free.app/DeleteVehicle/${id2}`,{
       method:'DELETE',
       headers:{
           'Content-Type':'application/json',
@@ -111,7 +114,7 @@ useEffect(() =>{
                 >
                   Delete
                 </Button>
-                <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('Requests', {paramKey:[brand1,reg1, color1, model1,Provider,type,fee]})}>
+                <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('Requests', {paramKey:[brand1,reg1, color1, model1,Provider,type,fee,serviceId,providerId,id2]})}>
                   Choose this vehicle
                 </Button>
               </Button.Group>

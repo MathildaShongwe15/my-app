@@ -16,7 +16,7 @@ const AppBarNav = () =>{
           <Drawer.Navigator  defaultStatus="closed"
                     screenOptions={{
                     overlayColor: '#F0F3FF',}}>
-                     <Drawer.Screen name='Requests' component={Requests}></Drawer.Screen>
+                     <Drawer.Screen name='ViewRequests' component={Requests}></Drawer.Screen>
                      <Drawer.Screen name='Profile' component={Profile}></Drawer.Screen>
                      {/* <Drawer.Screen name="RouteMap" component={RouteScreen} /> */}
             </Drawer.Navigator>

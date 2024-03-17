@@ -14,6 +14,8 @@ import { useAuth } from "../../../Context/AuthContext";
 
 
 const LoginApp = () => {
+
+
 const {onLogin,authState} = useAuth();
 const validator = require('validator');
 const [role, setRole] = useState('')
@@ -26,10 +28,13 @@ const [passwordValidError, setPasswordValidError] = useState('');
 const login = async() =>{
   const result =  onLogin!(email,password,role);
   console.log("SEEE ME",result);
+
   if(result )
   {
     console.warn(result);
+
   }
+
 }
 const loader = (() => {
 

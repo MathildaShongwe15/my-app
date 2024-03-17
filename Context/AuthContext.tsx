@@ -1,8 +1,11 @@
 import React, {createContext, useContext, useEffect, useState} from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Animated, Easing, View,Text,Image } from "react-native";
+import LottieView from "lottie-react-native";
+
 
 interface AuthProps{
-   authState?: {token:string|null; authenticated:boolean|null}
+   authState?: {token:string|null; authenticated:boolean|null;isLoading:boolean|null}
    onRegister?:(email:string, password:string, role:string) => Promise<any>;
    onLogin?:(email:string, password:string, role:string) => Promise<any>;
    onLogout?: () => Promise<any>;
@@ -23,24 +26,23 @@ export const useAuth = () =>{
 
 export const AuthProvider = ({children}:any) => {
 
+  const [loop, setLoop] = useState(true);
   console.log( "HELLO",AsyncStorage.getItem(TOKEN_KEY));
 
   const [authState, setAuthState] = useState<{
     token: string | null;
     authenticated: boolean | null;
-
-
+    isLoading:boolean |null;
   }>({
     token:null,
     authenticated:null,
-
-
+    isLoading:null
   });
 
 
   const login = async (email :string ,password :string, role: string) =>{
 
-                await fetch('https://5471-41-76-96-122.ngrok-free.app/Login',{
+                await fetch('https://01d2-41-76-96-122.ngrok-free.app/Login',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json',
@@ -55,18 +57,8 @@ export const AuthProvider = ({children}:any) => {
                       console.log("response is okay", response)
 
                       return response.json();
-
                     })
                     .then(data =>(AsyncStorage.setItem("ROLE",data.role) ,AsyncStorage.setItem(TOKEN_KEY, data.token) ,(AsyncStorage.setItem("UserID",data.Id))))
-
-                    .then(data =>
-
-                    setAuthState({
-                      token: TOKEN_KEY,
-                      authenticated:true,
-
-                     }))
-
                     .catch(err => console.log(err))
   };
 
@@ -75,25 +67,25 @@ export const AuthProvider = ({children}:any) => {
 
   const loadToken = async() =>{
     const getToken =await AsyncStorage.getItem(TOKEN_KEY);
-
-    if( getToken){
+    if(getToken != null){
       setAuthState({
          token: getToken,
          authenticated:true,
-
+         isLoading:true
       });
 
     }
     console.log("stored",await AsyncStorage.getItem(TOKEN_KEY))
   }
   loadToken();
-},[])
+},[]);
 
 const logout = async()=>{
 
    setAuthState({
     token:null,
     authenticated:false,
+    isLoading:false
 
    })
 }
@@ -105,7 +97,6 @@ const value ={
 } ;
 
     return (
-
        <AuthContext.Provider value={value}>
         {children}
        </AuthContext.Provider>

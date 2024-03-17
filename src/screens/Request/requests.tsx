@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 import { StyleSheet} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const RequestsCart = ({route}:any) => {
-
 
   let brand:string = route.params.paramKey[0];
   let color:string =route.params.paramKey[1];
@@ -13,7 +13,16 @@ const RequestsCart = ({route}:any) => {
   let type:string =route.params.paramKey[5];
   let provider:string=route.params.paramKey[4];
   let fee:number=route.params.paramKey[6];
+  let serviceId:number = route.params.paramKey[7];
+  let providerId:number = route.params.paramKey[8];
+  let VehicleId:number = route.params.paramKey[9];
   let VatAdded = (fee + 100) *  0.15;
+
+  const [reqCode, setReqCode] = useState("");
+
+
+console.warn(serviceId,providerId,VehicleId);
+
   console.warn(provider);
    const navigation = useNavigation();
    const data = [{
@@ -54,22 +63,52 @@ console.warn(route.params.paramKey[0]);
 
 }
 
+
+const postServiceRequest = async () =>{
+
+  await fetch('https://01d2-41-76-96-122.ngrok-free.app/ServiceRequestCreate',{
+      method:'POST',
+      headers:{
+          'Content-Type':'application/json',
+      },
+      body: JSON.stringify(
+        {
+          Id:"aa7a059e-70db-435c-a860-ac9159060d84",
+          serviceid:serviceId,
+          userid:"2b0ea48b-6fab-423f-b582-a2d9258906b2",
+          vehicleid:VehicleId,
+          serviceProviderId:providerId,
+          qauntity:0,
+          type:"",
+          spare:1,
+          amount: 0
+        })
+      })
+      .then(response => {
+        if(!response.ok){
+          throw new Error('Network response not ok'),
+          console.log(response)
+        }
+        console.log("response is okay", response)
+
+        return response.json();
+      })
+      .catch(err => console.log(err))
+};
+
+
 useEffect(() =>{
 
 },[])
 //const[requestNum,setRequestNum] = useState("");
-const randomRequestNum =()=>{
-  return "RO"+(Math.floor(Math.random() * 1500)+1)
-  //return requestNum;
 
-}
 
   return( <Box>
 
       <Heading fontSize="xl" p="4" pb="3" >
         Review Request Reciept
       </Heading>
-      <Text  style={styles.SubTitle}>Request Number:{randomRequestNum()}</Text>
+      <Text  style={styles.SubTitle}>Request Pending</Text>
       <FlatList data={data} renderItem={({
       item
     }) => <Box borderBottomWidth="1" _dark={{
@@ -144,7 +183,7 @@ const randomRequestNum =()=>{
             <Button  size="md" variant="outline"  colorScheme="blue" mt="10" w="300" onPress={() =>{navigation.navigate('Maps', {paramkey: [provider,brand,model]})}} >
               Confirm Request
             </Button>
-            <Button size="md" variant="outline"  colorScheme="blue" mt="5" w="300" onPress={() => RemovePendingRequest()} >
+            <Button size="md" variant="outline"  colorScheme="blue" mt="5" w="300" onPress={() => postServiceRequest()} >
               Clear Request
             </Button>
 

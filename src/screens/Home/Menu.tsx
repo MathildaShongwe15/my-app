@@ -15,7 +15,7 @@ const Menu =()=> {
 
 
   const getServices = async () =>{
-    await fetch('https://5471-41-76-96-122.ngrok-free.app/AllServices',{
+    await fetch('https://01d2-41-76-96-122.ngrok-free.app/AllServices',{
       method:'GET',
       headers:{
           'Content-Type':'application/json',
@@ -36,7 +36,7 @@ const Menu =()=> {
 };
 const getServicesById = async() =>{
 
-  await fetch(`https://5471-41-76-96-122.ngrok-free.app/GetServiceById/${serviceId}`,{
+  await fetch(`https://01d2-41-76-96-122.ngrok-free.app/GetServiceById/${serviceId}`,{
       method:'GET',
       headers:{
           'Content-Type':'application/json',
@@ -154,7 +154,7 @@ const Categories = [
           data={Categories}
           renderItem={({item}) => {
             return (
-              <TouchableOpacity  onPress={() => navigation.navigate(item.nav , setServiceId(item.Id))}>
+              <TouchableOpacity  onPress={() => navigation.navigate(item.nav)}>
                  <BlockCard info={item}/>
 
               </TouchableOpacity>
