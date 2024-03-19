@@ -20,8 +20,7 @@ const LoadingScreen = () => {
 
   return (
     <View style={{flex:1,justifyContent: 'center',alignItems:'center', backgroundColor:"#fff"}}>
-    <Image source={require("../../../assets/pics/Logo (2).png")} style={{width:250, height:250}} />
-    <LottieView  autoPlay loop={loop} style={{width:200, height:200, marginTop:-50}} source={require('../../../assets/Animations/Animation - 1710671212392.json')}/>
+    <LottieView  autoPlay loop={loop} style={{width:250, height:250, marginTop:-150}} source={require('../../../assets/Animations/Animation - 1710869161163.json')}/>
   </View>
    );
 };

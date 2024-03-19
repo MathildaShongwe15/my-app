@@ -23,26 +23,13 @@ import { Button, View,Text,Image} from 'react-native';
 import { useAuth } from "../../Context/AuthContext";
 import Icon from "react-native-vector-icons/AntDesign";
 import LoadingScreen from "../../src/screens/Home/LoadingPage";
+import AntIcon from "react-native-vector-icons/AntDesign";
+import Sidebar from '../Navigation/sideBarNavigation'
 const App = () => {
   const{authState, onLogout}:any = useAuth();
-
   const Stack = createNativeStackNavigator();
 
 
-  if(authState.isLoading){
-    return (
-    <LoadingScreen/>
-    )
-  }
-  else
-  {
-    return(
-
-  authState?.authenticated ?(
-    // Authenticated show Menu
-  <Stack.Screen name='Menu' component={MenuScreen} options={{ headerShown: true,headerTitle: "Menu", headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>):
-    (<Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false}}></Stack.Screen> )
- )}
   return (
 
       <Stack.Navigator
@@ -58,17 +45,15 @@ const App = () => {
 
       >
 
-        {authState?.authenticated ?(
+        {authState.authenticated?(
           // Authenticated show Menu
         <Stack.Screen name='Menu' component={MenuScreen} options={{ headerShown: true,headerTitle: "Menu", headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>):
           (<Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false}}></Stack.Screen> )
        }
-
        <Stack.Screen name="Login" component={LoginScreen} />
-
        <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}} />
-        <Stack.Screen name="ResetPass"  component={ResetScreen} />
+        <Stack.Screen name="ResetPass" component={ResetScreen} />
 
         <Stack.Screen name="RequestFuel" component={RequestFuelScreen}options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}} />
         <Stack.Screen name="Registration Car" component={RegistrationScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}/>

@@ -1,7 +1,7 @@
 import { Avatar, Box, FlatList, HStack, Heading, Spacer, VStack,Text, NativeBaseProvider, Button, Center} from "native-base";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-
+import uuid from 'react-native-uuid'
 import { StyleSheet} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const RequestsCart = ({route}:any) => {
@@ -18,7 +18,9 @@ const RequestsCart = ({route}:any) => {
   let VehicleId:number = route.params.paramKey[9];
   let VatAdded = (fee + 100) *  0.15;
 
-  const [reqCode, setReqCode] = useState("");
+
+
+  const [reqId, setReqId] = useState("");
 
 
 console.warn(serviceId,providerId,VehicleId);
@@ -66,16 +68,16 @@ console.warn(route.params.paramKey[0]);
 
 const postServiceRequest = async () =>{
 
-  await fetch('https://01d2-41-76-96-122.ngrok-free.app/ServiceRequestCreate',{
+  await fetch('https://cb5c-41-76-96-122.ngrok-free.app/ServiceRequestCreate',{
       method:'POST',
       headers:{
           'Content-Type':'application/json',
       },
       body: JSON.stringify(
         {
-          Id:"aa7a059e-70db-435c-a860-ac9159060d84",
+          Id:uuid.v4(),
           serviceid:serviceId,
-          userid:"2b0ea48b-6fab-423f-b582-a2d9258906b2",
+          userid:"ba0d8023-5c3d-4dd7-83a2-d6d80c2c3f43",
           vehicleid:VehicleId,
           serviceProviderId:providerId,
           qauntity:0,
@@ -83,6 +85,7 @@ const postServiceRequest = async () =>{
           spare:1,
           amount: 0
         })
+
       })
       .then(response => {
         if(!response.ok){
@@ -93,6 +96,7 @@ const postServiceRequest = async () =>{
 
         return response.json();
       })
+      .then(data =>(setReqId(data.request.Id),console.log(reqId) ))
       .catch(err => console.log(err))
 };
 
@@ -103,9 +107,9 @@ useEffect(() =>{
 //const[requestNum,setRequestNum] = useState("");
 
 
-  return( <Box>
+  return( <Box  style={styles.Container}>
 
-      <Heading fontSize="xl" p="4" pb="3" >
+      <Heading fontSize="xl" p="4" pb="3" color={"#07137D"} >
         Review Request Reciept
       </Heading>
       <Text  style={styles.SubTitle}>Request Pending</Text>
@@ -113,7 +117,7 @@ useEffect(() =>{
       item
     }) => <Box borderBottomWidth="1" _dark={{
       borderColor: "muted.50"
-    }} borderColor="muted.800" pl={["0", "4"]} pr={["0", "5"]} py="2"  backgroundColor={"#EEEDEB"}>
+    }} borderColor="muted.800" pl={["0", "4"]} pr={["0", "5"]} py="2"  backgroundColor={"#ffff"}>
             <HStack space={[2, 3]} justifyContent="space-between">
 
               <VStack marginLeft={5}>
@@ -180,7 +184,7 @@ useEffect(() =>{
 
 </Center>
           <Center>
-            <Button  size="md" variant="outline"  colorScheme="blue" mt="10" w="300" onPress={() =>{navigation.navigate('Maps', {paramkey: [provider,brand,model]})}} >
+            <Button  size="md" variant="outline"  colorScheme="blue" mt="10" w="300" onPress={() =>{navigation.navigate('Maps', {paramkey: [provider,brand,model,serviceId,VehicleId,providerId,reqId]})}} >
               Confirm Request
             </Button>
             <Button size="md" variant="outline"  colorScheme="blue" mt="5" w="300" onPress={() => postServiceRequest()} >
@@ -196,10 +200,10 @@ useEffect(() =>{
 
   };
   const styles = StyleSheet.create({
-    Container: { flex: 1, backgroundColor: "white"},
+    Container: { flex: 1, backgroundColor: "#fff"},
     Title:{marginTop:50, color:"#07137D"},
-    SubTitle:{marginTop:0,color:"#07137D", marginLeft:20,fontWeight:"700"},
-    SubTitle2:{marginTop:5, padding:0,color:"#A8A196"},
+    SubTitle:{marginTop:0,color:"#07137D", marginLeft:20,fontWeight:"500"},
+    SubTitle2:{marginTop:0, padding:0,color:"#07137D",fontWeight:"500"},
     Img:{marginTop:20}
 
   });

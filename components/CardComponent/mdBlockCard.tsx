@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { Badge, Center, HStack, NativeBaseProvider, VStack , Text} from "native-base"
+import { Badge, Center, HStack, NativeBaseProvider, VStack , Text, Avatar} from "native-base"
 import React from "react"
 import { View, StyleSheet, Dimensions, Image, TouchableOpacity} from "react-native"
 import AntIcon from "react-native-vector-icons/AntDesign";
@@ -10,12 +10,19 @@ const BlockCard2 =(props: any ) =>{
     return(
         <NativeBaseProvider>
         <View style={styles.cardContainer}>
+          <HStack>
+        <Avatar size="30px" marginLeft="3"marginTop={5} source={{
+            uri: "https://img.freepik.com/free-photo/user-profile-icon-front-side_187299-39596.jpg?w=740&t=st=1710661339~exp=1710661939~hmac=02615f98301244ad254bf67ed93759fa934241ff4876a5dc072557483adb2766"
+          }} />
+          <VStack>
            <View style={styles.infoStyle}>
-           <Image source={require("../../assets/pics/shell.png")}/>
            <Text style={styles.titleStyle}>{props.info.Name}</Text>
              <Text style={styles.categoryStyle}>{props.info.Email}</Text>
              <Text style={styles.categoryStyle}>{props.info.PhoneNumber}</Text>
-           </View>
+           </View></VStack>
+           {/* <Image source={require("../../assets/pics/icc.png")} style={styles.ImageStyle}/> */}
+
+         </HStack>
            </View>
 
     </NativeBaseProvider>
@@ -32,8 +39,7 @@ const styles = StyleSheet.create({
         borderStyle:"solid",
         borderRadius: 20,
         borderColor:"red",
-        backgroundColor: "#EEEEEE",
-
+        backgroundColor: "#F5F5F5",
 
     },
 
@@ -55,9 +61,10 @@ const styles = StyleSheet.create({
         marginLeft:15
     },
     ImageStyle:{
-       height:40,
-       width:40,
-       marginTop:15
+       height:25,
+       width:25,
+       marginTop:15,
+       marginLeft:20
     }
 })
 

@@ -1,10 +1,10 @@
-import { Avatar, Box, Button , Center, CheckIcon, Checkbox, FormControl, HStack, Heading, Input, Link, NativeBaseProvider, Select, VStack, View, WarningOutlineIcon } from "native-base";
+import { Avatar, Box, Button , Center, CheckIcon, Checkbox, FormControl, HStack, Heading, IconButton, Input, Link, NativeBaseProvider, Select, VStack, View, WarningOutlineIcon, useToast,Text } from "native-base";
 import React, { useState, useContext, isValidElement, useEffect } from "react";
 import {StatusBar , Pressable, Alert, ActivityIndicator} from "react-native";
 import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { NavigationContainer } from "@react-navigation/native";
 import { useNavigation } from '@react-navigation/native';
-import {  Text,Image, Dimensions,StyleSheet } from 'react-native';
+import {  Image, Dimensions,StyleSheet } from 'react-native';
 // import { AuthContext } from "../../../Context/AuthContext";
 import Spinner from 'react-native-loading-spinner-overlay';
 //const navigation = useNavigation();
@@ -16,29 +16,23 @@ import { useAuth } from "../../../Context/AuthContext";
 const LoginApp = () => {
 
 
-const {onLogin,authState} = useAuth();
+const {onLogin} = useAuth();
 const validator = require('validator');
+
 const [role, setRole] = useState('')
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
-console.log(email,password,role);
 const [emailValidError, setEmailValidError] = useState('');
 const [passwordValidError, setPasswordValidError] = useState('');
 
+
+console.log(email,password,role);
+
 const login = async() =>{
-  const result =  onLogin!(email,password,role);
-  console.log("SEEE ME",result);
-
-  if(result )
-  {
-    console.warn(result);
-
-  }
-
+ onLogin!(email,password,role);
 }
-const loader = (() => {
+const toast = useToast();
 
-})
 
 useEffect(() => {
 
@@ -65,6 +59,7 @@ const validatePassword = (text:string) =>{
  // const navigation = useNavigation();
     return (
     <NativeBaseProvider>
+
       {/* <ActivityIndicator size="small" color="#0000ff" /> */}
       <View style={styles.Container}>
 
@@ -72,6 +67,7 @@ const validatePassword = (text:string) =>{
 
         <Box safeArea  p="2" py="8" w="90%" maxW="290">
          <Center>
+
          <Image
             source={require("../../../assets/pics/Mobile1.png")}
             style={{
@@ -121,8 +117,9 @@ const validatePassword = (text:string) =>{
           mt="1"
           onValueChange={text => setRole(text)}
         >
+
           <Select.Item label="SERVICE PROVIDER" value="SERVICE PROVIDER" />
-          <Select.Item label="Customer" value="Customer" />
+          <Select.Item label="CUSTOMER" value="CUSTOMER" />
         </Select>
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
           Please make a selection!
@@ -136,6 +133,17 @@ const validatePassword = (text:string) =>{
                 <Button size="sm" variant="outline"  colorScheme="blue" mt="0" onPress={() => {login()}} >
                   SIGN IN
                 </Button>
+                <Button onPress={() => {
+      toast.show({
+        render: () => {
+          return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={700}>
+                  <Text>You have Logged in Successfully</Text>
+                </Box>
+        }
+      });
+    }}>
+        Custom Toast
+      </Button>
             <HStack mt="3" justifyContent="center">
               <Link  _text={{
               color: "blue.800",

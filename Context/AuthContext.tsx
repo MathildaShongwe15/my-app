@@ -5,7 +5,7 @@ import LottieView from "lottie-react-native";
 
 
 interface AuthProps{
-   authState?: {token:string|null; authenticated:boolean|null;isLoading:boolean|null}
+   authState?: {token:string|null; authenticated:boolean|null;role:string|null}
    onRegister?:(email:string, password:string, role:string) => Promise<any>;
    onLogin?:(email:string, password:string, role:string) => Promise<any>;
    onLogout?: () => Promise<any>;
@@ -15,8 +15,6 @@ interface AuthProps{
 const TOKEN_KEY = "my-jwt";
 export const API_URL = '';
 const AuthContext = createContext<AuthProps>({});
-
-
 
 export const useAuth = () =>{
   return useContext(AuthContext);
@@ -32,17 +30,19 @@ export const AuthProvider = ({children}:any) => {
   const [authState, setAuthState] = useState<{
     token: string | null;
     authenticated: boolean | null;
-    isLoading:boolean |null;
+    role: string|null;
+
   }>({
     token:null,
     authenticated:null,
-    isLoading:null
+    role:null
+
   });
 
 
   const login = async (email :string ,password :string, role: string) =>{
 
-                await fetch('https://01d2-41-76-96-122.ngrok-free.app/Login',{
+                await fetch('https://cb5c-41-76-96-122.ngrok-free.app/Login',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json',
@@ -64,18 +64,22 @@ export const AuthProvider = ({children}:any) => {
 
 
  useEffect(() =>{
-
   const loadToken = async() =>{
+
     const getToken =await AsyncStorage.getItem(TOKEN_KEY);
+    const getRole = await AsyncStorage.getItem("ROLE");
+    console.log(getRole);
     if(getToken != null){
       setAuthState({
          token: getToken,
          authenticated:true,
-         isLoading:true
-      });
+         role: getRole
 
+      });
     }
+
     console.log("stored",await AsyncStorage.getItem(TOKEN_KEY))
+    console.log("role",await AsyncStorage.getItem("ROLE"))
   }
   loadToken();
 },[]);
@@ -85,11 +89,10 @@ const logout = async()=>{
    setAuthState({
     token:null,
     authenticated:false,
-    isLoading:false
+    role:null
 
    })
 }
-
 const value ={
   onLogin: login,
   onLogout: logout,

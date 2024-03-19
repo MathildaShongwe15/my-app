@@ -1,11 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import { Badge, Center, HStack, NativeBaseProvider, VStack , Text} from "native-base"
-import React from "react"
+import React, { useState } from "react"
 import { View, StyleSheet, Dimensions, Image, TouchableOpacity} from "react-native"
 
 
 const BlockCard1 =(props: any) =>{
     const navigation = useNavigation();
+    const[img,setimg]=useState();
 
     const handleItemPress = (item:string, Id:any) => {
         // Navigate to different screens based on item data
@@ -16,9 +17,11 @@ const BlockCard1 =(props: any) =>{
           navigation.navigate('Maps');
         } else if (item === 'Jump Start') {
           navigation.navigate('Providers',{ParamKey: [item,Id]});
+
         }
        else if (item === 'Tyre Change') {
         navigation.navigate('Providers',{ParamKey: [item,Id]});
+
        }
        else if (item === 'Fuel') {
        navigation.navigate('Providers',{ParamKey: [item,Id]});
@@ -37,8 +40,9 @@ const BlockCard1 =(props: any) =>{
         <View style={styles.cardContainer}>
            <View style={styles.infoStyle}>
             <Center>
+            <Image source={require("../../assets/pics/ic.png")} style={styles.ImageStyle}/>
             </Center>
-             <Text style={styles.titleStyle}>{props.info.Type}</Text>
+             <Text style={styles.titleStyle}>{props.info.Type} </Text>
              <Text style={styles.categoryStyle}>{props.info.Description}</Text>
 
            </View>
@@ -51,14 +55,14 @@ const BlockCard1 =(props: any) =>{
 const deviceWidth = Math.round(Dimensions.get('window').width)
 const styles = StyleSheet.create({
     cardContainer:{
-        width:380,
-        height:150,
-        marginTop:55,
-        marginLeft:15,
+        width:390,
+        height:130,
+        marginTop:20,
+        marginLeft:12,
         borderStyle:"solid",
         borderRadius: 20,
         borderColor:"red",
-        backgroundColor: "#818FB4",
+        backgroundColor: "#7895CB",
 
 
     },
@@ -67,13 +71,12 @@ const styles = StyleSheet.create({
        fontSize:20,
        fontWeight:'800',
        textAlign:'center',
-       marginTop:15,
+       marginTop:5,
        color:"#07137D",
-
     },
     categoryStyle:{
         fontWeight:'400',
-        fontSize:13,
+        fontSize:12,
         textAlign:'center',
         color:"#07137D",
     }

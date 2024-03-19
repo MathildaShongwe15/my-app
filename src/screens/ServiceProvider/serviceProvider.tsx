@@ -5,10 +5,11 @@ import BlockCard from "../../../components/CardComponent/BlockCard"
 import Mdblockcard from "../../../components/CardComponent/mdBlockCard";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
+import LoadingScreens from '../Home/LoadingPage';
 
 const Menu =({route}:any)=> {
 
-
+  const [isLoading, setIsLoading] = useState(true);
   let ServiceId: any = route.params.ParamKey[1];
   let typeService: any = route.params.ParamKey[0];
 console.warn(ServiceId);
@@ -16,7 +17,7 @@ console.warn(ServiceId);
   const navigation = useNavigation();
 
   const getProviders = async () =>{
-    await fetch(`https://5471-41-76-96-122.ngrok-free.app/GetProviderByService/${ServiceId}`,{
+    await fetch(`https://cb5c-41-76-96-122.ngrok-free.app/GetProviderByService/${ServiceId}`,{
       method:'GET',
       headers:{
           'Content-Type':'application/json',
@@ -29,16 +30,39 @@ console.warn(ServiceId);
         console.log("response is okay", response)
         return response.json();
       })
-      .then(data => (setData(data.providers)))
+      .then(data => (setData(data.providers),setIsLoading(false)))
       .catch(err => console.log(err))
 
 
 
 };
+const getContent = () =>{
 
+  if(isLoading){
+    return <LoadingScreens/>
+  }
+
+  return  <View style={styles.Container}>
+  <Heading style={styles.Heading1}>
+   Choose a Service Provider
+ </Heading>
+ <Text style={styles.sub}>All services you need </Text>
+
+ <FlatList
+    data={data}
+    renderItem={({item}) => {
+      return (
+        <TouchableOpacity  onPress={()=> handleItemPress(item.Name,item.ServiceFee, item.Id)}>
+           <Mdblockcard info={item}/>
+           </TouchableOpacity>
+      );
+    }}
+  />
+
+</View>
+}
 useEffect(() =>{
 getProviders()
-
 },[])
     const handleItemPress = (name:string,servicefee:number,ProviderId:string) => {
        // Navigate to different screens based on item data
@@ -65,25 +89,8 @@ getProviders()
      return(
 
       <NativeBaseProvider>
-       <View style={styles.Container}>
-        <Heading style={styles.Heading1}>
-         Choose a Service Provider
-       </Heading>
-       <Text style={styles.sub}>All services you need </Text>
 
-       <FlatList
-          data={data}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity  onPress={()=> handleItemPress(item.Name,item.ServiceFee, item.Id)}>
-                 <Mdblockcard info={item}/>
-                 </TouchableOpacity>
-            );
-          }}
-        />
-
- </View>
-
+        {getContent()}
 
       </NativeBaseProvider>
 

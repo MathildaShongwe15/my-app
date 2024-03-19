@@ -40,7 +40,7 @@ const Example = () => {
 
    const getReq = async () =>{
 
-    await fetch('https://01d2-41-76-96-122.ngrok-free.app/UserRequestByProviderId/546426ef-30f6-4406-9646-1dd310aa38e6',{
+    await fetch('https://cb5c-41-76-96-122.ngrok-free.app/UserRequestByProviderId/546426ef-30f6-4406-9646-1dd310aa38e6',{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
@@ -105,23 +105,13 @@ useEffect(() =>{
                 <VStack>
                 <Button
                 mt="0"
-                ml="0"
+                mr="5"
                 w="100"
                 colorScheme="green"
                 variant="outline"
                onPress={() => navigation.navigate("Services")}
               >
-                Approve
-              </Button>
-              <Button
-                mt="2"
-                mr="2"
-                w="100"
-                colorScheme="red"
-                variant="outline"
-               onPress={() => navigation.navigate("Tyre")}
-              >
-                Decline
+                Accept
               </Button>
               </VStack>
               </HStack>

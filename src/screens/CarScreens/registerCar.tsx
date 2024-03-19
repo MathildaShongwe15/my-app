@@ -1,9 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import {Button,Center,CheckIcon,FormControl,Heading,Input,NativeBaseProvider,Select,TextArea,View,WarningOutlineIcon} from "native-base";
+import {Text,Box, Button,Center,CheckIcon,FormControl,Heading,Input,NativeBaseProvider,Select,TextArea,View,WarningOutlineIcon, useToast} from "native-base";
 import React, { useState } from "react";
 import {  StyleSheet } from "react-native";
-
+import uuid from 'react-native-uuid';
 
 
 const RegisterVehicle = () => {
@@ -21,12 +21,12 @@ const RegisterVehicle = () => {
     console.log(Brand,Model,RegNo,Color,Description)
     const getUserId = await AsyncStorage.getItem("UserID");
 
-    await fetch('https://01d2-41-76-96-122.ngrok-free.app/CreateVehicle',{
+    await fetch('https://cb5c-41-76-96-122.ngrok-free.app/CreateVehicle',{
         method:'POST',
         headers:{
             'Content-Type':'application/json',
         },
-        body: JSON.stringify({Id:"2bh90b-88ekb-423f-7882-a2dee8589786k5",UserId:getUserId,vehicleBrand:brand,vehicleModel:model,regNo:Reg,color: color, description: description})
+        body: JSON.stringify({Id:uuid.v4(),UserId:getUserId,vehicleBrand:brand,vehicleModel:model,regNo:Reg,color: color, description: description})
         })
         .then(response => {
           if(!response.ok){
@@ -39,7 +39,7 @@ const RegisterVehicle = () => {
         .then(data =>(AsyncStorage.setItem("BRAND",data.carInfo.VehicleBrand) ,AsyncStorage.setItem("MODEL", data.carInfo.VehicleModel),AsyncStorage.setItem("REG", data.carInfo.RegNo)))
         .catch(err => console.log(err))
 };
-
+const toast = useToast();
 const navigation = useNavigation();
   return (
 
@@ -148,41 +148,17 @@ const navigation = useNavigation();
           >
             Register with this Vehicle
           </Button>
-          {/*
-            <HStack bg="indigo.600" alignItems="center" safeAreaBottom shadow={6}>
-          <Pressable  flex={1}>
-            <Center>
-              <Icon mb="1" color="white" size="sm" />
-              <Text color="white" fontSize="12">
-                Home
-              </Text>
-            </Center>
-          </Pressable>
-          <Pressable py="2" flex={1} >
-            <Center>
-              <Icon mb="1"  color="white" size="sm" />
-              <Text color="white" fontSize="12">
-                Search
-              </Text>
-            </Center>
-          </Pressable>
-          <Pressable py="2" flex={1} >
-            <Center>
-              <Icon mb="1" color="white" size="sm" />
-              <Text color="white" fontSize="12">
-                Cart
-              </Text>
-            </Center>
-          </Pressable>
-          <Pressable py="2" flex={1} >
-            <Center>
-              <Icon mb="1"  color="white" size="sm" />
-              <Text color="white" fontSize="12">
-                Account
-              </Text>
-            </Center>
-          </Pressable>
-        </HStack> */}
+          <Button onPress={() => {
+      toast.show({
+        render: () => {
+          return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={700}>
+                  <Text>You have Logged in Successfully</Text>
+                </Box>
+        }
+      });
+    }}>
+        Custom Toast
+      </Button>
         </Center>
       </View>
     </NativeBaseProvider>

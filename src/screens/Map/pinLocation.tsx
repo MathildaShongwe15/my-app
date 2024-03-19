@@ -19,20 +19,65 @@ const PinLocation = ({route}:any) => {
     // let brand:string = route.params.paramKey[0];
     // let color:string =route.params.paramKey[1];
     // let reg:string =route.params.paramKey[2];
-    // let model:string = route.params.paramKey[3];
-    // let type:string =route.params.paramKey[5];
+    // let serviceId:string = route.params.paramKey[3];
+    // const [serviceid, setService] = useState("");
+    // setService(serviceId);
+    let reqId:string =route.params.paramkey[6];
 
-    // let fee:number=route.params.paramKey[6];
+    // let fee:""number=route.params.paramKey[6];
+    const [location,setLocation] = useState();
+    const [address, setAddress] = useState();
+    const [formattedaddress, setformattedAddress] = useState();
+    const [latitude,setLatitude] = useState();
+    const [longitude,setLongitude] = useState();
 
 
+    const updateRequest = async () =>{
+
+   try{
+    console.warn("JUST ARRIVED REQUEST",reqId);
+           await fetch(`https://cb5c-41-76-96-122.ngrok-free.app/ServiceRequestUpdate/${reqId}`,{
+               method: 'PUT',
+               headers:{
+                   'Accept': 'application/json',
+                   'Content-Type':'application/json'
+               },
+               body: JSON.stringify(
+                {
+                  serviceid: await route.params.paramkey[3],
+                  userid:"ba0d8023-5c3d-4dd7-83a2-d6d80c2c3f43",
+                  vehicleid:await route.params.paramkey[4],
+                  service_provider_id:await route.params.paramkey[5],
+                  qauntity:"",
+                  type:"",
+                  spare:0,
+                  amount:0,
+                  longitude:longitude,
+                  latitude:latitude})
+               }) .then(response => {
+                if(!response.ok){
+                  throw new Error('Network response not ok'),
+                  console.log(response)
+                }
+                console.log("response is okay", response)
+
+                return response.json();
+              })
+
+    }
+    catch(err){
+      console.error(err)
+    }
+    };
 
 
-  const [location,setLocation] = useState();
-  const [address, setAddress] = useState();
-  const [formattedaddress, setformattedAddress] = useState();
-  const [latitude,setLatitude] = useState();
-  const [longitude,setLongitude] = useState();
+  const refreshButton=()=>{
+    useEffect(() =>{
+      getPermissions();
+      animateToRegion();
 
+      },[])
+  }
 
 
     useEffect(() =>{
@@ -61,10 +106,6 @@ const PinLocation = ({route}:any) => {
            console.log("BITCH IM HERE:" ,latitude,longitude)
 
         };
-
-
-
-
     const geocode = async() => {
         const geocodedLocation = await Location.geocodeAsync(address);
         console.log("Geocode Address:");
@@ -95,29 +136,26 @@ const PinLocation = ({route}:any) => {
     }
     const animateToRegion = () => {
       mapRef.current.animateToRegion(state.region, 1000);
+      reverseGeocode();
    }
 console.warn("END",route.params.paramkey);
 
   return (
-
 
  <View style={styles.Container}>
      <MapView style={styles.map11} ref={mapRef} >
     <Marker coordinate={state.region} title="MY LOCATION" description="SEEME"/>
    </MapView>
     <Center>
-    <Heading fontSize="xl" p="4" pb="3">
-        Current Address
-      </Heading>
-    <TextInput placeholder="Address" value={formattedaddress} />
+
    {/* <Button title="GeoCode Address" onPress={geocode}></Button> */}
-   <Button  title="Get Current Address" onPress={reverseGeocode} ></Button>
+
    </Center>
 
-
+   <Button onPress={()=> updateRequest()}>PRESS ME</Button>
   <BottomSheet text={formattedaddress} heading={"Current Address:"} />
 <Button onPress={()=> navigation.navigate('Order', {paramkey:[formattedaddress,route.params.paramkey[0],route.params.paramkey[1],route.params.paramkey[2]]})}>PRESS ME</Button>
-<Button onPress={()=> onRelocate()}>PRESS ME</Button>
+
 
 
 </View>

@@ -1,21 +1,25 @@
 import { AlertDialog, Button, Center,  Heading,  NativeBaseProvider, VStack } from "native-base";
 import React, { useEffect, useState } from "react";
-import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet,Text } from "react-native";
+import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet,Text, ActivityIndicator} from "react-native";
 import BlockCard from "../../../components/CardComponent/BlockCard"
 import LgBlockCard from "../../../components/CardComponent/LgBlockCard"
 import { useNavigation } from "@react-navigation/native";
 import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
-
+import LoadingScreens from '../Home/LoadingPage';
 
 const Menu =()=> {
   const [data, setData] = useState([]);
   const [serviceId, setServiceId] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigation = useNavigation();
 
 
   const getServices = async () =>{
-    await fetch('https://01d2-41-76-96-122.ngrok-free.app/AllServices',{
+
+
+    // setSuccess(false);
+    await fetch('https://cb5c-41-76-96-122.ngrok-free.app/AllServices',{
       method:'GET',
       headers:{
           'Content-Type':'application/json',
@@ -23,36 +27,69 @@ const Menu =()=> {
       .then(response => {
         if(!response.ok){
           throw new Error('Network response not ok'),
-          console.log(response)
+          console.log(response.status)
         }
-        console.log("response is okay", response)
-        return response.json();
+
+          console.log("response is okay", response.status)
+
+             return response.json();
+
       })
-      .then(data => (setData(data.services)))
+      .then(data => (setData(data.services), setIsLoading(false)))
       .catch(err => console.log(err))
 
 
-
+     // return { isLoading, success };
 };
-const getServicesById = async() =>{
 
-  await fetch(`https://01d2-41-76-96-122.ngrok-free.app/GetServiceById/${serviceId}`,{
-      method:'GET',
-      headers:{
-          'Content-Type':'application/json',
-      },
-    })
-      .then(response => {
-        if(!response.ok){
-          throw new Error('Network response not ok'),
-          console.log(response)
-        }
-        console.log("response is okay", response)
-        return response.json();
-      })
-      .catch(err => console.log(err))
+const getContent = () =>{
+
+if(isLoading){
+  return <LoadingScreens/>
+}
+
+ return  <View style={styles.Container}><Heading style={styles.Heading}>
+         Browse categories
+
+       </Heading>
+       <Text style={styles.sub}>Navigate more</Text>
+        <FlatList
+          data={Categories}
+          renderItem={({item}) => {
+            return (
+
+              <TouchableOpacity  onPress={() => navigation.navigate(item.nav)}>
+                 <BlockCard info={item}/>
+
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={(items) => items.id.toString()}
+          horizontal
+
+          // showsHorizontalScrollIndicator={false}
+        //  alwaysBounceVertical={false}
+        />
+
+       <Heading style={styles.Heading1}>
+         Make a new Request
+       </Heading>
+       <Text style={styles.sub}>Request Services You Need</Text><FlatList
+ data={data}
+ renderItem={({item}) => {
+   return (
+
+        <LgBlockCard info={item}/>
+
+   );
+ }}
+ horizontal
+ showsHorizontalScrollIndicator={false}
+/>
+</View>
 };
 useEffect(() =>{
+
   getServices()
 
 },[])
@@ -144,54 +181,9 @@ const Categories = [
      return(
 
       <NativeBaseProvider>
-       <View style={styles.Container}>
-       <Heading style={styles.Heading}>
-         Browse categories
-
-       </Heading>
-       <Text style={styles.sub}>Navigate more</Text>
-        <FlatList
-          data={Categories}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity  onPress={() => navigation.navigate(item.nav)}>
-                 <BlockCard info={item}/>
-
-              </TouchableOpacity>
-            );
-          }}
-          keyExtractor={(items) => items.id.toString()}
-          horizontal
-
-          // showsHorizontalScrollIndicator={false}
-        //  alwaysBounceVertical={false}
-        />
-
-       <Heading style={styles.Heading1}>
-         Make a new Request
 
 
-       </Heading>
-       <Text style={styles.sub}>Request Services You Need</Text>
-
-        <FlatList
-          data={data}
-          renderItem={({item}) => {
-            return (
-
-                 <LgBlockCard info={item}/>
-
-            );
-          }}
-
-          horizontal
-          showsHorizontalScrollIndicator={false}
-
-
-        />
-
- </View>
-
+       {getContent()}
 
       </NativeBaseProvider>
 
@@ -205,6 +197,6 @@ export default Menu;
 const styles = StyleSheet.create({
   Container: { flex: 1, backgroundColor: "white", },
   Heading:{marginLeft:20,marginTop:30,color:"#07137D"},
-  Heading1:{marginLeft:20,marginTop:20,color:"#07137D"},
+  Heading1:{marginLeft:20,marginTop:0,color:"#07137D"},
   sub:{marginLeft:20,marginTop:5,color:"#AAAAAA"}
 });

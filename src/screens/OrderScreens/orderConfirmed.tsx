@@ -55,8 +55,8 @@ const randomRequestNum =()=>{
 const styles = StyleSheet.create({
     Container: { flex: 1, backgroundColor: "white"},
     Title:{marginTop:50, color:"#07137D"},
-    SubTitle:{marginTop:0, padding:10,color:"#07137D", fontWeight:"700"},
-    SubTitle3:{marginTop:0, padding:0,color:"#07137D"},
+    SubTitle:{marginTop:20, padding:10,color:"#07137D", fontWeight:"500"},
+    SubTitle3:{marginTop:10, padding:0,color:"#07137D"},
     SubTitle2:{marginTop:10, padding:0, fontWeight:"700",color:"#07137D"},
     Img:{marginTop:20}
 

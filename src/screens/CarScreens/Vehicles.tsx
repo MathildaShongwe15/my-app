@@ -6,6 +6,7 @@ import SmallCard from "../../../components/CardComponent/CardSmall"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/AntDesign';
+import LoadingScreens from '../Home/LoadingPage';
 
 
 
@@ -25,7 +26,7 @@ const CarHistory =({route} :any)=> {
   const [reg1, setVehicleReg1] = useState("");
   const [color1, setColor] = useState("");
   const [model1, setVehicleModel1] = useState("");
-
+  const [isLoading, setIsLoading] = useState(true);
 
   // setserviceType(type1);
   // console.warn(type);
@@ -40,7 +41,7 @@ const CarHistory =({route} :any)=> {
 
   const getVehicles = async () =>{
 
-    await fetch('https://01d2-41-76-96-122.ngrok-free.app/GetAllVehicles',{
+    await fetch('https://cb5c-41-76-96-122.ngrok-free.app/GetVehicleById/ba0d8023-5c3d-4dd7-83a2-d6d80c2c3f43',{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
@@ -53,31 +54,52 @@ const CarHistory =({route} :any)=> {
           console.log("response is okay", response)
           return response.json();
         })
-        .then(data => (setData(data.vehicle),setId(data.vehicle.Id),console.log(data.vehicle)))
+        .then(data => (setData(data.vehicle),setId(data.vehicle.Id),console.log(data.vehicle),setIsLoading(false)))
         .catch(err => console.log(err))
-
 };
 
+const getContent = () =>{
 
-const DeleteVechicle = async() =>{
-
-  await fetch(`https://01d2-41-76-96-122.ngrok-free.app/DeleteVehicle/${id2}`,{
-      method:'DELETE',
-      headers:{
-          'Content-Type':'application/json',
-      },
-    })
-      .then(response => {
-        if(!response.ok){
-          throw new Error('Network response not ok'),
-          console.log(response)
-        }
-        console.log("response is okay", response)
-        return response.json();
-      })
-      .catch(err => console.log(err))
-};
-
+  if(isLoading){
+    return <LoadingScreens/>
+  }
+  return      <View style={styles.Container}>
+  <Center>
+  <AlertDialog
+    leastDestructiveRef={cancelRef}
+    isOpen={isOpen}
+    onClose={onClose}
+  >
+    <AlertDialog.Content>
+      <AlertDialog.CloseButton />
+      <AlertDialog.Header>Manage Car History</AlertDialog.Header>
+      <AlertDialog.Body>
+        What would you like to do?
+      </AlertDialog.Body>
+      <AlertDialog.Footer>
+        <Button.Group space={1}>
+          <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('Requests', {paramKey:[brand1,reg1, color1, model1,Provider,type,fee,serviceId,providerId,id2]})}>
+            Choose this vehicle
+          </Button>
+        </Button.Group>
+      </AlertDialog.Footer>
+    </AlertDialog.Content>
+  </AlertDialog>
+</Center>
+<SafeAreaView>
+  <FlatList
+    data={data}
+    renderItem={({item}) => {
+      return (
+        <TouchableOpacity onPress={() => {setIsOpen(!isOpen),setId2(item.Id), setVehicleBrand1(item.VehicleBrand), setVehicleReg1(item.RegNo), setVehicleModel1(item.VehicleModel), setColor(item.Color)}}>
+           <SmallCard info={item}/>
+        </TouchableOpacity>
+      );
+    }}
+  /></SafeAreaView>
+  <Button onPress={() => navigation.navigate("Registration Car")}  marginTop={"50"} marginLeft={"350"} width={"50"} height={"50"} bgColor={"blue.900"}><Icon name="pluscircle" size={20} color={"white"}/></Button>
+          </View>
+}
 useEffect(() =>{
   getVehicles()
 
@@ -92,55 +114,12 @@ useEffect(() =>{
      return(
 
       <NativeBaseProvider>
-       <View style={styles.Container}>
-        <Center>
-        <AlertDialog
-          leastDestructiveRef={cancelRef}
-          isOpen={isOpen}
-          onClose={onClose}
-        >
-          <AlertDialog.Content>
-            <AlertDialog.CloseButton />
-            <AlertDialog.Header>Manage Car History</AlertDialog.Header>
-            <AlertDialog.Body>
-              What would you like to do?
-            </AlertDialog.Body>
-            <AlertDialog.Footer>
-              <Button.Group space={2}>
-                <Button
-                  colorScheme="red"
-                  onPress={DeleteVechicle}
-                  ref={cancelRef}
-                >
-                  Delete
-                </Button>
-                <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('Requests', {paramKey:[brand1,reg1, color1, model1,Provider,type,fee,serviceId,providerId,id2]})}>
-                  Choose this vehicle
-                </Button>
-              </Button.Group>
-            </AlertDialog.Footer>
-          </AlertDialog.Content>
-        </AlertDialog>
-      </Center>
-    <SafeAreaView>
-        <FlatList
-          data={data}
-          renderItem={({item}) => {
-            return (
-              <TouchableOpacity onPress={() => {setIsOpen(!isOpen),setId2(item.Id), setVehicleBrand1(item.VehicleBrand), setVehicleReg1(item.RegNo), setVehicleModel1(item.VehicleModel), setColor(item.Color)}}>
-                 <SmallCard info={item}/>
-              </TouchableOpacity>
-            );
-          }}
-        /></SafeAreaView>
-        <Button onPress={() => navigation.navigate("Registration Car")}  marginTop={"490"} marginLeft={"350"} width={"50"} height={"50"} bgColor={"blue.900"}><Icon name="pluscircle" size={20} color={"white"}/></Button>
-                </View>
+      {getContent()}
       </NativeBaseProvider>
 
 
      );
 }
-
 
 export default CarHistory;
 
