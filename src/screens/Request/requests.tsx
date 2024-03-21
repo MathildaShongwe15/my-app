@@ -68,7 +68,7 @@ console.warn(route.params.paramKey[0]);
 
 const postServiceRequest = async () =>{
 
-  await fetch('https://cb5c-41-76-96-122.ngrok-free.app/ServiceRequestCreate',{
+  await fetch('https://5158-41-76-96-122.ngrok-free.app/ServiceRequestCreate',{
       method:'POST',
       headers:{
           'Content-Type':'application/json',
@@ -83,7 +83,8 @@ const postServiceRequest = async () =>{
           qauntity:0,
           type:"",
           spare:1,
-          amount: 0
+          amount: 0,
+
         })
 
       })
@@ -190,7 +191,6 @@ useEffect(() =>{
             <Button size="md" variant="outline"  colorScheme="blue" mt="5" w="300" onPress={() => postServiceRequest()} >
               Clear Request
             </Button>
-
           </Center>
 
 

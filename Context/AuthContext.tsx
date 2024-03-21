@@ -21,12 +21,10 @@ export const useAuth = () =>{
 }
 
 
-
 export const AuthProvider = ({children}:any) => {
 
   const [loop, setLoop] = useState(true);
   console.log( "HELLO",AsyncStorage.getItem(TOKEN_KEY));
-
   const [authState, setAuthState] = useState<{
     token: string | null;
     authenticated: boolean | null;
@@ -40,14 +38,14 @@ export const AuthProvider = ({children}:any) => {
   });
 
 
-  const login = async (email :string ,password :string, role: string) =>{
+  const login = async (email :string ,password :string) =>{
 
-                await fetch('https://cb5c-41-76-96-122.ngrok-free.app/Login',{
+                await fetch('https://5158-41-76-96-122.ngrok-free.app/Login',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json',
                     },
-                    body: JSON.stringify({Email:email,Password:password,Role:role})
+                    body: JSON.stringify({Email:email,Password:password})
                     })
                     .then(response => {
                       if(!response.ok){
@@ -58,16 +56,17 @@ export const AuthProvider = ({children}:any) => {
 
                       return response.json();
                     })
-                    .then(data =>(AsyncStorage.setItem("ROLE",data.role) ,AsyncStorage.setItem(TOKEN_KEY, data.token) ,(AsyncStorage.setItem("UserID",data.Id))))
+                    .then(data =>(AsyncStorage.setItem("ROLE",data.role) ,AsyncStorage.setItem(TOKEN_KEY, data.token) ,(AsyncStorage.setItem("UserID",data.Id),AsyncStorage.setItem("ProdID",data.ProviderId))))
                     .catch(err => console.log(err))
   };
-
 
  useEffect(() =>{
   const loadToken = async() =>{
 
     const getToken =await AsyncStorage.getItem(TOKEN_KEY);
     const getRole = await AsyncStorage.getItem("ROLE");
+
+
     console.log(getRole);
     if(getToken != null){
       setAuthState({
@@ -80,6 +79,8 @@ export const AuthProvider = ({children}:any) => {
 
     console.log("stored",await AsyncStorage.getItem(TOKEN_KEY))
     console.log("role",await AsyncStorage.getItem("ROLE"))
+    console.log("Provider?",await AsyncStorage.getItem("ProdID"))
+
   }
   loadToken();
 },[]);

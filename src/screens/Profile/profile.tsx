@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Avatar,Box,Center,FormControl,Input,NativeBaseProvider,VStack,View,Button} from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
+import LoadingScreens from '../Home/LoadingPage';
 
 const Register = () => {
 
@@ -9,11 +10,12 @@ const Register = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
  const [data, setData] = useState({});
 
   const getUserData = async () =>{
-        await fetch('https://cb5c-41-76-96-122.ngrok-free.app/Users/2b0ea48b-6fab-423f-b582-a2d9258906b2',{
+        await fetch('https://5158-41-76-96-122.ngrok-free.app/Users/7450425c-17f7-4774-a8f1-e0dcd330ac94',{
 
             method: 'GET',
             headers:{
@@ -29,7 +31,7 @@ const Register = () => {
             console.log("response is okay", response)
             return response.json();
           })
-          .then(data => (setData(data.user)))
+          .then(data => (setData(data.user),setIsLoading(false)))
           .catch(err => console.log(err))
 
 
@@ -45,7 +47,7 @@ const updateUserData = async () =>{
 
   const data1 = {firstName:firstName,lastName:lastName,email:email,phoneNumber:phoneNumber}
   try{
-       let result = await fetch('https://01d2-41-76-96-122.ngrok-free.app/UserUpdate/2b0ea48b-6fab-423f-b582-a2d9258906b2',{
+       let result = await fetch('https://5158-41-76-96-122.ngrok-free.app/UserUpdate/2b0ea48b-6fab-423f-b582-a2d9258906b2',{
 
            method: 'PUT',
            headers:{
@@ -63,7 +65,12 @@ const updateUserData = async () =>{
 
  }
 }
-  const navigation = useNavigation();
+
+const getContent = () =>{
+
+  if(isLoading){
+    return <LoadingScreens/>
+  }
 
   return (
     <NativeBaseProvider>
@@ -109,7 +116,14 @@ const updateUserData = async () =>{
         </Center>
       </View>
     </NativeBaseProvider>
-  );
+  ); }
+
+
+  return(
+    <NativeBaseProvider>
+       {getContent()}
+    </NativeBaseProvider>
+  )
 };
 
 const styles = StyleSheet.create({

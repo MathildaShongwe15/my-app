@@ -13,7 +13,7 @@ const Register = () => {
  const [data, setData] = useState({});
 
   const getUserData = async () =>{
-        await fetch('https://cb5c-41-76-96-122.ngrok-free.app/Users/2b0ea48b-6fab-423f-b582-a2d9258906b2',{
+        await fetch('https://5158-41-76-96-122.ngrok-free.app/Users/2b0ea48b-6fab-423f-b582-a2d9258906b2',{
             method: 'GET',
             headers:{
                 'Accept': 'application/json',
@@ -44,7 +44,7 @@ const updateVehicle = async () =>{
 
   const data1 = {firstName:firstName,lastName:lastName,email:email,phoneNumber:phoneNumber}
   try{
-       let result = await fetch('https://01d2-41-76-96-122.ngrok-free.appUpdateVehicle/2bh90b-88ekb-423f-7882-a2dee8589786k5',{
+       let result = await fetch('https://5158-41-76-96-122.ngrok-free.app/2bh90b-88ekb-423f-7882-a2dee8589786k5',{
 
            method: 'PUT',
            headers:{

@@ -10,7 +10,7 @@ const LoadingScreen = () => {
   const [loop, setLoop] = useState(true);
  // const animationRef = useRef<LottieView>(null);
   useEffect(() => {
-    let timer = setTimeout(() => setLoop(false), 3000);
+    let timer = setTimeout(() => setLoop(false), 20000);
     return () => {
       clearTimeout(timer);
 

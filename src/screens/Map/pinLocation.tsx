@@ -36,7 +36,7 @@ const PinLocation = ({route}:any) => {
 
    try{
     console.warn("JUST ARRIVED REQUEST",reqId);
-           await fetch(`https://cb5c-41-76-96-122.ngrok-free.app/ServiceRequestUpdate/${reqId}`,{
+           await fetch(`https://5158-41-76-96-122.ngrok-free.app/ServiceRequestUpdate/${reqId}`,{
                method: 'PUT',
                headers:{
                    'Accept': 'application/json',
@@ -125,8 +125,8 @@ const PinLocation = ({route}:any) => {
 
     const reverseGeocode = async () =>{
         const reverseGeocode = await Location.reverseGeocodeAsync({
-            longitude:longitude,
-            latitude: latitude
+            longitude:longitude?longitude:0,
+            latitude: latitude?latitude:0
         });
 
         console.log("reverse geocoded:");

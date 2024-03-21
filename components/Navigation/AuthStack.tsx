@@ -25,10 +25,12 @@ import Icon from "react-native-vector-icons/AntDesign";
 import LoadingScreen from "../../src/screens/Home/LoadingPage";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import Sidebar from '../Navigation/sideBarNavigation'
+import ReqInfoScreen from '../../src/screens/Request/reqInformation';
+
 const App = () => {
+
   const{authState, onLogout}:any = useAuth();
   const Stack = createNativeStackNavigator();
-
 
   return (
 
@@ -60,6 +62,7 @@ const App = () => {
         <Stack.Screen name="Services"  component={ResetScreen} />
         <Stack.Screen name="Route"  component={RouteScreen} />
         <Stack.Screen name="Fuel"  component={FuelScreen} />
+        <Stack.Screen name="InfoReq"  component={ReqInfoScreen} />
 
         <Stack.Screen name="Order" component={OrderScreen} options={{ headerShown: true , headerRight:() =><AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}/>
         <Stack.Screen name="Tyre" component={TyreScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}/>

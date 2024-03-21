@@ -41,7 +41,7 @@ const CarHistory =({route} :any)=> {
 
   const getVehicles = async () =>{
 
-    await fetch('https://cb5c-41-76-96-122.ngrok-free.app/GetVehicleById/ba0d8023-5c3d-4dd7-83a2-d6d80c2c3f43',{
+    await fetch('https://5158-41-76-96-122.ngrok-free.app/GetVehicleById/ba0d8023-5c3d-4dd7-83a2-d6d80c2c3f43',{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
