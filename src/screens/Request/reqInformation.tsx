@@ -99,7 +99,7 @@ const getContent = () =>{
                 <Input variant="filled" placeholder={data.Vehicle.Description} bg="muted.50"  value={phoneNumber} onChangeText={text => setPhoneNumber(text)}  />
               </FormControl>
 
-               <Button size="lg" colorScheme="blue" mt="10" width={280} backgroundColor={"#07137D"} onPress={()=> navigation.navigate("RouteMap", {paramKey:[latitude,longitude,reqId]})}>
+               <Button size="lg" colorScheme="blue" mt="10" width={280} backgroundColor={"#07137D"} onPress={()=> navigation.navigate("BottomTabs",{screen:'RouteMap'} ,{paramKey:[latitude,longitude,reqId]})}>
                   View Pinned Location
             </Button>
 

@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         borderStyle:"solid",
         borderRadius: 20,
         borderColor:"red",
-        backgroundColor: "#F5F5F5",
+        backgroundColor: "#D8D8D8",
 
 
     },

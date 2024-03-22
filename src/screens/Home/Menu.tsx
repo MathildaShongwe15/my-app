@@ -1,19 +1,39 @@
 import { AlertDialog, Button, Center,  Heading,  NativeBaseProvider, VStack } from "native-base";
-import React, { useEffect, useState } from "react";
-import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet,Text, ActivityIndicator} from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet,Text, ActivityIndicator, Dimensions} from "react-native";
 import BlockCard from "../../../components/CardComponent/BlockCard"
 import LgBlockCard from "../../../components/CardComponent/LgBlockCard"
 import { useNavigation } from "@react-navigation/native";
 import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
 import LoadingScreens from '../Home/LoadingPage';
+import Icon from 'react-native-vector-icons/AntDesign'
 
 const Menu =()=> {
   const [data, setData] = useState([]);
-  const [serviceId, setServiceId] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   const navigation = useNavigation();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  // const [updateIndex,setUpdateIndex] = useState(0)
+  const ref = useRef(null);
+  const {width, height} = Dimensions.get('window');
 
+  const updateIndexSlide = (e:any) =>{
+    const contentOffSetX = e.nativeEvent.contentOffset.x;
+    const currentIndex = Math.round(contentOffSetX/ width);
+    setCurrentIndex(currentIndex);
+  }
+
+  const goNextSlide = (e:any)=>{
+    const nextSlideIndex=currentIndex +1;
+
+    if(nextSlideIndex != data.length){
+      const offset = nextSlideIndex * width;
+      ref?.current?.scrollToOffset({offset});
+      setCurrentIndex(currentIndex + 1);
+    }
+
+  }
 
   const getServices = async () =>{
 
@@ -37,9 +57,6 @@ const Menu =()=> {
       })
       .then(data => (setData(data.services), setIsLoading(false)))
       .catch(err => console.log(err))
-
-
-     // return { isLoading, success };
 };
 
 const getContent = () =>{
@@ -48,10 +65,18 @@ if(isLoading){
   return <LoadingScreens/>
 }
 
- return  <View style={styles.Container}><Heading style={styles.Heading}>
-         Browse categories
+ return  <View style={styles.Container}>
+    <Heading style={styles.Heading2}>
+              Welcome Back, John Doe
+          </Heading>
+          <View style={{flexDirection: 'row'}}>
+          <Heading style={styles.Heading}>
+            Browse categories
+          </Heading>
+          <Icon name={"caretright"} size={15} color={"#07137D"} style={{marginTop:35, marginLeft:10}} />
 
-       </Heading>
+
+          </View>
        <Text style={styles.sub}>Navigate more</Text>
         <FlatList
           data={Categories}
@@ -67,25 +92,42 @@ if(isLoading){
           keyExtractor={(items) => items.id.toString()}
           horizontal
 
-          // showsHorizontalScrollIndicator={false}
+
+           showsHorizontalScrollIndicator={false}
         //  alwaysBounceVertical={false}
         />
-
+        <View style={{flexDirection: 'row'}}>
        <Heading style={styles.Heading1}>
          Make a new Request
        </Heading>
+       <Icon name={"caretright"} size={15} color={"#07137D"} style={{marginTop:20, marginLeft:10}} />
+      </View>
        <Text style={styles.sub}>Request Services You Need</Text><FlatList
- data={data}
- renderItem={({item}) => {
-   return (
+          data={data}
+          renderItem={({item}) => {
+    return (
 
-        <LgBlockCard info={item}/>
+          <LgBlockCard info={item}/>
 
-   );
+    );
  }}
  horizontal
  showsHorizontalScrollIndicator={false}
+ pagingEnabled={true}
+ onMomentumScrollEnd={updateIndexSlide}
+ ref={ref}
 />
+<View style={styles.row}>
+              {data.map((_,index) =>(
+                 <View  key={index.toString()} style={[styles.dot, currentIndex == index &&{
+                   backgroundColor:'#07137D',
+                   width:25,
+                 },
+                ]}
+                 />
+              ))}
+
+           </View>
 </View>
 };
 useEffect(() =>{
@@ -95,13 +137,6 @@ useEffect(() =>{
 },[])
 const count: Int32 = 0;
 const Categories = [
-    {
-      image: require("../../../assets/pics/Prof.png"),
-      name: "Home " ,
-      RegNumber:"Return home" ,
-      nav:"Providers",
-      id:1
-    },
     {
       image: require("../../../assets/pics/carIcon.png"),
       name: "My Vehicles"  ,
@@ -159,33 +194,15 @@ const Categories = [
       nav:"Profile",
       id:10
     },
-    {
-        image: require("../../../assets/pics/History.png"),
-        name: "Request History"  ,
-        RegNumber:"Past Requests" ,
-        id:14
-      },
-      {
-        image: require("../../../assets/pics/settings.png"),
-        name: "Settings"  ,
-        RegNumber:"Manage account" ,
-        id:12
-      },
+
+
   ];
-
-  // Function to handle item press
-
-
 
      return(
 
       <NativeBaseProvider>
-
-
        {getContent()}
-
       </NativeBaseProvider>
-
 
      );
 }
@@ -194,8 +211,12 @@ const Categories = [
 export default Menu;
 
 const styles = StyleSheet.create({
-  Container: { flex: 1, backgroundColor: "white", },
-  Heading:{marginLeft:20,marginTop:30,color:"#07137D"},
-  Heading1:{marginLeft:20,marginTop:0,color:"#07137D"},
-  sub:{marginLeft:20,marginTop:5,color:"#AAAAAA"}
+  Container: { flex: 1, backgroundColor: "white"},
+  Heading:{marginLeft:20,marginTop:25,color:"#07137D",fontSize:19,fontWeight:'500'},
+  Heading2:{marginLeft:20,marginTop:50,color:"#07137D",fontSize:23},
+  Heading1:{marginLeft:20,marginTop:10,color:"#07137D", fontSize:19, fontWeight:'500'},
+  sub:{marginLeft:20,marginTop:5,color:"#07137D", fontWeight:'400', fontSize:12 },
+  row:{flexDirection:'row',position:'absolute',right:0,left:0, bottom:0,justifyContent:'center'},
+  dot:{width:10, height:8,backgroundColor:'grey',borderRadius:50, marginHorizontal:5,borderWidth:1, borderColor:'grey', marginBottom:170 }
+
 });

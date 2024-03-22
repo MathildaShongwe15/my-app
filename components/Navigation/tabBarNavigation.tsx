@@ -8,6 +8,8 @@ import ProfileScreen from "../../src/screens/Profile/profile";
 import ProviderScreen from "../../src/screens/ServiceProvider/serviceProvider";
 
 import Icon from 'react-native-vector-icons/AntDesign'
+import HomeScreen from "../../src/screens/Home/home";
+import Menu from "../../src/screens/Home/Menu";
 
 
 const  BottomTabs = () =>{
@@ -26,13 +28,16 @@ const  BottomTabs = () =>{
                    options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"user"} size={20} color={"#07137D"} />),
                   }}>
                   </Tab.Screen>
+                  <Tab.Screen name="Home"  component={Menu}
+                   options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"home"} size={20} color={"#07137D"} />),
+                  }}>
+                  </Tab.Screen>
                    <Tab.Screen name="Requests"  component={ProfileScreen}
                    options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"user"} size={20} color={"#07137D"} />),
                   }}>
                   </Tab.Screen>
                   {/* <Tab.Screen name="Providers" component={ProviderScreen} ></Tab.Screen> */}
 
-                  <Tab.Screen name="CarHistory" component={VehiclesScreen} ></Tab.Screen> *
 
 
                 </Tab.Navigator>

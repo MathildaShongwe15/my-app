@@ -78,7 +78,7 @@ const getContent = () =>{
       </AlertDialog.Body>
       <AlertDialog.Footer>
         <Button.Group space={1}>
-          <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('Requests', {paramKey:[brand1,reg1, color1, model1,Provider,type,fee,serviceId,providerId,id2]})}>
+          <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('BottomTabs',{screen:'Requests'}, {paramKey:[brand1,reg1, color1, model1,Provider,type,fee,serviceId,providerId,id2]})}>
             Choose this vehicle
           </Button>
         </Button.Group>

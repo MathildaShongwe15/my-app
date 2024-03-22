@@ -6,15 +6,8 @@ import { Avatar, Card, IconButton } from 'react-native-paper';
 import AntIcon from "react-native-vector-icons/AntDesign";
 import {
     LineChart,
-    BarChart,
-    PieChart,
-    ProgressChart,
-    ContributionGraph,
-    StackedBarChart
   } from "react-native-chart-kit";
-import { Badge, HStack, VStack } from "native-base";
-import { baseFontSize } from "native-base/lib/typescript/theme/tools";
-import { color } from "native-base/lib/typescript/theme/styled-system";
+
 const Dashboard = () =>{
     const screenWidth = Dimensions.get("window").width;
     const data = {
@@ -34,7 +27,6 @@ const Dashboard = () =>{
                     <Text style={{color:"#FFB400", fontSize:25, marginTop:10, marginLeft:10, fontWeight:600 }}>Welcome Back, Jane Doe</Text>
                   <Text style={{color:"#FFB400", fontSize:15, marginTop:6, marginLeft:10, fontWeight:500 }}>View your Monthly Stats</Text>
                   <Text style={{color:"#FFB400", fontSize:8, marginTop:5, marginLeft:10, fontWeight:400 }}>Take a look at what have you been up to </Text>
-
             </View>
             <View style={{flex:2, backgroundColor:'#fff'}}>
                 <View>
@@ -58,8 +50,6 @@ const Dashboard = () =>{
             </View>
             {/* <Text style={{color:"#07137D", fontSize:25, marginTop:10, marginLeft:0, fontWeight:600 }}>Welcome Back, Jane Doe</Text> */}
             <View style={{flex:3, backgroundColor:'#fff', flexDirection:'column'}}>
-
-
             <Card.Title
                 title="Requests Pending"
                 subtitle="0 Requests"
@@ -95,8 +85,6 @@ const Dashboard = () =>{
             </View>
 
           </View>
-
-
     )
 }
 

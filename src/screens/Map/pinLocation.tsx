@@ -67,6 +67,8 @@ const PinLocation = ({route}:any) => {
     }
     catch(err){
       console.error(err)
+
+
     }
     };
 
@@ -101,7 +103,6 @@ const PinLocation = ({route}:any) => {
 
            setLatitude(currentLocation.coords.latitude);
            setLongitude(currentLocation.coords.longitude);
-
 
            console.log("BITCH IM HERE:" ,latitude,longitude)
 

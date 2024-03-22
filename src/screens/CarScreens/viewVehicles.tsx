@@ -106,7 +106,7 @@ useEffect(() =>{
                 >
                   Delete
                 </Button>
-                <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('Requests')}>
+                <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('BottomTabs',{screen:'Requests'})}>
                   Edit this vehicle
                 </Button>
               </Button.Group>

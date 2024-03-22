@@ -96,7 +96,7 @@ const Example = ({route}:any) => {
                 w="290"
                 colorScheme="blue"
                 variant="outline"
-               onPress={() => navigation.navigate("My Vehicles",{Paramskeys:[provider,typeService,value]})}
+               onPress={() => navigation.navigate("BottomTabs",{screen:'My Vehicles'},{Paramskeys:[provider,typeService,value]})}
               >
                 Request
               </Button>

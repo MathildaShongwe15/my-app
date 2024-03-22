@@ -4,6 +4,7 @@ import TopNav from "../my-app/components/Navigation/topBarNavigation"
 import {AuthProvider, useAuth} from "../my-app/Context/AuthContext"
 import LottieView from 'lottie-react-native'
 import SideBar from '../my-app/components/Navigation/sideBarNavigation'
+import TabBar from '../my-app/components/Navigation/tabBarNavigation'
 export default function App(){
 
 
@@ -19,6 +20,7 @@ export const Layout = () => {
   const roleCheck =()=>{
     if(authState.role === 'CUSTOMER' && authState?.authenticated === true){
       return <TopNav/>
+
     }
     if(authState.role === 'SERVICE PROVIDER' && authState?.authenticated === true){
       return <SideBar/>

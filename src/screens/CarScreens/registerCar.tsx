@@ -56,7 +56,7 @@ const navigation = useNavigation();
             }}
             fontWeight="semibold"
           >
-            Register your car
+            Register your Vehicle
           </Heading>
         <Center w="100%">
 
@@ -120,11 +120,11 @@ const navigation = useNavigation();
           </FormControl>
           <FormControl w="3/4" maxW="300">
             <FormControl.Label>Registration Number</FormControl.Label>
-            <Input variant="rounded" placeholder="Registration Number" value={Reg} onChangeText={text => setReg(text)}/>
+            <Input placeholder="Registration Number" value={Reg} onChangeText={text => setReg(text)}/>
           </FormControl>
           <FormControl w="3/4" maxW="300">
             <FormControl.Label>Color</FormControl.Label>
-            <Input variant="rounded" placeholder="Color" value={color} onChangeText={text => setColor(text)}/>
+            <Input  placeholder="Color" value={color} onChangeText={text => setColor(text)}/>
           </FormControl>
           <FormControl.Label w="3/4" maxW="300">
             Other information
@@ -143,6 +143,7 @@ const navigation = useNavigation();
             maxW="300"
             mt="5"
             colorScheme="blue"
+            backgroundColor={'#fffff'}
             variant={"outline"}
             onPress={() => RegisterVehicle(brand,model,Reg,color,description)}
           >

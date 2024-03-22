@@ -26,8 +26,9 @@ import LoadingScreen from "../../src/screens/Home/LoadingPage";
 import AntIcon from "react-native-vector-icons/AntDesign";
 import Sidebar from '../Navigation/sideBarNavigation'
 import ReqInfoScreen from '../../src/screens/Request/reqInformation';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-const App = () => {
+const App = (props:any) => {
 
   const{authState, onLogout}:any = useAuth();
   const Stack = createNativeStackNavigator();
@@ -46,19 +47,24 @@ const App = () => {
         }}
 
       >
-
+{/*
         {authState.authenticated?(
           // Authenticated show Menu
         <Stack.Screen name='Menu' component={MenuScreen} options={{ headerShown: true,headerTitle: "Menu", headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>):
           (<Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false}}></Stack.Screen> )
-       }
-       <Stack.Screen name="Login" component={LoginScreen} />
-       <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}} />
-        <Stack.Screen name="ResetPass" component={ResetScreen} />
+       } */}
+
+
+       <Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false}}></Stack.Screen>
+       <Stack.Screen name='BottomTabs' component={BottomTabs} options={{ headerShown: false}}></Stack.Screen>
+
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
+         <Stack.Screen name="Profile" component={ProfileScreen}/>
+         <Stack.Screen name="ResetPass" component={ResetScreen} />
 
         <Stack.Screen name="RequestFuel" component={RequestFuelScreen}options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}} />
-        <Stack.Screen name="Registration Car" component={RegistrationScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}/>
+        <Stack.Screen name="Registration Car" component={RegistrationScreen} options={{ headerShown: true, title:''}}/>
         <Stack.Screen name="Services"  component={ResetScreen} />
         <Stack.Screen name="Route"  component={RouteScreen} />
         <Stack.Screen name="Fuel"  component={FuelScreen} />
@@ -68,8 +74,8 @@ const App = () => {
         <Stack.Screen name="Tyre" component={TyreScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}/>
         <Stack.Screen name="Maps" component={MapsScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}/>
         <Stack.Screen name="My Vehicles" component={VehiclesScreen} options={{ headerShown: true , headerRight:() =><AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
-        <Stack.Screen name="Requests" component={RequestsScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
-        <Stack.Screen name="ViewVehicles" component={ViewVehiclesScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
+         <Stack.Screen name="Requests" component={RequestsScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
+         <Stack.Screen name="ViewVehicles" component={ViewVehiclesScreen} options={{ headerShown: true ,title:'My Vehicles'}}></Stack.Screen>
         <Stack.Screen name="Providers" component={ProviderScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
 
         <Stack.Screen name="ViewReq" component={ViewReqScreen} options={{ headerShown: true , headerRight:() => <AntIcon name="logout" color="#07137D" size={30} onPress={onLogout}/>}}></Stack.Screen>
@@ -78,4 +84,33 @@ const App = () => {
 
   );
 }
+  const  BottomTabs = () =>{
+
+    const Tab = createBottomTabNavigator();
+
+           return(
+                <Tab.Navigator
+                 screenOptions={{
+                  headerShown: false,
+                  headerStyle: {
+                  backgroundColor: "#07137D",},}}
+                  initialRouteName="Provider">
+
+
+                  <Tab.Screen name="Home"  component={MenuScreen}
+                   options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"home"} size={25} color={"#07137D"} />),tabBarActiveTintColor: "#07137D"
+                  }}>
+                  </Tab.Screen>
+                  <Tab.Screen name="Settings"  component={MenuScreen}
+                   options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"setting"} size={25} color={"#07137D"}  /> ),tabBarActiveTintColor: "#07137D"
+                  }}>
+                  </Tab.Screen>
+                  <Tab.Screen name="Logout"  component={MenuScreen}
+                   options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"logout"} size={25} color={"#07137D"} />),tabBarActiveTintColor: "#07137D"
+                  }}>
+                  </Tab.Screen>
+                </Tab.Navigator>
+    );
+        }
+
 export default App;

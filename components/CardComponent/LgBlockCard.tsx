@@ -48,6 +48,7 @@ const BlockCard1 =(props: any) =>{
            </View>
            </View>
       </TouchableOpacity>
+
     </NativeBaseProvider>
     )
 }
