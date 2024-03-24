@@ -20,7 +20,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
            <Text style={styles.Subtitle}>{item.description2}</Text>
            <View style={styles.btns}>
 
-           <Button size="md" colorScheme="blue" mt="150" ml="5" width={350} height={50} backgroundColor={"#07137D"} onPress={() => navigation.navigate('BottomTabs',{screen:'Menu'})} >
+           <Button size="md" colorScheme="blue" mt="150" ml="5" width={350} height={50} backgroundColor={"#07137D"} onPress={() => navigation.navigate('Login')} >
            GET STARTED
             </Button>
         </View>

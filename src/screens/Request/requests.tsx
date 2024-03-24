@@ -2,8 +2,9 @@ import { Avatar, Box, FlatList, HStack, Heading, Spacer, VStack,Text, NativeBase
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import uuid from 'react-native-uuid'
-import { StyleSheet} from "react-native";
+import { StyleSheet, View} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Icon from "react-native-vector-icons/AntDesign";
 const RequestsCart = ({route}:any) => {
 
   let brand:string = route.params.paramKey[0];
@@ -108,12 +109,16 @@ useEffect(() =>{
 //const[requestNum,setRequestNum] = useState("");
 
 
-  return( <Box  style={styles.Container}>
+  return(
+  <Box  style={styles.Container}>
 
-      <Heading fontSize="xl" p="4" pb="3" color={"#07137D"} >
+       <View style={{flexDirection: 'row'}}>
+      <Heading fontSize="xl" p="4" pb="3" color={"#07137D"}  fontWeight={'500'}>
         Review Request Reciept
       </Heading>
-      <Text  style={styles.SubTitle}>Request Pending</Text>
+      <Icon name={"profile"} size={25} color={"#07137D"} style={{marginTop:18, marginLeft:5}} />
+      </View>
+      <Text  style={styles.SubTitle}>Here is your Pending Request: </Text>
       <FlatList data={data} renderItem={({
       item
     }) => <Box borderBottomWidth="1" _dark={{
@@ -124,27 +129,27 @@ useEffect(() =>{
               <VStack marginLeft={5}>
                 <Text _dark={{
             color: "warmGray.50"
-          }} color="warmGray.600" bold marginTop={0} fontSize={"md"}>
+          }} color="warmGray.600"  marginTop={0} fontSize={"sm"} fontWeight={'600'}>
                   {item.headingVehicle}
                 </Text>
                 <Text color="coolGray.600" _dark={{
             color: "warmGray.200"
-          }} bold  marginTop={3} fontSize={"md"}>
+          }} bold  marginTop={3} fontSize={"sm"} fontWeight={'600'}>
                   {item.headingRegistration}
                 </Text>
                 <Text color="coolGray.600" _dark={{
             color: "warmGray.200"
-          }} bold  marginTop={3} fontSize={"md"}>
+          }} bold  marginTop={3} fontSize={"sm"} fontWeight={'600'}>
                   {item.headingColor}
                 </Text>
                 <Text color="coolGray.600" _dark={{
             color: "warmGray.200",
-          }} bold marginTop={3} fontSize={"md"}>
+          }} bold marginTop={3} fontSize={"sm"} fontWeight={'600'}>
                   {item.headingService}
                 </Text>
                 <Text color="coolGray.600" _dark={{
             color: "warmGray.200"
-          }} bold marginTop={3} fontSize={"md"}>
+          }} bold marginTop={3} fontSize={"sm"} fontWeight={'600'}>
                   {item.headingLocation}
                 </Text>
               </VStack>
@@ -172,7 +177,7 @@ useEffect(() =>{
               </Text>
               <Text fontSize="sm" _dark={{
           color: "warmGray.50"
-        }} color="coolGray.500" alignSelf="flex-start"  marginRight={20} marginTop={4} >
+        }} color="coolGray.500" alignSelf="flex-start"  marginRight={20} marginTop={2} >
                 {item.valueLocation}
               </Text>
           </VStack>
@@ -184,14 +189,17 @@ useEffect(() =>{
 <Text style={styles.SubTitle2}>Please Note: Payment will be completed onsite</Text>
 
 </Center>
-          <Center>
-            <Button  size="md" variant="outline"  colorScheme="blue" mt="10" w="300" onPress={() =>{navigation.navigate('Maps', {paramkey: [provider,brand,model,serviceId,VehicleId,providerId,reqId]})}} >
+<View style={{flexDirection: 'row'}}>
+
+
+            <Button size="md" variant='subtle'  colorScheme="red" mt="5" mb="16" ml='5' w="180" h='50' onPress={() => navigation.navigate('BottomTabs',{screen: 'Menu'})} >
+              Cancel Request
+            </Button>
+            <Button  size="md" bg={'#07137D'}  colorScheme="blue" mt="5" w="180" ml='2'  h="50" onPress={() =>{ postServiceRequest(),navigation.navigate('Maps', {paramkey: [provider,brand,model,serviceId,VehicleId,providerId,reqId]})}} >
               Confirm Request
             </Button>
-            <Button size="md" variant="outline"  colorScheme="blue" mt="5" w="300" onPress={() => postServiceRequest()} >
-              Clear Request
-            </Button>
-          </Center>
+            </View>
+
 
 
     </Box>
@@ -202,8 +210,8 @@ useEffect(() =>{
   const styles = StyleSheet.create({
     Container: { flex: 1, backgroundColor: "#fff"},
     Title:{marginTop:50, color:"#07137D"},
-    SubTitle:{marginTop:0,color:"#07137D", marginLeft:20,fontWeight:"500"},
-    SubTitle2:{marginTop:0, padding:0,color:"#07137D",fontWeight:"500"},
+    SubTitle:{marginTop:0,color:"#07137D", marginLeft:20,fontWeight:"400"},
+    SubTitle2:{marginBottom:130, padding:0,color:"#07137D",fontWeight:"700"},
     Img:{marginTop:20}
 
   });

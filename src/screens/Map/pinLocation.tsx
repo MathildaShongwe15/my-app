@@ -1,14 +1,16 @@
 import * as React from "react";
-import { View, TextInput,StyleSheet, ActivityIndicator } from "react-native";
+import { View, TextInput,StyleSheet, ActivityIndicator, Keyboard, SafeAreaView, ScrollView } from "react-native";
 import {useState, useEffect, useRef} from 'react';
 import * as Location from 'expo-location';
-import { Avatar, Box, FlatList, HStack, Heading, Spacer, VStack ,Text, Center,Button} from "native-base";
-import MapView ,{ PROVIDER_GOOGLE } from "react-native-maps";
+import { Avatar, Box, FlatList, HStack, Heading, Spacer, VStack ,Text, Center,Button, Input} from "native-base";
+import MapView ,{ LatLng, PROVIDER_GOOGLE } from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import { Marker } from "react-native-maps";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BottomSheet from "../../../components/BottomSheetComponent/bottomSheet";
 import { useNavigation } from "@react-navigation/native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 
 
@@ -16,20 +18,18 @@ const PinLocation = ({route}:any) => {
   const navigation = useNavigation();
 
   const mapRef = useRef();
-    // let brand:string = route.params.paramKey[0];
-    // let color:string =route.params.paramKey[1];
-    // let reg:string =route.params.paramKey[2];
-    // let serviceId:string = route.params.paramKey[3];
-    // const [serviceid, setService] = useState("");
-    // setService(serviceId);
+
     let reqId:string =route.params.paramkey[6];
 
-    // let fee:""number=route.params.paramKey[6];
+
     const [location,setLocation] = useState();
-    const [address, setAddress] = useState();
     const [formattedaddress, setformattedAddress] = useState();
     const [latitude,setLatitude] = useState();
     const [longitude,setLongitude] = useState();
+    const [searchText, setSearchText] = useState("");
+    const [results,setResults] = useState<any[]>();
+    const map = useRef<MapView | null>(null);
+
 
 
     const updateRequest = async () =>{
@@ -67,25 +67,60 @@ const PinLocation = ({route}:any) => {
     }
     catch(err){
       console.error(err)
-
-
     }
     };
 
-
-  const refreshButton=()=>{
     useEffect(() =>{
       getPermissions();
-      animateToRegion();
+     animateToRegion();
+      },[]);
 
-      },[])
-  }
+// const searchPlaces =async ()=>{
+//   if(!searchText.trim().length) return;
+//   const INTITAL_LNG = longitude;
+//   const INTITAL_LAT = latitude;
 
+//   const input = searchText.trim();
+//   const location = `${INTITAL_LAT},${INTITAL_LNG}&radius=2000`
+//   const url = `${GOOGLE_MAPS_APIKEY}?query=${input}&location=${location}`
+//   try{
+//     const resp = await fetch(url);
+//     const json = await resp.json();
+//     console.log(json);
+//     if(json && json.results){
+//       const coords: LatLng[] = []
+//       for(const item of json.results){
 
-    useEffect(() =>{
-      getPermissions();
-      animateToRegion();
-      },[])
+//         //console.log(item.geometry);
+//         coords.push({
+//           latitude: item.geometry.location.lat,
+//           longitude: item.geometry.location.lng,
+//         })
+
+//       }
+//       setResults(json.results)
+//       if(coords.length){
+//         map.current?.fitToCoordinates(coords,
+//           {
+//             edgePadding:{
+//                top:50,
+//                right:50,
+//                bottom:50,
+//                left:50
+//             }, animated:true
+//           })
+//           Keyboard.dismiss();
+
+//       }
+//     }
+
+//   }
+//   catch(e){
+//     console.error(e);
+//   }
+
+// }
+
 
 
         const getPermissions = async() =>{
@@ -97,23 +132,11 @@ const PinLocation = ({route}:any) => {
            }
            let currentLocation = await Location.getCurrentPositionAsync({});
            setLocation(currentLocation);
-           console.log("Location:");
-           console.log(currentLocation.coords.latitude);
-           console.log(currentLocation.coords.longitude);
-
            setLatitude(currentLocation.coords.latitude);
            setLongitude(currentLocation.coords.longitude);
 
-           console.log("BITCH IM HERE:" ,latitude,longitude)
-
         };
-    const geocode = async() => {
-        const geocodedLocation = await Location.geocodeAsync(address);
-        console.log("Geocode Address:");
-        console.log(await geocodedLocation);
 
-    }
-  console.log(latitude,longitude);
    const state= {
 
         region: {
@@ -129,39 +152,39 @@ const PinLocation = ({route}:any) => {
             longitude:longitude?longitude:0,
             latitude: latitude?latitude:0
         });
-
-        console.log("reverse geocoded:");
-        console.log(reverseGeocode)
-        console.log(reverseGeocode[0].formattedAddress);
         setformattedAddress(reverseGeocode[0].formattedAddress);
     }
     const animateToRegion = () => {
       mapRef.current.animateToRegion(state.region, 1000);
       reverseGeocode();
    }
-console.warn("END",route.params.paramkey);
 
-  return (
-
+return(
  <View style={styles.Container}>
-     <MapView style={styles.map11} ref={mapRef} >
-    <Marker coordinate={state.region} title="MY LOCATION" description="SEEME"/>
-   </MapView>
-    <Center>
 
-   {/* <Button title="GeoCode Address" onPress={geocode}></Button> */}
 
+ <MapView style={styles.map11} ref={mapRef} >
+
+   <Marker coordinate={state.region} title="MY LOCATION" description="SEEME"/>
+
+
+  </MapView>
+
+   <Center>
    </Center>
 
-   <Button onPress={()=> updateRequest()}>PRESS ME</Button>
-  <BottomSheet text={formattedaddress} heading={"Current Address:"} />
-<Button onPress={()=> navigation.navigate('Order', {paramkey:[formattedaddress,route.params.paramkey[0],route.params.paramkey[1],route.params.paramkey[2]]})}>PRESS ME</Button>
 
+   <BottomSheet text={formattedaddress} heading={"Current Address:"} />
 
+  <View style={{flexDirection: 'row'}}>
+ <Button  w='210' h='50' bg='#07137D' onPress={()=> {updateRequest(),navigation.navigate('Order', {paramkey:[formattedaddress,route.params.paramkey[0],route.params.paramkey[1],route.params.paramkey[2]]})}}>Pin your location</Button>
+  <Button  w='210' h='50' variant={'subtle'} colorScheme={'blue'} onPress={animateToRegion}>Current Location</Button>
+ </View>
 
-</View>
-  )
-  }
+ </View>
+);
+}
+
 export default PinLocation;
 
 const styles = StyleSheet.create({
@@ -170,4 +193,39 @@ const styles = StyleSheet.create({
      map11: {
       ...StyleSheet.absoluteFillObject,
     },
+    searchBox:{
+      position:'absolute',
+      width:'90%',
+      borderRadius:8,
+      borderWidth:1,
+      borderColor:"#aaa",
+      backgroundColor:"white",
+      padding:8,
+      height:'20%',
+      alignSelf:'center',
+      marginTop:60
+    },
+    seacrhBoxField:{
+       borderColor:"#777",
+       borderWidth:1,
+       borderRadius:4,
+       paddingHorizontal:8,
+       paddingVertical:4,
+       fontSize:18,
+       marginBottom:8,
+    },
+    buttonCtnr:{
+      alignItems:'center',
+      justifyContent:'center',
+      padding:15,
+      backgroundColor:"#26f",
+      borderRadius:8,
+      height:50
+    },
+    buttonLabel:{
+      fontSize:18,
+      color:'white'
+    }
+
+
   });

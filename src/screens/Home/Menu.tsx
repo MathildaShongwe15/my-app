@@ -77,7 +77,6 @@ if(isLoading){
 
 
           </View>
-       <Text style={styles.sub}>Navigate more</Text>
         <FlatList
           data={Categories}
           renderItem={({item}) => {

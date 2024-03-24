@@ -20,6 +20,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import uuid from 'react-native-uuid';
+import Icon from "react-native-vector-icons/AntDesign";
 
 const Register = () => {
 
@@ -71,7 +72,6 @@ const Register = () => {
 }
 
 
-
   const navigation = useNavigation();
 
   return (
@@ -80,23 +80,26 @@ const Register = () => {
 
         <Center w="100%">
           <Box safeArea p="2" w="90%" maxW="290" py="8">
+          <View style={{flexDirection: 'row'}}>
             <Heading
               size="lg"
               color="blue.900"
               _dark={{
                 color: "blue.900",
               }}
-              fontWeight="semibold"
+              fontWeight="normal"
             >
               Create Account
+
             </Heading>
+            <Icon name={"form"} size={25} color={"#07137D"} style={{marginTop:5, marginLeft:15}} />
+
+            </View>
             <Heading
               mt="1"
-              color="blue.800"
-              _dark={{
-                color: "blue.800",
-              }}
-              fontWeight="medium"
+              color={'#07137D'}
+
+              fontWeight="normal"
               size="xs"
             >
               Please fill in input below
@@ -104,23 +107,23 @@ const Register = () => {
             <VStack space={3} mt="2">
               <FormControl>
                 <FormControl.Label>First Name</FormControl.Label>
-                <Input variant="rounded" placeholder="First Name"  bg="muted.50" value={firstName} onChangeText={text => setFirstName(text)}/>
+                <Input  placeholder="First Name"  bg="muted.50" h={'9'} value={firstName} onChangeText={text => setFirstName(text)}/>
               </FormControl>
               <FormControl>
                 <FormControl.Label>Last Name</FormControl.Label>
-                <Input variant="rounded" placeholder="Last Name"  bg="muted.50" value={lastName} onChangeText={text => setLastName(text)} />
+                <Input  placeholder="Last Name"  bg="muted.50" h={'9'} value={lastName} onChangeText={text => setLastName(text)} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Email/EmployeeID</FormControl.Label>
-                <Input variant="rounded" placeholder="Email Address"  bg="muted.50" value={email} onChangeText={text => setEmail(text)}/>
+                <Input  placeholder="Email Address"  bg="muted.50" h={'9'} value={email} onChangeText={text => setEmail(text)}/>
               </FormControl>
               <FormControl>
                 <FormControl.Label>Phone Number</FormControl.Label>
-                <Input variant="rounded" placeholder="Phone Number"  bg="muted.50" value={phoneNumber} onChangeText={text => setPhoneNumber(text)}/>
+                <Input placeholder="Phone Number"  bg="muted.50" h={'9'} value={phoneNumber} onChangeText={text => setPhoneNumber(text)}/>
               </FormControl>
               <FormControl>
                 <FormControl.Label>Password</FormControl.Label>
-                <Input type="password" variant="rounded" placeholder="New Password" bg="muted.50" value={password} onChangeText={text => setpassword(text)}/>
+                <Input type="password" placeholder="New Password" h={'9'} bg="muted.50" value={password} onChangeText={text => setpassword(text)}/>
                 <FormControl.ErrorMessage
                   leftIcon={<WarningOutlineIcon size="xs" />}
                 >
@@ -131,25 +134,26 @@ const Register = () => {
                 <FormControl.Label>Confirm Password</FormControl.Label>
                 <Input
                   type="password"
-                  variant="rounded"
+                  h={'9'}
                   placeholder="Confirm New Password"
                   bg="muted.50"
 
                 />
               </FormControl>
               <FormControl w="" maxW="300" isRequired isInvalid>
-     <FormControl.Label>Role</FormControl.Label>
+     <FormControl.Label>Service Provider</FormControl.Label>
 
         <Select
           minWidth="200"
           height={10}
           accessibilityLabel="Role"
-          placeholder="Role"
+          placeholder="Choose service provider"
+          h={'9'}
           _selectedItem={{
             bg: "teal.600",
             endIcon: <CheckIcon size={5} />,
           }}
-          mt="1"
+          mt="0"
           onValueChange={(value) =>{
             setRole(value);
           }}
@@ -166,10 +170,10 @@ const Register = () => {
               <Button
                 mt="2"
                 colorScheme="blue"
-                variant="outline"
+                bgColor={'#07137D'}
                 onPress={savaData}
               >
-                SIGN UP
+                CREATE ACCOUNT
               </Button>
             </VStack>
           </Box>

@@ -36,15 +36,16 @@ const updatePassword = async () =>{
         <Center w="100%">
           <Box safeArea p="2" w="90%" maxW="290" py="8">
             <Center>
+            <Heading style={{color:'#07137D', fontWeight:'400'}}>Reset your password</Heading>
+
             <Image
             source={require("../../../assets/pics/f.png")}
             style={{
               height: Dimensions.get("window").width - 200,
               width: Dimensions.get("window").width -200,
-              marginTop:50
+              marginTop:10
             }}
           />
-              <Heading>Reset your password</Heading>
             </Center>
             <VStack space={3} mt="2">
               <FormControl>
@@ -52,11 +53,11 @@ const updatePassword = async () =>{
                 <Input variant="filled"  placeholder={"OTP"}  bg="muted.50"  />
               </FormControl>
               <FormControl>
-                <FormControl.Label>Password</FormControl.Label>
+                <FormControl.Label>New Password</FormControl.Label>
                 <Input  placeholder={"New password" }  bg="muted.50"  value={password} onChangeText={text => setpassword(text)} />
               </FormControl>
               <FormControl>
-                <FormControl.Label>Confirm Password</FormControl.Label>
+                <FormControl.Label>Confirm new Password</FormControl.Label>
                 <Input placeholder={"Confirm new password"}  bg="muted.50" />
               </FormControl>
 
@@ -65,7 +66,8 @@ const updatePassword = async () =>{
                 color="#07137D"
                 title="Reset Password"
                 onPress={updatePassword}
-              />
+
+              ></Button>
             </VStack>
           </Box>
         </Center>

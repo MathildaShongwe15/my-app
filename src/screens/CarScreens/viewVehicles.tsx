@@ -93,20 +93,21 @@ useEffect(() =>{
         >
           <AlertDialog.Content>
             <AlertDialog.CloseButton />
-            <AlertDialog.Header>Manage Car History</AlertDialog.Header>
+            <AlertDialog.Header >Manage Car History</AlertDialog.Header>
             <AlertDialog.Body>
               What would you like to do?
             </AlertDialog.Body>
             <AlertDialog.Footer>
               <Button.Group space={2}>
                 <Button
+                variant={'subtle'}
                   colorScheme="red"
                   onPress={DeleteVechicle}
                   ref={cancelRef}
                 >
                   Delete
                 </Button>
-                <Button variant="outline" colorScheme="blue" onPress={() => navigation.navigate('BottomTabs',{screen:'Requests'})}>
+                <Button  colorScheme="blue"  bgColor={'#07137D'} onPress={() => navigation.navigate('BottomTabs',{screen:'Requests'})}>
                   Edit this vehicle
                 </Button>
               </Button.Group>
@@ -125,7 +126,7 @@ useEffect(() =>{
             );
           }}
         /></SafeAreaView>
-        <Button onPress={() => navigation.navigate("Registration Car")}  marginTop={"490"} marginLeft={"350"} width={"50"} height={"50"} bgColor={"blue.900"}><Icon name="pluscircle" size={20} color={"white"}/></Button>
+        <Button onPress={() => navigation.navigate("Registration Car")}  marginTop={"5"} marginLeft={"350"} width={"50"} height={"50"} bgColor={"blue.900"}><Icon name="pluscircle" size={20} color={"white"}/></Button>
                 </View>
       </NativeBaseProvider>
 

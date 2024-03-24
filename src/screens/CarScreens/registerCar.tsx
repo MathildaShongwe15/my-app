@@ -4,6 +4,7 @@ import {Text,Box, Button,Center,CheckIcon,FormControl,Heading,Input,NativeBasePr
 import React, { useState } from "react";
 import {  StyleSheet } from "react-native";
 import uuid from 'react-native-uuid';
+import Icon from "react-native-vector-icons/AntDesign";
 
 
 const RegisterVehicle = () => {
@@ -13,11 +14,11 @@ const RegisterVehicle = () => {
   const [Reg, setReg] = useState('');
   const [color, setColor] = useState('');
   const [description, setDescription] = useState('');
-  const [ID, SetId] = useState('');
+  const [statusCode, setStatus] = useState({});
 
 
 
-  const RegisterVehicle = async (Id:string,UserId:string,Brand :string ,Model :string,RegNo:string ,Color : string,Description:string) =>{
+  const RegisterVehicle = async (Brand :string ,Model :string,RegNo:string ,Color : string,Description:string) =>{
     console.log(Brand,Model,RegNo,Color,Description)
     const getUserId = await AsyncStorage.getItem("UserID");
 
@@ -30,9 +31,11 @@ const RegisterVehicle = () => {
         })
         .then(response => {
           if(!response.ok){
+            setStatus(response.status);
             throw new Error('Network response not ok'),
             console.log(response)
           }
+          setStatus(response.status);
           console.log("response is okay", response)
           return response.json();
         })
@@ -40,29 +43,74 @@ const RegisterVehicle = () => {
         .catch(err => console.log(err))
 };
 const toast = useToast();
+const checkToast = () =>{
+  if(statusCode == 200){
+
+        toast.show({
+          placement: "bottom",
+          render: () => {
+            return <Box bg="#FFB400" px="2" py="1" rounded="sm" >
+                    <Text>You have successfully added your vehicle</Text>
+                  </Box>
+          }
+        })
+
+  }
+  if(statusCode == 400){
+
+      toast.show({
+        render: () => {
+          return <Box bg="red.500" px="2" py="1" rounded="sm" mb={700}>
+                  <Text>Something went wrong!</Text>
+                </Box>
+        }
+      })
+
+  }
+}
+const checkResponse=()=>{
+   RegisterVehicle(brand,model,Reg,color,description);
+   checkToast();
+
+}
+
+const checkEmpty=()=>{
+  if(model == '' || brand == '' || Reg =='' || color == ''){
+    return true
+  }
+  else{
+    return false
+
+  }
+
+}
 const navigation = useNavigation();
   return (
 
     <NativeBaseProvider>
       <View style={styles.Container}>
-
+      <View style={{flexDirection: 'row'}}>
         <Heading
             mt="5"
             ml="12"
             size="lg"
-            color="blue.900"
+            color="#07137D"
             _dark={{
-              color: "blue.900",
+              color: "#07137D",
             }}
-            fontWeight="semibold"
+            fontWeight="400"
           >
             Register your Vehicle
           </Heading>
+          <Icon name={"form"} size={25} color={"#07137D"} style={{marginTop:25, marginLeft:15}} />
+    </View>
+          <Text  mt='1' ml='12' color="gray.500">Please fill in your vehicle information</Text>
         <Center w="100%">
 
-          <FormControl mt="5" w="3/4" maxW="300" isRequired isInvalid>
+          <FormControl mt="5" w="3/4" maxW="300" isRequired isInvalid={checkEmpty()}>
+
             <FormControl.Label>Choose the Brand/Make</FormControl.Label>
-            <Select variant="rounded"
+            <Select
               minWidth="200"
               accessibilityLabel="Choose Service"
               placeholder="Choose the Brand"
@@ -81,14 +129,10 @@ const navigation = useNavigation();
               <Select.Item label="Audi" value="Audi" />
               <Select.Item label="Bentley" value="Audi" />
             </Select>
-            <FormControl.ErrorMessage
-              leftIcon={<WarningOutlineIcon size="xs" />}
-            >
-              Please make a selection!
-            </FormControl.ErrorMessage>
+
           </FormControl>
 
-          <FormControl w="3/4" maxW="300" isRequired isInvalid>
+          <FormControl w="3/4" maxW="300" mt='5' isRequired isInvalid={checkEmpty()}>
             <FormControl.Label>Choose your car Model</FormControl.Label>
             <Select
               minWidth="200"
@@ -112,27 +156,25 @@ const navigation = useNavigation();
               <Select.Item label="Coupe" value="Coupe" />
               <Select.Item label="Sports car" value="Sports car" />
             </Select>
-            <FormControl.ErrorMessage
-              leftIcon={<WarningOutlineIcon size="xs" />}
-            >
-              Please make a selection!
-            </FormControl.ErrorMessage>
+
           </FormControl>
-          <FormControl w="3/4" maxW="300">
+          <FormControl w="3/4" maxW="300" mt='5' isRequired isInvalid={checkEmpty()}>
             <FormControl.Label>Registration Number</FormControl.Label>
             <Input placeholder="Registration Number" value={Reg} onChangeText={text => setReg(text)}/>
-          </FormControl>
-          <FormControl w="3/4" maxW="300">
+
+            </FormControl>
+          <FormControl w="3/4" maxW="300" mt='5'isRequired isInvalid={checkEmpty()}>
             <FormControl.Label>Color</FormControl.Label>
             <Input  placeholder="Color" value={color} onChangeText={text => setColor(text)}/>
+            {checkEmpty()}
           </FormControl>
-          <FormControl.Label w="3/4" maxW="300">
+          <FormControl.Label w="3/4" maxW="300" mt='2'>
             Other information
           </FormControl.Label>
           <TextArea
-            mt="3"
-            h={20}
-            placeholder="Text Area Placeholder"
+            mt="1"
+            h={40}
+            placeholder="Enter Vehicle Description"
             w="75%"
             maxW="300"
             value={description} onChangeText={text => setDescription(text)}
@@ -143,23 +185,12 @@ const navigation = useNavigation();
             maxW="300"
             mt="5"
             colorScheme="blue"
-            backgroundColor={'#fffff'}
-            variant={"outline"}
-            onPress={() => RegisterVehicle(brand,model,Reg,color,description)}
-          >
-            Register with this Vehicle
+            backgroundColor={'#07137D'}
+
+            onPress={() =>  checkResponse()}>
+            REGISTER VEHICLE
           </Button>
-          <Button onPress={() => {
-      toast.show({
-        render: () => {
-          return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={700}>
-                  <Text>You have Logged in Successfully</Text>
-                </Box>
-        }
-      });
-    }}>
-        Custom Toast
-      </Button>
+
         </Center>
       </View>
     </NativeBaseProvider>

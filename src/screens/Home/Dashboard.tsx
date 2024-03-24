@@ -14,7 +14,7 @@ const Dashboard = () =>{
         labels: ["Jan", "Feb", "Mar", "Apr", "May", "June","Jul","Aug"],
         datasets: [
           {
-            data: [20, 0, 0, 0, 0, 0,0,0],
+            data: [0, 0, 0, 0, 0, 0,0,0],
             color: (opacity = 1) => `rgba(248, 175, 7, ${opacity})`, // optional
             strokeWidth: 2 // optional
           }

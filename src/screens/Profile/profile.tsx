@@ -86,13 +86,13 @@ const getContent = () =>{
                 size="xl"
               >
                 NB
-                <Avatar.Badge bg="yellow.500" />
+                <Avatar.Badge bg="green.500" />
               </Avatar>
             </Center>
             <VStack space={3} mt="2">
               <FormControl>
                 <FormControl.Label>First Name</FormControl.Label>
-                <Input variant="filled"  placeholder={data.First_Name}  bg="muted.50"   value={firstName} onChangeText={text => setFirstName(text)} />
+                <Input   editable={false}  selectTextOnFocus={false} variant="filled"  placeholder={data.First_Name}  bg="muted.50"   value={firstName} onChangeText={text => setFirstName(text)} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Last Name</FormControl.Label>

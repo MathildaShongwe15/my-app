@@ -6,6 +6,7 @@ import Mdblockcard from "../../../components/CardComponent/mdBlockCard";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import LoadingScreens from '../Home/LoadingPage';
+import Icon from "react-native-vector-icons/AntDesign";
 
 const Menu =({route}:any)=> {
 
@@ -43,9 +44,12 @@ const getContent = () =>{
   }
 
   return  <View style={styles.Container}>
+    <View style={{flexDirection: 'row'}}>
   <Heading style={styles.Heading1}>
    Choose a Service Provider
  </Heading>
+ <Icon name={"caretright"} size={15} color={"#07137D"} style={{marginTop:30, marginLeft:10}} />
+</View>
  <Text style={styles.sub}>All services you need </Text>
 
  <FlatList
@@ -104,6 +108,6 @@ export default Menu;
 const styles = StyleSheet.create({
   Container: { flex: 1, backgroundColor: "white", },
   Heading:{marginLeft:20,marginTop:30,color:"#07137D"},
-  Heading1:{marginLeft:20,marginTop:20,color:"#07137D"},
-  sub:{marginLeft:20,marginTop:5,color:"#AAAAAA"}
+  Heading1:{marginLeft:20,marginTop:20,color:"#07137D", fontWeight:'500', fontSize:22},
+  sub:{marginLeft:20,marginTop:5,color:"#07137D"}
 });

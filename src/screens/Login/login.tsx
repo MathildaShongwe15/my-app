@@ -10,11 +10,52 @@ import Spinner from 'react-native-loading-spinner-overlay';
 //const navigation = useNavigation();
 import uuid from 'react-native-uuid';
 import { useAuth } from "../../../Context/AuthContext";
+import { Linking } from 'react-native';
+import Notification from "../../../middleware/notifications";
 
 
 
 const LoginApp = () => {
+async function sendEmail(to:any, subject:any, body:any, options = {}) {
+    const { cc, bcc }:any = options;
 
+    let url = `mailto:${to}`;
+
+    // Create email link query
+    const query = qs.stringify({
+        subject: subject,
+        body: body,
+        cc: cc,
+        bcc: bcc
+    });
+
+    if (query.length) {
+        url += `?${query}`;
+    }
+
+    // check if we can use this link
+    const canOpen = await Linking.canOpenURL(url);
+
+    if (!canOpen) {
+        throw new Error('Provided URL can not be handled');
+    }
+
+    return Linking.openURL(url);
+}
+
+
+// example.js
+
+
+
+// sendEmail(
+//     'user@domain.com',
+//        'We need your feedback',
+//     'UserName, we need 2 minutes of your time to fill this quick survey [link]',
+//  { cc: 'user@domain.com; user2@domain.com; userx@domain1.com' }
+// ).then(() => {
+//     console.log('Your message was successfully sent!');
+// });
 
 const {onLogin} = useAuth();
 const validator = require('validator');
@@ -24,15 +65,41 @@ const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
 const [emailValidError, setEmailValidError] = useState('');
 const [passwordValidError, setPasswordValidError] = useState('');
+const [statusCode, setStatus] = useState({});
 
 
-console.log(email,password,role);
+console.log(email,password);
+const navigation = useNavigation();
 
 const login = async() =>{
- onLogin!(email,password,role);
+ onLogin!(email,password);
 }
 const toast = useToast();
+const checkToast = () =>{
+  if(statusCode == 200){
 
+        toast.show({
+          placement: "bottom",
+          render: () => {
+            return <Box bg="#FFB400" px="2" py="1" rounded="sm" >
+                    <Text>You have successfully added your vehicle</Text>
+                  </Box>
+          }
+        })
+
+  }
+  if(statusCode == 400){
+
+      toast.show({
+        render: () => {
+          return <Box bg="red.500" px="2" py="1" rounded="sm" mb={700}>
+                  <Text>Something went wrong!</Text>
+                </Box>
+        }
+      })
+
+  }
+}
 
 useEffect(() => {
 
@@ -73,7 +140,7 @@ const validatePassword = (text:string) =>{
             style={{
               height: Dimensions.get("window").width - 200,
               width: Dimensions.get("window").width -200,
-              marginTop:150
+              marginTop:-50
             }}
           />
             <Heading size="lg" fontWeight="700" color={"blue.900"} mb="0">
@@ -89,7 +156,7 @@ const validatePassword = (text:string) =>{
 
           <VStack space={3} mt="5">
             <FormControl>
-              <FormControl.Label>Email ID/Employee ID</FormControl.Label>
+              <FormControl.Label>Email</FormControl.Label>
               <Input  value={email}  bg="muted.50"  placeholder="Enter Email Address" onChangeText={text => {setEmail(text); validateEmail(text);}} type="email"/>
               {emailValidError ? <Text style={{color:"#C51605",fontSize:12, marginLeft:10}}>{emailValidError}</Text> : null}
 
@@ -104,59 +171,30 @@ const validatePassword = (text:string) =>{
                 Try different from previous passwords.
               </FormControl.ErrorMessage>
               <FormControl w="" maxW="300" isRequired isInvalid>
-     <FormControl.Label>Role</FormControl.Label>
 
-        <Select
-          minWidth="200"
-          accessibilityLabel="Role"
-          placeholder="Role"
-          _selectedItem={{
-            bg: "teal.600",
-            endIcon: <CheckIcon size={5} />,
-          }}
-          mt="1"
-          onValueChange={text => setRole(text)}
-        >
 
-          <Select.Item label="SERVICE PROVIDER" value="SERVICE PROVIDER" />
-          <Select.Item label="CUSTOMER" value="CUSTOMER" />
-        </Select>
-        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-          Please make a selection!
-        </FormControl.ErrorMessage>
       </FormControl>
-              <Link _text={{ fontSize: "xs", fontWeight: "500", color: "blue.800"}} alignSelf="flex-end" mt="2">
+              <Link _text={{ fontSize: "xs", fontWeight: "500", color: "blue.800"}} alignSelf="flex-end" mt="2" onPress={()=> navigation.navigate('ResetPass')}>
                 Forget Password?
               </Link>
 
             </FormControl>
-                <Button size="sm" variant="outline"  colorScheme="blue" mt="0" onPress={() => {login()}} >
+                <Button size="sm" bg='#07137D' colorScheme="blue" mt="0" onPress={() => {login()}} >
                   SIGN IN
                 </Button>
-                <Button onPress={() => {
-      toast.show({
-        render: () => {
-          return <Box bg="emerald.500" px="2" py="1" rounded="sm" mb={700}>
-                  <Text>You have Logged in Successfully</Text>
-                </Box>
-        }
-      });
-    }}>
-        Custom Toast
-      </Button>
             <HStack mt="3" justifyContent="center">
               <Link  _text={{
               color: "blue.800",
               fontWeight: "medium",
               fontSize: "xs"
-            }} href="#">
+            }} href="#" onPress={()=>navigation.navigate('Register')}>
                Don't Have an Account? Sign Up
               </Link>
             </HStack>
-            <Heading mt="3" fontWeight={"light"} _dark={{
+            <Heading mt="0" fontWeight={"light"} _dark={{
                 color: "warmGray.200"
-                }} color="warmGray.400"  size="2xs">
-               By creating or login into an account you are agreeing with our Terms and Conditions and Privacy Statement
+                }} color="warmGray.400"  style={{fontSize:10}}>
+                Terms and Conditions and Privacy Statement do apply
               </Heading >
           </VStack>
         </Box>

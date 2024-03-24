@@ -1,7 +1,7 @@
 import {Box,Center,CheckIcon,FormControl,Heading,Input,NativeBaseProvider,Select,VStack,View,Button,WarningOutlineIcon,} from "native-base";
 import React, { useState } from "react";
 import {  } from "react-native-gesture-handler";
-import {Dimensions,Image,StyleSheet} from 'react-native'
+import {Dimensions,Image,StyleSheet,Text} from 'react-native'
 import { useNavigation } from "@react-navigation/native";
 import TabBar from "../../../components/Navigation/tabBarNavigation"
 const Example = ({route}:any) => {
@@ -20,8 +20,8 @@ const Example = ({route}:any) => {
     <Image
             source={require("../../../assets/pics/city.png")}
             style={{
-              height: Dimensions.get("window").width - 250,
-              width: Dimensions.get("window").width -200,
+              height: Dimensions.get("window").width - 224,
+              width: Dimensions.get("window").width -205,
               marginTop:50
             }}
           />
@@ -37,32 +37,12 @@ const Example = ({route}:any) => {
             }}
             fontWeight="semibold"
           >
-            Request Fuel below
+            Request Fuel
           </Heading>
+          <Text style={{fontWeight:300,color:'#07137D'}}>Please complete with the follwoing</Text>
       <Box safeArea p="2" w="90%" maxW="300" py="8">
-      <FormControl w="" maxW="300" isRequired isInvalid>
-     <FormControl.Label>Qauntity</FormControl.Label>
 
-        <Select
-          minWidth="200"
-          accessibilityLabel="  Qauntity"
-          placeholder="Qauntity"
-          _selectedItem={{
-            bg: "teal.600",
-            endIcon: <CheckIcon size={5} />,
-          }}
-          mt="1"
-        >
-          <Select.Item label="1.5L" value="1.5L" />
-          <Select.Item label="2.0L" value="2.0L" />
-          <Select.Item label="2.5L" value="2.5L" />
-          <Select.Item label="3.0L" value="3.0L" />
 
-        </Select>
-        <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-          Please make a selection!
-        </FormControl.ErrorMessage>
-      </FormControl>
 
       <FormControl w="" maxW="300" isRequired isInvalid>
      <FormControl.Label>Type of Fuel</FormControl.Label>
@@ -94,17 +74,18 @@ const Example = ({route}:any) => {
       <Button
                 mt="8"
                 w="290"
+                h='39'
                 colorScheme="blue"
-                variant="outline"
-               onPress={() => navigation.navigate("BottomTabs",{screen:'My Vehicles'},{Paramskeys:[provider,typeService,value]})}
+                bg={'#07137D'}
+               onPress={() => navigation.navigate("My Vehicles",{Paramskeys:[provider,typeService,value]})}
               >
-                Request
+                SUBMIT
               </Button>
       </Box>
 
       </VStack>
     </Center>
-    <TabBar/></View>
+    </View>
     </NativeBaseProvider>
   );
 };
