@@ -20,6 +20,8 @@ import RouteScreen from "../../src/screens/Map/RouteMap"
 import VehiclesScreen from"../../src/screens/CarScreens/Vehicles";
 import ViewVehiclesScreen from "../../src/screens/CarScreens/viewVehicles";
 import { Button, View,Text,Image} from 'react-native';
+import EditVehicleScreen from "../../src/screens/CarScreens/EditVehicle";
+
 import { useAuth } from "../../Context/AuthContext";
 import Icon from "react-native-vector-icons/AntDesign";
 import LoadingScreen from "../../src/screens/Home/LoadingPage";
@@ -68,6 +70,7 @@ const App = (props:any) => {
          <Stack.Screen name="Requests" component={RequestsScreen} options={{ headerShown: true, title:'Request'}}></Stack.Screen>
          <Stack.Screen name="ViewVehicles" component={ViewVehiclesScreen} options={{ headerShown: true ,title:'My Vehicles'}}></Stack.Screen>
         <Stack.Screen name="Providers" component={ProviderScreen} options={{ headerShown: true , title:''}}></Stack.Screen>
+        <Stack.Screen name="EditVehicles" component={EditVehicleScreen} options={{ headerShown: true ,title:'My Vehicles'}}></Stack.Screen>
 
         <Stack.Screen name="ViewReq" component={ViewReqScreen} options={{ headerShown: true}}></Stack.Screen>
 

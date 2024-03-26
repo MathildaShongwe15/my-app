@@ -36,7 +36,7 @@ const PinLocation = ({route}:any) => {
 
    try{
     console.warn("JUST ARRIVED REQUEST",reqId);
-           await fetch(`https://5158-41-76-96-122.ngrok-free.app/ServiceRequestUpdate/${reqId}`,{
+           await fetch(`https://5466-105-224-65-25.ngrok-free.app/ServiceRequestUpdate/${reqId}`,{
                method: 'PUT',
                headers:{
                    'Accept': 'application/json',

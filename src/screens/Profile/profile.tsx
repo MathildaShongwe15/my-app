@@ -1,8 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
-import { Avatar,Box,Center,FormControl,Input,NativeBaseProvider,VStack,View,Button} from "native-base";
+import { Avatar,Box,Center,FormControl,Input,NativeBaseProvider,VStack,View,Button, useToast,Text} from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import LoadingScreens from '../Home/LoadingPage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Register = () => {
 
@@ -10,12 +11,19 @@ const Register = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
+  const [statusCode, setStatus] = useState({});
+
 
  const [data, setData] = useState({});
 
   const getUserData = async () =>{
-        await fetch('https://5158-41-76-96-122.ngrok-free.app/Users/7450425c-17f7-4774-a8f1-e0dcd330ac94',{
+
+    const UserId = await AsyncStorage.getItem("USERID");
+          console.log("PROFILE ID:", UserId)
+
+        await fetch(`https://5466-105-224-65-25.ngrok-free.app/Users/${UserId}`,{
+
 
             method: 'GET',
             headers:{
@@ -25,29 +33,63 @@ const Register = () => {
           })
           .then(response => {
             if(!response.ok){
+              setStatus(response.status);
               throw new Error('Network response not ok'),
               console.log(response)
             }
+            setStatus(response.status);
             console.log("response is okay", response)
             return response.json();
           })
-          .then(data => (setData(data.user),setIsLoading(false)))
+          .then(data => (setData(data.user)))
           .catch(err => console.log(err))
 
 
 
   }
 
+  const toast = useToast();
+  const checkToast = () =>{
+    if(statusCode == 200){
 
+          toast.show({
+            placement: "bottom",
+            render: () => {
+              return <Box  bg="#65B741" px="10" py="5" mb={705} rounded="md" >
+                      <Text>You have successfully Updated your Profile!</Text>
+                    </Box>
+            }
+          })
+
+    }
+    if(statusCode == 400){
+
+        toast.show({
+          render: () => {
+            return <Box bg="red.500" px="10" py="5" mb={705} rounded="md"  mb={700}>
+                    <Text>Something went wrong!</Text>
+                  </Box>
+          }
+        })
+
+    }
+  }
 useEffect(()=>{
   getUserData()
 },[])
 
+const checkResponse=()=>{
+  updateUserData();
+  checkToast();
+
+}
 const updateUserData = async () =>{
 
   const data1 = {firstName:firstName,lastName:lastName,email:email,phoneNumber:phoneNumber}
+  const UserId = await AsyncStorage.getItem("USERID");
+ console.log("PROFILE ID:", UserId)
   try{
-       let result = await fetch('https://5158-41-76-96-122.ngrok-free.app/UserUpdate/2b0ea48b-6fab-423f-b582-a2d9258906b2',{
+       let result = await fetch(`https://5466-105-224-65-25.ngrok-free.app/UserUpdate/${UserId}`,{
 
            method: 'PUT',
            headers:{
@@ -68,9 +110,7 @@ const updateUserData = async () =>{
 
 const getContent = () =>{
 
-  if(isLoading){
-    return <LoadingScreens/>
-  }
+
 
   return (
     <NativeBaseProvider>
@@ -106,11 +146,15 @@ const getContent = () =>{
                 <FormControl.Label>Phone Number</FormControl.Label>
                 <Input variant="filled" placeholder={data.PhoneNumber} bg="muted.50"  value={phoneNumber} onChangeText={text => setPhoneNumber(text)}  />
               </FormControl>
+      <View style={{flexDirection:'row'}}>
 
-               <Button size="lg" colorScheme="blue" mt="10" width={280} backgroundColor={"#07137D"}  onPress={updateUserData}>
-                  Update
+            <Button size="sm" colorScheme="blue" variant={'subtle'}   mt="5" width={130}  height={50} onPress={updateUserData}>
+                  Reset Password
             </Button>
-
+            <Button size="sm" colorScheme="blue" mt="5" width={130} ml={'5'}   height={50} backgroundColor={"#07137D"}  onPress={checkResponse}>
+                  Update Profile
+            </Button>
+          </View>
             </VStack>
           </Box>
         </Center>

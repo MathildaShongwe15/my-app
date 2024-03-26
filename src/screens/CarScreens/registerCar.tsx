@@ -22,7 +22,7 @@ const RegisterVehicle = () => {
     console.log(Brand,Model,RegNo,Color,Description)
     const getUserId = await AsyncStorage.getItem("UserID");
 
-    await fetch('https://5158-41-76-96-122.ngrok-free.app/CreateVehicle',{
+    await fetch('https://5466-105-224-65-25.ngrok-free.app/CreateVehicle',{
         method:'POST',
         headers:{
             'Content-Type':'application/json',
@@ -49,7 +49,7 @@ const checkToast = () =>{
         toast.show({
           placement: "bottom",
           render: () => {
-            return <Box bg="#FFB400" px="2" py="1" rounded="sm" >
+            return <Box bg="#65B741"  px="10" py="5" mb={705}  rounded="md" >
                     <Text>You have successfully added your vehicle</Text>
                   </Box>
           }
@@ -60,7 +60,7 @@ const checkToast = () =>{
 
       toast.show({
         render: () => {
-          return <Box bg="red.500" px="2" py="1" rounded="sm" mb={700}>
+          return <Box bg="red.500"  px="10" py="5" mb={705}  rounded="md" >
                   <Text>Something went wrong!</Text>
                 </Box>
         }
@@ -93,7 +93,7 @@ const navigation = useNavigation();
         <Heading
             mt="5"
             ml="12"
-            size="lg"
+            size="md"
             color="#07137D"
             _dark={{
               color: "#07137D",

@@ -39,7 +39,7 @@ const Menu =()=> {
 
 
     // setSuccess(false);
-    await fetch('https://5158-41-76-96-122.ngrok-free.app/AllServices',{
+    await fetch('https://5466-105-224-65-25.ngrok-free.app/AllServices',{
       method:'GET',
       headers:{
           'Content-Type':'application/json',

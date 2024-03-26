@@ -15,9 +15,10 @@ const Example = () => {
 
    const getReq = async () =>{
 
-    let ProdID = await AsyncStorage.getItem("ProdID");
-
-    await fetch(`https://5158-41-76-96-122.ngrok-free.app/UserRequestByProviderId/${ProdID}`,{
+    let ProdID = await AsyncStorage.getItem("PROVID");
+    console.log("REQUEST ID ARRIVED:",ProdID)
+    console.log("Ive arrived to requests", ProdID)
+    await fetch(`https://5466-105-224-65-25.ngrok-free.app/UserRequestByProviderId/${ProdID}`,{
         method:'GET',
         headers:{
             'Content-Type':'application/json',

@@ -20,11 +20,8 @@ const AppBarNav = () =>{
     return(
           <Drawer.Navigator  defaultStatus="closed"
                     screenOptions={{
-                    overlayColor: '#F0F3FF',
-                    headerStyle: {
-                        backgroundColor: "#07137D",
+                    overlayColor: '#07137D',
 
-                      },
                      drawerActiveBackgroundColor:'#07137D',
                     drawerActiveTintColor:'#FFB400'}}
                     drawerContent={props => <DrawerContent{...props}/>}
@@ -32,10 +29,10 @@ const AppBarNav = () =>{
 
                     >
 
-                    <Drawer.Screen name='Dashboard' component={Dashboard}  options={{  headerTintColor:'#FFB400',   title: 'Dashboard',drawerIcon: ({focused, size}) => ( <AntIcon name="dashboard" color={focused ? "#FFB400":"#07137D"} size={20} />),}} ></Drawer.Screen>
-                    <Drawer.Screen name='Profile' component={Profile}  options={{ headerTintColor:'#FFB400',title: 'Profile',drawerIcon: ({focused, size}) => ( <AntIcon name="user" color={focused ? "#FFB400":"#07137D"} size={20} />),}} ></Drawer.Screen>
+                    <Drawer.Screen name='Profile' component={Profile}  options={{ headerTintColor:'#07137D',title: 'Profile',drawerIcon: ({focused, size}) => ( <AntIcon name="user" color={focused ? "#FFB400":"#07137D"} size={20} />),}} ></Drawer.Screen>
+                    <Drawer.Screen name='Dashboard' component={Dashboard}  options={{ headerTintColor:'#07137D',  title: 'Dashboard',drawerIcon: ({focused, size}) => ( <AntIcon name="dashboard" color={focused ? "#FFB400":"#07137D"} size={20} />),}} ></Drawer.Screen>
                     <Drawer.Screen name='Requests' component={Requests}
-                     options={{headerTintColor:'#FFB400', title: 'Requests Pending',drawerIcon: ({focused, size}) => ( <AntIcon name="mail" color={focused ? "#FFB400":"#07137D"} size={20} />),}}></Drawer.Screen>
+                     options={{headerTintColor:'#07137D', title: 'Requests Pending',drawerIcon: ({focused, size}) => ( <AntIcon name="mail" color={focused ? "#FFB400":"#07137D"} size={20} />),}}></Drawer.Screen>
                      <Drawer.Screen name='Ho' component={HomeS}  options={{ title: 'Request History',drawerIcon: ({focused, size}) => ( <AntIcon name="upload" color={focused ? "#FFB400":"#07137D"} size={20} />),}} ></Drawer.Screen>
                      <Drawer.Screen name="RouteMap" component={RouteScreen}  options={{drawerItemStyle: { height: 0 }}} ></Drawer.Screen>
                      <Drawer.Screen name="InfoReq"  component={ReqInfoScreen}  options={{title:'Request Information',drawerItemStyle: { height: 0 }}} />

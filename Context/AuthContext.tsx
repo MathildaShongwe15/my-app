@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Animated, Easing, View,Text,Image } from "react-native";
 import LottieView from "lottie-react-native";
 import { registerIndieID } from 'native-notify';
+import { Box, useToast } from 'native-base';
 
 
 interface AuthProps{
@@ -36,9 +37,15 @@ export const AuthProvider = ({children}:any) => {
   });
 
 
+  const [Id, setId] = useState('');
+  const [userId, setUserId] = useState('');
+
+  const [role, setRole] = useState('');
+  const [statusCode, setStatus] = useState({});
+
   const login = async (email :string ,password :string) =>{
 
-                await fetch('https://5158-41-76-96-122.ngrok-free.app/Login',{
+                await fetch('https://5466-105-224-65-25.ngrok-free.app/Login',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json',
@@ -47,14 +54,16 @@ export const AuthProvider = ({children}:any) => {
                     })
                     .then(response => {
                       if(!response.ok){
+                        setStatus(response.status);
                         throw new Error('Network response not ok'),
                         console.log(response)
                       }
+                      setStatus(response.status);
                       console.log("response is okay", response)
 
                       return response.json();
                     })
-                    .then(data =>(
+                    .then(async data =>(
 
                       setAuthState({
 
@@ -62,14 +71,39 @@ export const AuthProvider = ({children}:any) => {
                         authenticated:true,
                         role: data.role
 
-                     }),
+                     })
+
+                     ,
+                     setId(''),
+                     setRole(''),
+                     setUserId(''),
+                     setId(data.ProviderId),
+                     setRole(data.role),
+                     setUserId(data.Id),
+
+                     console.log("ROLE?????",role),
+                     console.log("USER?????",userId),
                      AsyncStorage.setItem(TOKEN_KEY, data.token),
-                     AsyncStorage.setItem("ROLE", data.role),
-                     AsyncStorage.setItem("UserID", data.Id)
+                     AsyncStorage.setItem("ROLE", role),
+                     AsyncStorage.setItem("USERID", userId),
+                     AsyncStorage.setItem("PROVID", Id),
+                     console.log("HAIBO PROD",Id)
+
                      ))
+                     .then(async () =>{
 
+                      if( role === 'SERVICE PROVIDER'){
+                        AsyncStorage.setItem("UserServiceKEYS", userId);
+                        registerIndieID(Id, 19822, '5ba8jxbIfqSDiiLwi2SrvX');
 
-                    .catch(err => console.log(err))
+                      }
+                      if(role ==='CUSTOMER'){
+
+                         AsyncStorage.setItem("UserKEY", userId)
+                         console.log("USEKEY?",userId)
+
+                      }})
+                     .catch(err => console.log(err))
 
   };
 
@@ -102,8 +136,9 @@ export const AuthProvider = ({children}:any) => {
 
     const getToken =await AsyncStorage.getItem(TOKEN_KEY);
     const getRole = await AsyncStorage.getItem("ROLE");
-    const getUserId = await AsyncStorage.getItem("UserID");
+    const getUserId  = await AsyncStorage.getItem("UserKEY");
 
+    console.log("STORED USERID", await getUserId)
 
     console.log("stored token:", getToken);
 
@@ -119,11 +154,10 @@ export const AuthProvider = ({children}:any) => {
     console.log("stored",await AsyncStorage.getItem(TOKEN_KEY))
     console.log("role",await AsyncStorage.getItem("ROLE"))
     console.log("Provider?",await AsyncStorage.getItem("ProdID"))
+    console.log("USEKEY?",await AsyncStorage.getItem("UserKEY"))
 
 
-    // if(getRole === 'SERVICE PROVIDER'){
-    //   registerIndieID(getUserId, 19822, '5ba8jxbIfqSDiiLwi2SrvX');
-    // }
+
   }
   loadToken();
 },[]);
@@ -132,7 +166,10 @@ const logout = async()=>{
 //Delete token
   AsyncStorage.removeItem(TOKEN_KEY);
   AsyncStorage.removeItem("ROLE");
-  AsyncStorage.removeItem("ProdID");
+  AsyncStorage.removeItem("PROVID");
+  AsyncStorage.removeItem("UserKEY");
+  AsyncStorage.removeItem("UserServiceKEYS");
+
 
   //reset state
    setAuthState({
