@@ -22,7 +22,7 @@ const RegisterVehicle = () => {
     console.log(Brand,Model,RegNo,Color,Description)
     const getUserId = await AsyncStorage.getItem("UserID");
 
-    await fetch('https://5466-105-224-65-25.ngrok-free.app/CreateVehicle',{
+    await fetch('https://enormous-reasonably-raptor.ngrok-free.app/CreateVehicle',{
         method:'POST',
         headers:{
             'Content-Type':'application/json',
@@ -49,7 +49,7 @@ const checkToast = () =>{
         toast.show({
           placement: "bottom",
           render: () => {
-            return <Box bg="#65B741"  px="10" py="5" mb={705}  rounded="md" >
+            return <Box bg="#65B741"  px="10" py="5" mb={105}  rounded="md" >
                     <Text>You have successfully added your vehicle</Text>
                   </Box>
           }

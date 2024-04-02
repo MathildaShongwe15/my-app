@@ -20,7 +20,7 @@ const Register = ({route}:any) => {
  const [data, setData] = useState({});
 
   const getVehicleData = async () =>{
-        await fetch(`https://5466-105-224-65-25.ngrok-free.app/GetVehicleByVehicleId/${VehicleId}`,{
+        await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/GetVehicleByVehicleId/${VehicleId}`,{
             method: 'GET',
             headers:{
                 'Accept': 'application/json',
@@ -82,7 +82,7 @@ const updateVehicle = async () =>{
 
   const data1 = {VehicleBrand:brand,VehicleModel:model,RegNo:reg,Color:color,Description:description}
   try{
-       let result = await fetch(`https://5466-105-224-65-25.ngrok-free.app/UpdateVehicle/${VehicleId}`,{
+       let result = await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/UpdateVehicle/${VehicleId}`,{
 
            method: 'PUT',
            headers:{

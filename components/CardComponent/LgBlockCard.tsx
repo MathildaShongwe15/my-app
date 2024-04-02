@@ -14,7 +14,7 @@ const BlockCard1 =(props: any) =>{
        console.warn("HEYYYYY ID ALL DAY",Id);
 
         if (item === 'oil and water') {
-          navigation.navigate('Maps');
+          navigation.navigate('Providers',{ParamKey: [item,Id]});
         } else if (item === 'Jump Start') {
           navigation.navigate('Providers',{ParamKey: [item,Id]});
 

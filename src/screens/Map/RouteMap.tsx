@@ -3,6 +3,7 @@ import MapView, {Marker} from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import {StyleSheet} from 'react-native'
 import * as Location from 'expo-location';
+// import * as Permissions from 'expo-permissions';
 import { Button } from "native-base";
 
 const RouteMap = ({route}:any) => {
@@ -23,7 +24,7 @@ const RouteMap = ({route}:any) => {
 
     try{
      console.warn("JUST ARRIVED REQUEST",reqId);
-            await fetch(`https://5466-105-224-65-25.ngrok-free.app/ServiceRequestUpdateStatus/${reqId}`,{
+            await fetch(`https://ec9b-41-76-96-122.ngrok-free.app/ServiceRequestUpdateStatus/${reqId}`,{
                 method: 'PUT',
                 headers:{
                     'Accept': 'application/json',
@@ -53,20 +54,34 @@ const RouteMap = ({route}:any) => {
 
   const getPermissions = async() =>{
 
-    let {status} = await Location.requestBackgroundPermissionsAsync();
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    console.log(status);
     if(status !== 'granted') {
      console.log("Please grant location permissions");
      return;
     }
-    let currentLocation = await Location.getCurrentPositionAsync({});
-    setLocation(currentLocation);
+    else{
+      try{
+
+        let currentLocation = await Location.getCurrentPositionAsync({});
+
+         setLocation(currentLocation);
+
+         setLatitudeUser(currentLocation.coords.latitude);
+         setLongitudeUser(currentLocation.coords.longitude);
+      }
+      catch(error){
+          getPermissions();
+      }
+    }
+
 
     console.log(currentLocation.coords.latitude);
     console.log(currentLocation.coords.longitude);
 
-    setLatitudeUser(currentLocation.coords.latitude);
-    setLongitudeUser(currentLocation.coords.longitude);
 
+
+   // Location.requestPermissionsAsync();
 
    // console.log("BITCH IM HERE AS THE DRIVER:" ,latitudeUser,longitudeUser)
 

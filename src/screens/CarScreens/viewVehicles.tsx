@@ -35,7 +35,7 @@ const CarHistory =()=> {
   const getVehicles = async () =>{
     let Id = await AsyncStorage.getItem("USERID")
     console.log("VEHICLES ID",Id);
-    await fetch(`https://5466-105-224-65-25.ngrok-free.app/GetVehicleById/${Id}`,{
+    await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/GetVehicleByUserId/${Id}`,{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
@@ -56,7 +56,7 @@ const CarHistory =()=> {
 
 const DeleteVechicle = async() =>{
 
-  await fetch(`https://5466-105-224-65-25.ngrok-free.app/DeleteVehicle/${id2}`,{
+  await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/DeleteVehicle/${id2}`,{
       method:'DELETE',
       headers:{
           'Content-Type':'application/json',

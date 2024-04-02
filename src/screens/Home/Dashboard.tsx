@@ -28,7 +28,7 @@ const Dashboard = () =>{
 
    const getValues = async () =>{
 
-    await fetch('https://5466-105-224-65-25.ngrok-free.app/GetGraphValues',{
+    await fetch('https://enormous-reasonably-raptor.ngrok-free.app/GetGraphValues',{
         method:'GET',
         headers:{
             'Content-Type':'application/json',

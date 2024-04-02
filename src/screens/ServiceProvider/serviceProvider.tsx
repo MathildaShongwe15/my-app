@@ -17,8 +17,9 @@ console.warn(ServiceId);
   const [data, setData] = useState([]);
   const navigation = useNavigation();
 
+
   const getProviders = async () =>{
-    await fetch(`https://5466-105-224-65-25.ngrok-free.app/GetProviderByService/${ServiceId}`,{
+    await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/GetProviderByService/${ServiceId}`,{
       method:'GET',
       headers:{
           'Content-Type':'application/json',

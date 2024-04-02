@@ -1,17 +1,22 @@
 import { AlertDialog, Button, Center,  Heading,  NativeBaseProvider, VStack } from "native-base";
 import React, { useEffect, useRef, useState } from "react";
-import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet,Text, ActivityIndicator, Dimensions} from "react-native";
-import BlockCard from "../../../components/CardComponent/BlockCard"
+import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet,Text, ActivityIndicator, Dimensions, Platform} from "react-native";
 import LgBlockCard from "../../../components/CardComponent/LgBlockCard"
 import { useNavigation } from "@react-navigation/native";
 import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
 import LoadingScreens from '../Home/LoadingPage';
 import Icon from 'react-native-vector-icons/AntDesign'
+import BlockCard from "../../../components/CardComponent/BlockCard";
+import * as Location from 'expo-location';
+import * as Device from 'expo-device';
 
 const Menu =()=> {
   const [data, setData] = useState([]);
+  const [location,setLocation] = useState();
   const [isLoading, setIsLoading] = useState(true);
-
+  const [formattedaddress, setformattedAddress] = useState();
+  const [latitude,setLatitude] = useState();
+  const [longitude,setLongitude] = useState();
   const navigation = useNavigation();
   const [currentIndex, setCurrentIndex] = useState(0);
   // const [updateIndex,setUpdateIndex] = useState(0)
@@ -29,17 +34,71 @@ const Menu =()=> {
 
     if(nextSlideIndex != data.length){
       const offset = nextSlideIndex * width;
-      ref?.current?.scrollToOffset({offset});
+     // ref?.current?.scrollToOffset({offset});
       setCurrentIndex(currentIndex + 1);
     }
 
   }
 
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const getPermissions = async() =>{
+
+    if (Platform.OS === 'android' && !Device.isDevice) {
+      setErrorMsg(
+        'Oops, this will not work on Snack in an Android Emulator. Try it on your device!'
+      );
+      return;
+    }
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      setErrorMsg('Permission to access location was denied');
+      return;
+    }
+    let currentLocation:any = await Location.getCurrentPositionAsync({});
+    setLocation(location);
+
+
+     // let currentLocation:any = await Location.getCurrentPositionAsync({});
+      setLocation(currentLocation);
+          console.log(location);
+          setLatitude(currentLocation.coords.latitude);
+          console.log(latitude);
+          setLongitude(currentLocation.coords.longitude);
+
+
+
+}
+let text = 'Waiting..';
+
+if (errorMsg) {
+text = errorMsg;
+} else if (location) {
+text = JSON.stringify(location);
+}
+
+const state= {
+
+  region: {
+    latitude: latitude ? latitude :0,
+    longitude: longitude ? longitude:0,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
+  },
+};
+
+const reverseGeocode :any= async () =>{
+  const reverseGeocode = await Location.reverseGeocodeAsync({
+      longitude:longitude?longitude:0,
+      latitude: latitude?latitude:0
+  });
+  setformattedAddress(reverseGeocode[0].formattedAddress);
+}
   const getServices = async () =>{
 
 
     // setSuccess(false);
-    await fetch('https://5466-105-224-65-25.ngrok-free.app/AllServices',{
+    await fetch('https://enormous-reasonably-raptor.ngrok-free.app/AllServices',{
       method:'GET',
       headers:{
           'Content-Type':'application/json',
@@ -58,7 +117,10 @@ const Menu =()=> {
       .then(data => (setData(data.services), setIsLoading(false)))
       .catch(err => console.log(err))
 };
-
+useEffect(() =>{
+  getPermissions();
+  reverseGeocode();
+  },[]);
 const getContent = () =>{
 
 if(isLoading){
@@ -66,6 +128,9 @@ if(isLoading){
 }
 
  return  <View style={styles.Container}>
+  <View style={{flexDirection: "row"}}>
+      <Icon name={"car"} size={25} color={"#07137D"} />
+      <Text style={{fontSize:10}}>{formattedaddress}</Text></View>
     <Heading style={styles.Heading2}>
               Welcome Back, John Doe
           </Heading>
@@ -105,7 +170,6 @@ if(isLoading){
           data={data}
           renderItem={({item}) => {
     return (
-
           <LgBlockCard info={item}/>
 
     );
@@ -128,6 +192,7 @@ if(isLoading){
 
            </View>
 </View>
+
 };
 useEffect(() =>{
 

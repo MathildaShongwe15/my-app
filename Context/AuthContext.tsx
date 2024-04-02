@@ -45,7 +45,7 @@ export const AuthProvider = ({children}:any) => {
 
   const login = async (email :string ,password :string) =>{
 
-                await fetch('https://5466-105-224-65-25.ngrok-free.app/Login',{
+                await fetch('https://enormous-reasonably-raptor.ngrok-free.app/Login',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json',
@@ -106,6 +106,7 @@ export const AuthProvider = ({children}:any) => {
                      .catch(err => console.log(err))
 
   };
+
 
 //   const register = async (email :string ,password :string,first_Name:string,last_Name:string,phone ) =>{
 
@@ -168,6 +169,8 @@ const logout = async()=>{
   AsyncStorage.removeItem("ROLE");
   AsyncStorage.removeItem("PROVID");
   AsyncStorage.removeItem("UserKEY");
+  AsyncStorage.removeItem("USERID");
+
   AsyncStorage.removeItem("UserServiceKEYS");
 
 

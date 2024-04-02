@@ -43,7 +43,7 @@ const CarHistory =({route} :any)=> {
   const getVehicles = async () =>{
    let Id = await AsyncStorage.getItem("USERID")
    console.log(Id);
-    await fetch(`https://5466-105-224-65-25.ngrok-free.app/GetVehicleById/${Id}`,{
+    await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/GetVehicleByUserId/${Id}`,{
         method:'GET',
         headers:{
             'Content-Type':'application/json',

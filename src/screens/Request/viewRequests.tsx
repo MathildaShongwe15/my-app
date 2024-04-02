@@ -18,7 +18,7 @@ const Example = () => {
     let ProdID = await AsyncStorage.getItem("PROVID");
     console.log("REQUEST ID ARRIVED:",ProdID)
     console.log("Ive arrived to requests", ProdID)
-    await fetch(`https://5466-105-224-65-25.ngrok-free.app/UserRequestByProviderId/${ProdID}`,{
+    await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/UserRequestByProviderId/${ProdID}`,{
         method:'GET',
         headers:{
             'Content-Type':'application/json',

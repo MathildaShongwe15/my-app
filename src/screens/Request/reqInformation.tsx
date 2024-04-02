@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import LoadingScreens from '../Home/LoadingPage';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import moment from 'moment'
 const ReqInfo = ({route}:any) => {
 
 let reqId:number = route.params.ParamKey;
@@ -22,7 +22,7 @@ console.log("reqid", reqId)
  const [data, setData] = useState({});
 
   const getRequestSelected = async () =>{
-        await fetch(`https://5466-105-224-65-25.ngrok-free.app/AllServiceRequestsById/${reqId}`,{
+        await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/AllServiceRequestsById/${reqId}`,{
 
             method: 'GET',
             headers:{
@@ -60,23 +60,11 @@ const getContent = () =>{
       <View style={styles.Container}>
         <Center w="100%">
           <Box safeArea p="2" w="90%" maxW="290" py="8">
-            <Center>
-              <Avatar
-                bg="amber.500"
-                source={{
-                  uri: "https://images.unsplash.com/photo-1614289371518-722f2615943d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-                }}
-                size="lg"
-              >
-                NB
-                <Avatar.Badge bg="yellow.500" />
-              </Avatar>
-            </Center>
             <VStack space={3} mt="2">
-              <Text style={{fontWeight:'400', fontSize:16, color:"#07137D", marginTop:5}}>Service Request for {data.Users.First_Name} { data.Users.Last_Name} </Text>
+              <Text style={{fontWeight:'200', fontSize:12, color:"#07137D", marginTop:5}}>Service Request for {data.Users.First_Name} { data.Users.Last_Name} </Text>
               <FormControl>
                 <FormControl.Label>Date and Time</FormControl.Label>
-                <Input variant="filled"  placeholder={data.CreatedAt}  bg="muted.50"   value={firstName} onChangeText={text => setFirstName(text)} />
+                <Input variant="filled" editable={false}  placeholder={moment(data.CreatedAt).format('MMMM Do YYYY, h:mm:ss a')}  bg="muted.50"   value={firstName} onChangeText={text => setFirstName(text)} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Service Type</FormControl.Label>

@@ -29,7 +29,7 @@ console.warn(serviceId,providerId,VehicleId);
   console.warn(provider);
    const navigation = useNavigation();
    const data = [{
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    id: "1",
     headingVehicle: "Vehicle:",
     headingRegistration: "Registration number:",
     headingColor:"Color:",
@@ -43,7 +43,7 @@ console.warn(serviceId,providerId,VehicleId);
     valueLocation:provider,
   },
   {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
+    id: "2",
     headingVehicle: "Booking fee:",
     headingRegistration: "Service fee:",
     headingService:"VAT(15%):",
@@ -69,7 +69,7 @@ console.warn(route.params.paramKey[0]);
 
 const postServiceRequest = async () =>{
 
-  await fetch('https://5466-105-224-65-25.ngrok-free.app/ServiceRequestCreate',{
+  await fetch('https://enormous-reasonably-raptor.ngrok-free.app/ServiceRequestCreate',{
       method:'POST',
       headers:{
           'Content-Type':'application/json',

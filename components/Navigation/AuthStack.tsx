@@ -90,8 +90,6 @@ const App = (props:any) => {
                   backgroundColor: "#07137D",},}}
                   initialRouteName="Menu">
 
-
-
           <Tab.Screen name="Menu"  component={MenuScreen}
           options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"home"} size={25} color={"#07137D"} />),tabBarActiveTintColor: "#07137D"
          }}>

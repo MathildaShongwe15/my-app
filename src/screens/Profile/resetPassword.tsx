@@ -11,7 +11,7 @@ const updatePassword = async () =>{
 
   const data1 = {password:password}
   try{
-       let result = await fetch('http://192.168.1.103:3000/ResetPassword/LovingHill@gmail.com',{
+       let result = await fetch('https://enormous-reasonably-raptor.ngrok-free.app/ResetPassword/LovingHill@gmail.com',{
 
            method: 'PUT',
            headers:{

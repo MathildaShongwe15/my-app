@@ -22,7 +22,7 @@ const Register = () => {
     const UserId = await AsyncStorage.getItem("USERID");
           console.log("PROFILE ID:", UserId)
 
-        await fetch(`https://5466-105-224-65-25.ngrok-free.app/Users/${UserId}`,{
+        await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/Users/${UserId}`,{
 
 
             method: 'GET',
@@ -86,10 +86,10 @@ const checkResponse=()=>{
 const updateUserData = async () =>{
 
   const data1 = {firstName:firstName,lastName:lastName,email:email,phoneNumber:phoneNumber}
-  const UserId = await AsyncStorage.getItem("USERID");
+  const UserId = await AsyncStorage.getItem("UserServiceKEYS");
  console.log("PROFILE ID:", UserId)
   try{
-       let result = await fetch(`https://5466-105-224-65-25.ngrok-free.app/UserUpdate/${UserId}`,{
+       let result = await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/UserUpdate/${UserId}`,{
 
            method: 'PUT',
            headers:{
