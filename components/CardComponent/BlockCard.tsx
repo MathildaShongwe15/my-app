@@ -1,13 +1,13 @@
 
-import { Center, HStack, NativeBaseProvider, VStack } from "native-base"
+import { Center, NativeBaseProvider } from "native-base"
 import React from "react"
 import { View, Text, StyleSheet, Dimensions, Image} from "react-native"
 
 
 const BlockCard =(props: any) =>{
+
     return(
         <NativeBaseProvider>
-
         <View style={styles.cardContainer}>
            <View style={styles.infoStyle}>
             <Center>
@@ -16,10 +16,7 @@ const BlockCard =(props: any) =>{
              <Text style={styles.categoryStyle}>{props.info.RegNumber}</Text>
            </View>
         </View>
-
-
-
-</NativeBaseProvider>
+    </NativeBaseProvider>
     )
 }
 
@@ -34,17 +31,13 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderColor:"red",
         backgroundColor: "#D8D8D8",
-
-
     },
-
     titleStyle:{
        fontSize:16,
        fontWeight:'800',
        textAlign:'center',
        marginTop:15,
        color:"#07137D",
-
     },
     categoryStyle:{
         fontWeight:'400',

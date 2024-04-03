@@ -1,11 +1,8 @@
-import { useNavigation } from "@react-navigation/native";
-import { Badge, Center, HStack, NativeBaseProvider, VStack , Text, Avatar} from "native-base"
+import { HStack, NativeBaseProvider, VStack , Text, Avatar} from "native-base"
 import React from "react"
-import { View, StyleSheet, Dimensions, Image, TouchableOpacity} from "react-native"
-import AntIcon from "react-native-vector-icons/AntDesign";
+import { View, StyleSheet} from "react-native"
 
 const BlockCard2 =(props: any ) =>{
-
 
     return(
         <NativeBaseProvider>
@@ -20,16 +17,12 @@ const BlockCard2 =(props: any ) =>{
              <Text style={styles.categoryStyle}>{props.info.Email}</Text>
              <Text style={styles.categoryStyle}>{props.info.PhoneNumber}</Text>
            </View></VStack>
-           {/* <Image source={require("../../assets/pics/icc.png")} style={styles.ImageStyle}/> */}
-
          </HStack>
            </View>
-
     </NativeBaseProvider>
     )
 }
 
-const deviceWidth = Math.round(Dimensions.get('window').width)
 const styles = StyleSheet.create({
     cardContainer:{
         width:385,
@@ -40,7 +33,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderColor:"red",
         backgroundColor: "#F5F5F5",
-
     },
 
     titleStyle:{

@@ -1,4 +1,4 @@
-import { AlertDialog, Button, Center,  Heading,  NativeBaseProvider, VStack } from "native-base";
+import { AlertDialog, Avatar, Button, Center,  FormControl,  Heading,  Input,  NativeBaseProvider, VStack } from "native-base";
 import React, { useEffect, useRef, useState } from "react";
 import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet,Text, ActivityIndicator, Dimensions, Platform} from "react-native";
 import LgBlockCard from "../../../components/CardComponent/LgBlockCard"
@@ -129,11 +129,29 @@ if(isLoading){
 
  return  <View style={styles.Container}>
   <View style={{flexDirection: "row"}}>
-      <Icon name={"car"} size={25} color={"#07137D"} />
-      <Text style={{fontSize:10}}>{formattedaddress}</Text></View>
-    <Heading style={styles.Heading2}>
-              Welcome Back, John Doe
-          </Heading>
+  <Avatar
+                bg="amber.500"
+                source={{
+                  uri: "https://images.unsplash.com/photo-1614289371518-722f2615943d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+                }}
+                size="sm"
+                marginTop={6}
+                marginLeft={2}
+              >
+                NB
+                <Avatar.Badge bg="green.500" />
+              </Avatar>
+              <View style={{flexDirection: "column"}}>
+
+      <Text style={{fontSize:14, marginTop:15, marginLeft:12, color:"#07137D", fontWeight:800}}>John Doe</Text>
+      <View style={{flexDirection: "row"}}>
+      <Icon name={"car"} size={20} color={"#07137D"}  style={{marginTop:5, marginLeft:10}} />
+      <Text style={{fontSize:12, marginTop:5, marginLeft:12, color:"#07137D"}}>{formattedaddress}</Text></View>
+      </View>
+      </View>
+      <FormControl>
+      <Input   editable={false}  selectTextOnFocus={false} variant="filled"  placeholder="search"  bg="muted.200"  width={350} marginLeft={5} marginTop={5}/>
+      </FormControl>
           <View style={{flexDirection: 'row'}}>
           <Heading style={styles.Heading}>
             Browse categories
@@ -164,7 +182,7 @@ if(isLoading){
        <Heading style={styles.Heading1}>
          Make a new Request
        </Heading>
-       <Icon name={"caretright"} size={15} color={"#07137D"} style={{marginTop:20, marginLeft:10}} />
+       <Icon name={"caretright"} size={15} color={"#07137D"} style={{marginTop:30, marginLeft:10}} />
       </View>
        <Text style={styles.sub}>Request Services You Need</Text><FlatList
           data={data}
@@ -222,12 +240,7 @@ const Categories = [
       nav:"Profile",
       id:4
     },
-      {
-        image: require("../../../assets/pics/settings.png"),
-        name: "Settings"  ,
-        RegNumber:"Manage account" ,
-        id:5
-      },
+
   ];
   const requests = [
     {
@@ -277,10 +290,10 @@ export default Menu;
 const styles = StyleSheet.create({
   Container: { flex: 1, backgroundColor: "white"},
   Heading:{marginLeft:20,marginTop:25,color:"#07137D",fontSize:19,fontWeight:'500'},
-  Heading2:{marginLeft:20,marginTop:50,color:"#07137D",fontSize:23},
-  Heading1:{marginLeft:20,marginTop:10,color:"#07137D", fontSize:19, fontWeight:'500'},
+  Heading2:{marginLeft:20,marginTop:20,color:"#07137D",fontSize:23},
+  Heading1:{marginLeft:20,marginTop:20,color:"#07137D", fontSize:19, fontWeight:'500'},
   sub:{marginLeft:20,marginTop:5,color:"#07137D", fontWeight:'400', fontSize:12 },
-  row:{flexDirection:'row',position:'absolute',right:0,left:0, bottom:0,justifyContent:'center'},
+  row:{flexDirection:'row',position:'absolute',right:0,left:0, bottom:-20,justifyContent:'center'},
   dot:{width:10, height:8,backgroundColor:'grey',borderRadius:50, marginHorizontal:5,borderWidth:1, borderColor:'grey', marginBottom:170 }
 
 });

@@ -108,29 +108,20 @@ useEffect(() => {
 const validateEmail = (text:string) =>
 {
   const expression =  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-
   expression.test(String(email).toLowerCase()) === true ? setEmailValidError('Email address must be valid'): undefined
   !text ? setEmailValidError("*Required") : undefined
 }
 
 const validatePassword = (text:string) =>{
-  text && text.length < 10 ? setPasswordValidError("Passord to short"):undefined
   text && !/^(?=.*\d)(?=.*[A-Za-z]).*$/.test(text)? setPasswordValidError('Password must be valid'):undefined
   !text ? setPasswordValidError("*Required") : undefined
   setPassword(text);
-
 }
 
-
-
- // const navigation = useNavigation();
     return (
     <NativeBaseProvider>
-
-      {/* <ActivityIndicator size="small" color="#0000ff" /> */}
       <View style={styles.Container}>
-
-    <Center w="100%" h="100%">
+         <Center w="100%" h="100%">
 
         <Box safeArea  p="2" py="8" w="90%" maxW="290">
          <Center>
@@ -151,7 +142,6 @@ const validatePassword = (text:string) =>{
                 }} color="blue.800" fontWeight="light" size="xs">
                     Sign in to continue
           </Heading>
-         {/* <Text>{test}</Text> */}
          </Center>
 
           <VStack space={3} mt="5">

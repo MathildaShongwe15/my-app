@@ -11,14 +11,16 @@ import Icon from "react-native-vector-icons/AntDesign";
 const Menu =({route}:any)=> {
 
   const [isLoading, setIsLoading] = useState(true);
-  let ServiceId: any = route.params.ParamKey[1];
-  let typeService: any = route.params.ParamKey[0];
-console.warn(ServiceId);
   const [data, setData] = useState([]);
   const navigation = useNavigation();
 
+  let ServiceId: any = route.params.ParamKey[1];
+  let typeService: any = route.params.ParamKey[0];
+
+  console.warn(ServiceId);
 
   const getProviders = async () =>{
+
     await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/GetProviderByService/${ServiceId}`,{
       method:'GET',
       headers:{
@@ -34,16 +36,12 @@ console.warn(ServiceId);
       })
       .then(data => (setData(data.providers),setIsLoading(false)))
       .catch(err => console.log(err))
-
-
-
 };
-const getContent = () =>{
 
+const getContent = () =>{
   if(isLoading){
     return <LoadingScreens/>
   }
-
   return  <View style={styles.Container}>
     <View style={{flexDirection: 'row'}}>
   <Heading style={styles.Heading1}>
@@ -52,7 +50,6 @@ const getContent = () =>{
  <Icon name={"caretright"} size={15} color={"#07137D"} style={{marginTop:30, marginLeft:10}} />
 </View>
  <Text style={styles.sub}>All services you need </Text>
-
  <FlatList
     data={data}
     renderItem={({item}) => {
@@ -63,14 +60,14 @@ const getContent = () =>{
       );
     }}
   />
-
 </View>
 }
+
 useEffect(() =>{
 getProviders()
 },[])
+
     const handleItemPress = (name:string,servicefee:number,ProviderId:string) => {
-       // Navigate to different screens based on item data
 
         if (typeService === 'oil and water') {
           navigation.navigate('My Vehicles',{Paramskeys: [name,typeService,servicefee,ServiceId,ProviderId]});
@@ -92,17 +89,11 @@ getProviders()
       }
     }
      return(
-
       <NativeBaseProvider>
-
         {getContent()}
-
       </NativeBaseProvider>
-
-
      );
 }
-
 
 export default Menu;
 

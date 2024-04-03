@@ -111,12 +111,11 @@
 // }
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import registerNNPushToken, { registerIndieID } from 'native-notify';
 import React from 'react';
 import { Button, View } from 'react-native';
 
 export default function App() {
-  const login = async () =>{
+  const Notify = async () =>{
     let userProviderId = AsyncStorage.getItem("UserServiceKEY");
     await fetch('https://app.nativenotify.com/api/indie/group/notification',{
         method:'POST',
@@ -144,7 +143,7 @@ export default function App() {
 };
   return (
       <View>
-        <Button title='HELLO PRESS ME' onPress={()=>login()}></Button>
+        <Button title='HELLO PRESS ME' onPress={()=>Notify()}></Button>
       </View>
   )
 }

@@ -1,15 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
-import { Badge, Center, HStack, NativeBaseProvider, VStack , Text} from "native-base"
-import React, { useState } from "react"
-import { View, StyleSheet, Dimensions, Image, TouchableOpacity} from "react-native"
+import { Center, NativeBaseProvider, Text} from "native-base"
+import React from "react"
+import { View, StyleSheet, Image, TouchableOpacity} from "react-native"
 
 
 const BlockCard1 =(props: any) =>{
     const navigation = useNavigation();
-    const[img,setimg]=useState();
 
     const handleItemPress = (item:string, Id:any) => {
-        // Navigate to different screens based on item data
 
        console.warn("HEYYYYY ID ALL DAY",Id);
 
@@ -17,11 +15,9 @@ const BlockCard1 =(props: any) =>{
           navigation.navigate('Providers',{ParamKey: [item,Id]});
         } else if (item === 'Jump Start') {
           navigation.navigate('Providers',{ParamKey: [item,Id]});
-
         }
        else if (item === 'Tyre Change') {
         navigation.navigate('Providers',{ParamKey: [item,Id]});
-
        }
        else if (item === 'Fuel') {
        navigation.navigate('Providers',{ParamKey: [item,Id]});
@@ -48,24 +44,20 @@ const BlockCard1 =(props: any) =>{
            </View>
            </View>
       </TouchableOpacity>
-
     </NativeBaseProvider>
     )
 }
 
-const deviceWidth = Math.round(Dimensions.get('window').width)
 const styles = StyleSheet.create({
     cardContainer:{
-        width:390,
-        height:130,
-        marginTop:20,
+        width:360,
+        height:120,
+        marginTop:5,
         marginLeft:12,
         borderStyle:"solid",
         borderRadius: 20,
         borderColor:"red",
         backgroundColor: "#7895CB",
-
-
     },
 
     titleStyle:{

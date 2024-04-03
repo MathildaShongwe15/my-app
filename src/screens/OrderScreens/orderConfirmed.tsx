@@ -1,15 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import { Center, Heading, NativeBaseProvider,Button } from "native-base";
 import React from "react";
-import { StyleSheet,Text, View, Dimensions,Image} from "react-native";
-
+import { StyleSheet,Text, View,Image} from "react-native";
 
 const OrderConfirmed = ({route}:any) => {
+
     const navigation = useNavigation();
 
     const randomRequestNum =()=>{
       return "RO"+(Math.floor(Math.random() * 1500)+1)
-
     }
 
     return (
@@ -23,8 +22,6 @@ const OrderConfirmed = ({route}:any) => {
                 <Text style={styles.SubTitle}>On it's way to your Pinned Location:</Text>
                 <Text style={styles.SubTitle3}>{route.params.paramkey[0]}</Text>
                 <Text style={styles.SubTitle}>Thank you for placing your request with {route.params.paramkey[1]} Check your status under history to track your request</Text>
-
-
                 <Button  size="md" bg='#07137D'  colorScheme="blue" mt="10" w="300"  onPress={() => navigation.navigate('ViewReq')}>
                   Proceed to Requests
                 </Button>
@@ -32,14 +29,11 @@ const OrderConfirmed = ({route}:any) => {
                   Back to Menu
                 </Button>
             </Center>
-
         </View>
-
      </NativeBaseProvider>
     )
-
-
 }
+
 const styles = StyleSheet.create({
     Container: { flex: 1, backgroundColor: "white"},
     Title:{marginTop:50, color:"#07137D"},
@@ -49,4 +43,5 @@ const styles = StyleSheet.create({
     Img:{marginTop:20}
 
   });
+
 export default OrderConfirmed;

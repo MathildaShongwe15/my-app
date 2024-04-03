@@ -77,52 +77,6 @@ const PinLocation = ({route}:any) => {
      animateToRegion();
       },[]);
 
-// const searchPlaces =async ()=>{
-//   if(!searchText.trim().length) return;
-//   const INTITAL_LNG = longitude;
-//   const INTITAL_LAT = latitude;
-
-//   const input = searchText.trim();
-//   const location = `${INTITAL_LAT},${INTITAL_LNG}&radius=2000`
-//   const url = `${GOOGLE_MAPS_APIKEY}?query=${input}&location=${location}`
-//   try{
-//     const resp = await fetch(url);
-//     const json = await resp.json();
-//     console.log(json);
-//     if(json && json.results){
-//       const coords: LatLng[] = []
-//       for(const item of json.results){
-
-//         //console.log(item.geometry);
-//         coords.push({
-//           latitude: item.geometry.location.lat,
-//           longitude: item.geometry.location.lng,
-//         })
-
-//       }
-//       setResults(json.results)
-//       if(coords.length){
-//         map.current?.fitToCoordinates(coords,
-//           {
-//             edgePadding:{
-//                top:50,
-//                right:50,
-//                bottom:50,
-//                left:50
-//             }, animated:true
-//           })
-//           Keyboard.dismiss();
-
-//       }
-//     }
-
-//   }
-//   catch(e){
-//     console.error(e);
-//   }
-
-// }
-
 const [errorMsg, setErrorMsg] = useState('');
 
         const getPermissions = async() =>{
@@ -139,17 +93,12 @@ const [errorMsg, setErrorMsg] = useState('');
             return;
           }
           let currentLocation:any = await Location.getCurrentPositionAsync({});
-          setLocation(location);
 
-
-           // let currentLocation:any = await Location.getCurrentPositionAsync({});
-            setLocation(currentLocation);
+              setLocation(currentLocation);
                 console.log(location);
                 setLatitude(currentLocation.coords.latitude);
                 console.log(latitude);
                 setLongitude(currentLocation.coords.longitude);
-
-
 
     }
     let text = 'Waiting..';
@@ -171,7 +120,7 @@ const [errorMsg, setErrorMsg] = useState('');
       };
 
     const reverseGeocode :any= async () =>{
-        const reverseGeocode = await Location.reverseGeocodeAsync({
+        const reverseGeocode:any = await Location.reverseGeocodeAsync({
             longitude:longitude?longitude:0,
             latitude: latitude?latitude:0
         });
@@ -184,18 +133,14 @@ const [errorMsg, setErrorMsg] = useState('');
 
 return(
  <View style={styles.Container}>
-
-
    <MapView style={styles.map11} ref={mapRef} >
     <Marker coordinate={state.region} title="MY LOCATION" description="SEEME"/>
    </MapView>
-<BottomSheet text={formattedaddress} heading={"Current Address:"} />
-
+    <BottomSheet text={formattedaddress} heading={"Current Address:"} />
   <View style={{flexDirection: 'row'}}>
  <Button  w='210' h='50' bg='#07137D' onPress={()=> {updateRequest(),navigation.navigate('Order', {paramkey:[formattedaddress,route.params.paramkey[0],route.params.paramkey[1],route.params.paramkey[2]]})}}>Pin your location</Button>
   <Button  w='210' h='50' variant={'subtle'} colorScheme={'blue'} onPress={animateToRegion}>Current Location</Button>
  </View>
-
  </View>
 );
 }
@@ -241,6 +186,4 @@ const styles = StyleSheet.create({
       fontSize:18,
       color:'white'
     }
-
-
   });

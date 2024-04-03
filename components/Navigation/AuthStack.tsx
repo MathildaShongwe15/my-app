@@ -1,8 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import HomeScreen from "../../src/screens/Home/home";
-import LoginScreen from "../../src/screens/Login/login";
-import RegisterScreen from "../../src/screens/Register/register";
 import ProfileScreen from "../../src/screens/Profile/profile";
 import RegistrationScreen from "../../src/screens/CarScreens/registerCar";
 import RequestFuelScreen from "../../src/screens/Request/requestFuel";
@@ -19,23 +17,15 @@ import Notification from '../../middleware/notifications'
 import RouteScreen from "../../src/screens/Map/RouteMap"
 import VehiclesScreen from"../../src/screens/CarScreens/Vehicles";
 import ViewVehiclesScreen from "../../src/screens/CarScreens/viewVehicles";
-import { Button, View,Text,Image} from 'react-native';
 import EditVehicleScreen from "../../src/screens/CarScreens/EditVehicle";
-
 import { useAuth } from "../../Context/AuthContext";
 import Icon from "react-native-vector-icons/AntDesign";
-import LoadingScreen from "../../src/screens/Home/LoadingPage";
-import AntIcon from "react-native-vector-icons/AntDesign";
-import Sidebar from '../Navigation/sideBarNavigation'
 import ReqInfoScreen from '../../src/screens/Request/reqInformation';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-const App = (props:any) => {
-  const{authState}:any = useAuth();
-
+const App =() => {
 
   const Stack = createNativeStackNavigator();
-
   return (
 
       <Stack.Navigator
@@ -47,12 +37,9 @@ const App = (props:any) => {
           },
           headerTintColor: "#07137D",
           headerTitleAlign: "center",
-        }}
-
-      >
+        }}>
 
         <Stack.Screen name='BottomTabs' component={BottomTabs} options={{ headerShown: false}}></Stack.Screen>
-
          <Stack.Screen name="Profile" component={ProfileScreen}/>
          <Stack.Screen name="Navigation" component={Notification}options={{title:''}} />
 
@@ -71,15 +58,14 @@ const App = (props:any) => {
          <Stack.Screen name="ViewVehicles" component={ViewVehiclesScreen} options={{ headerShown: true ,title:'My Vehicles'}}></Stack.Screen>
         <Stack.Screen name="Providers" component={ProviderScreen} options={{ headerShown: true , title:''}}></Stack.Screen>
         <Stack.Screen name="EditVehicles" component={EditVehicleScreen} options={{ headerShown: true ,title:'My Vehicles'}}></Stack.Screen>
-
         <Stack.Screen name="ViewReq" component={ViewReqScreen} options={{ headerShown: true}}></Stack.Screen>
-
       </Stack.Navigator>
 
   );
 }
-  const  BottomTabs = (props:any) =>{
-    const{ onLogout, authState}:any = useAuth();
+
+  const  BottomTabs = () =>{
+    const{ onLogout}:any = useAuth();
     const Tab = createBottomTabNavigator();
 
            return(

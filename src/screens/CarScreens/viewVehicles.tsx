@@ -12,24 +12,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CarHistory =()=> {
 
- //console.warn(typeService)
-  const [brand, setVehicleBrand] = useState("");
-  const [brand1, setVehicleBrand1] = useState("");
-  const [reg1, setVehicleReg1] = useState("");
-  const [color1, setColor] = useState("");
-  const [model1, setVehicleModel1] = useState("");
-
-
-  // setserviceType(type1);
-  // console.warn(type);
-
   const [data, setData] = useState([]);
-  const [length, getlength] = useState(0);
-  const [id,setId]=useState('');
   const [id2,setId2]=useState([]);
   const [statusCode, setStatus] = useState({});
 
-
+  const navigation = useNavigation();
+  const [isOpen, setIsOpen] = React.useState(false);
+  const onClose = () => setIsOpen(false);
+  const cancelRef = React.useRef(null);
 
 
   const getVehicles = async () =>{
@@ -50,12 +40,9 @@ const CarHistory =()=> {
         })
         .then(data => (setData(data.vehicle), console.log(data.vehicle)))
         .catch(err => console.log(err))
-
 };
 
-
 const DeleteVechicle = async() =>{
-
   await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/DeleteVehicle/${id2}`,{
       method:'DELETE',
       headers:{
@@ -76,9 +63,9 @@ const DeleteVechicle = async() =>{
 };
 
 const toast = useToast();
+
 const checkToast = () =>{
   if(statusCode == 200){
-
         toast.show({
           placement: "bottom",
           render: () => {
@@ -89,8 +76,8 @@ const checkToast = () =>{
         })
 
   }
-  if(statusCode == 400){
 
+  if(statusCode == 400){
       toast.show({
         render: () => {
           return <Box bg="red.500"px="10" py="5" mb={705}  rounded="md" >
@@ -98,28 +85,19 @@ const checkToast = () =>{
                 </Box>
         }
       })
-
   }
 }
 
 const checkResponse=()=>{
   checkToast();
   DeleteVechicle();
-
 }
+
 useEffect(() =>{
   getVehicles();
-
 },[])
 
-    const navigation = useNavigation();
-    const [isOpen, setIsOpen] = React.useState(false);
-
-   const onClose = () => setIsOpen(false);
-
-    const cancelRef = React.useRef(null);
      return(
-
       <NativeBaseProvider>
        <View style={styles.Container}>
         <Center>
@@ -167,11 +145,8 @@ useEffect(() =>{
         <Button onPress={() => navigation.navigate("Registration Car")}  marginTop={"5"} marginLeft={"350"} width={"50"} height={"50"} bgColor={"blue.900"}><Icon name="pluscircle" size={20} color={"white"}/></Button>
                 </View>
       </NativeBaseProvider>
-
-
      );
 }
-
 
 export default CarHistory;
 

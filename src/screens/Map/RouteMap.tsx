@@ -3,10 +3,10 @@ import MapView, {Marker} from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import {StyleSheet} from 'react-native'
 import * as Location from 'expo-location';
-// import * as Permissions from 'expo-permissions';
-import { Button } from "native-base";
 
 const RouteMap = ({route}:any) => {
+
+  const GOOGLE_MAPS_APIKEY = 'AIzaSyBE7eraggD4Ut8Nybtq-1KaPCE8LG4P8eU';
 
   let latitude:number = route.params?.paramKey[0];
   let longitude:number = route.params?.paramKey[1];
@@ -14,10 +14,8 @@ const RouteMap = ({route}:any) => {
 
   console.log("blink twiccce",  route.params?.paramKey)
 
-
   const [latitudeUser,setLatitudeUser] = useState();
   const [longitudeUser,setLongitudeUser] = useState();
-
   const [location,setLocation] = useState();
 
   const updateRequestStatus = async () =>{
@@ -40,7 +38,6 @@ const RouteMap = ({route}:any) => {
                    console.log(response)
                  }
                  console.log("response is okay", response)
-
                  return response.json();
                })
 
@@ -50,10 +47,7 @@ const RouteMap = ({route}:any) => {
      }
      };
 
-
-
   const getPermissions = async() =>{
-
     const { status } = await Location.requestForegroundPermissionsAsync();
     console.log(status);
     if(status !== 'granted') {
@@ -62,11 +56,8 @@ const RouteMap = ({route}:any) => {
     }
     else{
       try{
-
-        let currentLocation = await Location.getCurrentPositionAsync({});
-
+        let currentLocation:any = await Location.getCurrentPositionAsync({});
          setLocation(currentLocation);
-
          setLatitudeUser(currentLocation.coords.latitude);
          setLongitudeUser(currentLocation.coords.longitude);
       }
@@ -74,17 +65,8 @@ const RouteMap = ({route}:any) => {
           getPermissions();
       }
     }
-
-
     console.log(currentLocation.coords.latitude);
     console.log(currentLocation.coords.longitude);
-
-
-
-   // Location.requestPermissionsAsync();
-
-   // console.log("BITCH IM HERE AS THE DRIVER:" ,latitudeUser,longitudeUser)
-
  };
 
  useEffect(() =>{
@@ -92,11 +74,10 @@ const RouteMap = ({route}:any) => {
 
 },[]);
 
-
 let  mylat:number = latitudeUser? latitudeUser: 0;
 let  mylong:number = longitudeUser? longitudeUser:0;
-console.log("DIM",mylat, mylong);
 
+console.log("DIM",mylat, mylong);
 
     const coordinates = [
         {
@@ -111,7 +92,6 @@ console.log("DIM",mylat, mylong);
     console.log("coordsss",coordinates[1])
 
     const state= {
-
         region: {
           latitude: latitude ? latitude :0,
           longitude: longitude ? longitude:0,
@@ -119,7 +99,7 @@ console.log("DIM",mylat, mylong);
           longitudeDelta: 0.01,
         },
       };
-    const GOOGLE_MAPS_APIKEY = 'AIzaSyBE7eraggD4Ut8Nybtq-1KaPCE8LG4P8eU';
+
     return (
         <MapView   style={styles.map} initialRegion={state.region}>
            <Marker coordinate={coordinates[0]} title={"Request Location"} description={"Pinned Location for customer"}/>
@@ -128,10 +108,9 @@ console.log("DIM",mylat, mylong);
                 origin={coordinates[1]}
                 destination={coordinates[0]}
                 apikey={GOOGLE_MAPS_APIKEY}
-                strokeWidth={3}
+                strokeWidth={4}
                 strokeColor="red">
             </MapViewDirections>
-            {/* <Button onPress={() => updateRequestStatus()}>ACCEPT REQUEST</Button> */}
         </MapView>
     )
 }

@@ -1,4 +1,4 @@
-import { AlertDialog, Button, Center, NativeBaseProvider } from "native-base"
+import { AlertDialog, Button, Center } from "native-base"
 import React from "react";
 
 const AlertDialogComponent = (props:any) => {

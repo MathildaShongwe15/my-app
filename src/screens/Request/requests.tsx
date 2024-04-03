@@ -63,12 +63,10 @@ route.params.paramKey.length = 0;
 route.params.paramKey[0] = "";
 console.warn(route.params.paramKey[0]);
 
-
 }
 
 
 const postServiceRequest = async () =>{
-
   await fetch('https://enormous-reasonably-raptor.ngrok-free.app/ServiceRequestCreate',{
       method:'POST',
       headers:{
@@ -85,9 +83,7 @@ const postServiceRequest = async () =>{
           type:"",
           spare:1,
           amount: 0,
-
         })
-
       })
       .then(response => {
         if(!response.ok){
@@ -95,7 +91,6 @@ const postServiceRequest = async () =>{
           console.log(response)
         }
         console.log("response is okay", response)
-
         return response.json();
       })
       .then(data =>(setReqId(data.request.Id),console.log(reqId) ))
@@ -106,12 +101,9 @@ const postServiceRequest = async () =>{
 useEffect(() =>{
 
 },[])
-//const[requestNum,setRequestNum] = useState("");
-
 
   return(
   <Box  style={styles.Container}>
-
        <View style={{flexDirection: 'row'}}>
       <Heading fontSize="xl" p="4" pb="3" color={"#07137D"}  fontWeight={'500'}>
         Review Request Reciept
@@ -182,37 +174,27 @@ useEffect(() =>{
               </Text>
           </VStack>
             </HStack>
-
           </Box>} keyExtractor={item => item.id} />
           <Center>
-
-<Text style={styles.SubTitle2}>Please Note: Payment will be completed onsite</Text>
-
-</Center>
-<View style={{flexDirection: 'row'}}>
-
-
-            <Button size="md" variant='subtle'  colorScheme="red" mt="5" mb="16" ml='5' w="180" h='50' onPress={() => navigation.navigate('BottomTabs',{screen: 'Menu'})} >
-              Cancel Request
-            </Button>
-            <Button  size="md" bg={'#07137D'}  colorScheme="blue" mt="5" w="180" ml='2'  h="50" onPress={() =>{ postServiceRequest(),navigation.navigate('Maps', {paramkey: [provider,brand,model,serviceId,VehicleId,providerId,reqId]})}} >
-              Confirm Request
-            </Button>
-            </View>
-
-
-
-    </Box>
-
+        <Text style={styles.SubTitle2}>Please Note: Payment will be completed onsite</Text>
+        </Center>
+        <View style={{flexDirection: 'row'}}>
+                    <Button size="md" variant='subtle'  colorScheme="red" mt="5" mb="16" ml='5' w="180" h='50' onPress={() => navigation.navigate('BottomTabs',{screen: 'Menu'})} >
+                      Cancel Request
+                    </Button>
+                    <Button  size="md" bg={'#07137D'}  colorScheme="blue" mt="5" w="180" ml='2'  h="50" onPress={() =>{ postServiceRequest(),navigation.navigate('Maps', {paramkey: [provider,brand,model,serviceId,VehicleId,providerId,reqId]})}} >
+                      Confirm Request
+                    </Button>
+          </View>
+            </Box>
   );
-
-  };
+};
   const styles = StyleSheet.create({
     Container: { flex: 1, backgroundColor: "#fff"},
     Title:{marginTop:50, color:"#07137D"},
     SubTitle:{marginTop:0,color:"#07137D", marginLeft:20,fontWeight:"400"},
     SubTitle2:{marginBottom:130, padding:0,color:"#07137D",fontWeight:"700"},
     Img:{marginTop:20}
-
   });
+
   export default RequestsCart;

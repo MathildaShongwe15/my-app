@@ -16,14 +16,11 @@ console.log("reqid", reqId)
   const [phoneNumber, setPhoneNumber] = useState('');
   const [latitude, setLat] = useState();
   const [longitude, setlong] = useState();
-
   const [isLoading, setIsLoading] = useState(true);
-
- const [data, setData] = useState({});
+  const [data, setData] = useState({});
 
   const getRequestSelected = async () =>{
         await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/AllServiceRequestsById/${reqId}`,{
-
             method: 'GET',
             headers:{
                 'Accept': 'application/json',
@@ -41,27 +38,27 @@ console.log("reqid", reqId)
           .then(data => (setData(data.requests),setIsLoading(false),setlong(data.requests.Longitude), setLat(data.requests.Latitude)))
           .catch(err => console.log(err))
   }
+
   const value:any =  AsyncStorage.getItem("LAT");
    console.log("blink",longitude, latitude)
+
 useEffect(()=>{
     getRequestSelected();
 
 },[])
 
 const navigation = useNavigation();
-
 const getContent = () =>{
   if(isLoading){
     return <LoadingScreens/>
   }
-
   return (
     <NativeBaseProvider>
       <View style={styles.Container}>
         <Center w="100%">
           <Box safeArea p="2" w="90%" maxW="290" py="8">
             <VStack space={3} mt="2">
-              <Text style={{fontWeight:'200', fontSize:12, color:"#07137D", marginTop:5}}>Service Request for {data.Users.First_Name} { data.Users.Last_Name} </Text>
+              <Text style={{fontWeight:'400', fontSize:18, color:"#07137D", marginTop:0}}>Service Request for {data.Users.First_Name} { data.Users.Last_Name} </Text>
               <FormControl>
                 <FormControl.Label>Date and Time</FormControl.Label>
                 <Input variant="filled" editable={false}  placeholder={moment(data.CreatedAt).format('MMMM Do YYYY, h:mm:ss a')}  bg="muted.50"   value={firstName} onChangeText={text => setFirstName(text)} />
@@ -86,21 +83,16 @@ const getContent = () =>{
               <FormControl.Label>Additional Information</FormControl.Label>
                 <Input variant="filled" placeholder={data.Vehicle.Description} bg="muted.50"  value={phoneNumber} onChangeText={text => setPhoneNumber(text)}  />
               </FormControl>
-
-               <Button size="lg" colorScheme="blue" mt="10" width={280} backgroundColor={"#07137D"} onPress={()=> navigation.navigate("RouteMap",{paramKey:[latitude,longitude,reqId]})}>
-                  View Pinned Location
+               <Button size="md" colorScheme="blue" mt="5" width={280} backgroundColor={"#07137D"} onPress={()=> navigation.navigate("RouteMap",{paramKey:[latitude,longitude,reqId]})}>
+                  Accept and View Pinned Location
             </Button>
-
             </VStack>
           </Box>
         </Center>
       </View>
     </NativeBaseProvider>
-
-
   );
 }
-
 
   return(
     <NativeBaseProvider>
@@ -111,6 +103,5 @@ const getContent = () =>{
 
 const styles = StyleSheet.create({
   Container: { flex: 1, backgroundColor: "white", alignItems: "center" },
-
 });
 export default ReqInfo;

@@ -48,23 +48,23 @@ const updatePassword = async () =>{
           />
             </Center>
             <VStack space={3} mt="2">
-              <FormControl>
+              {/* <FormControl>
                 <FormControl.Label>OTP sent via email</FormControl.Label>
                 <Input variant="filled"  placeholder={"OTP"}  bg="muted.50"  />
-              </FormControl>
+              </FormControl> */}
               <FormControl>
-                <FormControl.Label>New Password</FormControl.Label>
+                <FormControl.Label>Enter your Email Address for OTP</FormControl.Label>
                 <Input  placeholder={"New password" }  bg="muted.50"  value={password} onChangeText={text => setpassword(text)} />
               </FormControl>
-              <FormControl>
+              {/* <FormControl>
                 <FormControl.Label>Confirm new Password</FormControl.Label>
                 <Input placeholder={"Confirm new password"}  bg="muted.50" />
-              </FormControl>
+              </FormControl> */}
 
 
               <Button
                 color="#07137D"
-                title="Reset Password"
+                title="Send Email"
                 onPress={updatePassword}
 
               ></Button>

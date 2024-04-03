@@ -9,7 +9,6 @@ import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
 const TowingQuery = ({route}:any) => {
 const navigation = useNavigation();
 
-
 let provider:string = route.params.Paramskeys[0];
 let typeService:string = route.params.Paramskeys[1];
 let fee:number = route.params.Paramskeys[2];
@@ -21,15 +20,12 @@ console.warn(typeService)
   const CheckTyre = (number :string) =>{
     if(number =="0") {
       alert("Choose Towing");
-
-
     }
     else if(number == ""){
       alert("Choose number of Spare Tyres!");
     }
     else{
-
-      navigation.navigate("My Vehicles",{Paramskeys:[provider,typeService,fee]});
+      navigation.navigate("My Vehicles",{Paramskeys:[provider,typeService,fee,value]});
     }
   }
 
@@ -38,7 +34,6 @@ console.warn(typeService)
         <View style={styles.Container}>
             <Center >
             <Heading style={styles.Title} >Give us more information about your situation</Heading>
-
             <Image
             source={require("../../../assets/pics/driver.png")}
             style={{
@@ -48,11 +43,10 @@ console.warn(typeService)
             }}
             alt="Description of the image"
           />
-
-                        <FormControl mt="2" w="3/4" maxW="300" isRequired isInvalid>
+                        <FormControl mt="2" w="3/4" maxW="300"  >
                         <FormControl.Label>Enter number of flat tyres:</FormControl.Label>
 
-                        <Select variant="rounded"
+                        <Select
                         minWidth="200"
                         accessibilityLabel="Choose Service"
                         placeholder="Choose Number of flat tyres"
@@ -67,28 +61,22 @@ console.warn(typeService)
                         <Select.Item label="2" value="2" />
                         <Select.Item label="3" value="3" />
                         <Select.Item label="4" value="4" />
-
                         </Select>
-
-
                     </FormControl>
                     <Checkbox value='1'  bgColor={"coolGray.200"}my={5}>Do you have Spare tyre?</Checkbox>
-
                     <Button  size="md" bg='#07137D'  colorScheme="blue" mt="10" w="300" onPress={() =>{CheckTyre(value)}} >
                   SUBMIT
                 </Button>
-
             </Center>
         </View>
-
      </NativeBaseProvider>
     )
-
-
 }
+
 const styles = StyleSheet.create({
     Container: { flex: 1, backgroundColor: "white"},
     Title:{marginTop:0,padding:50, color:"#07137D",textAlign:"center", fontSize:20, fontWeight:'600'},
     SubTitle:{marginTop:0, padding:70,color:"#07137D"}
   });
+
 export default TowingQuery;
