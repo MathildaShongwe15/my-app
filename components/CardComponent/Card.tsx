@@ -1,9 +1,7 @@
 import React from "react"
 import { View, Text, StyleSheet, Dimensions, Image} from "react-native"
-import IconLabel from "../IconLabelComponent/IconLabel"
 
 const ServiceCard =(props: any) =>{
-    console.log(props)
 
     return(
         <View style={styles.cardContainer}>
@@ -11,7 +9,6 @@ const ServiceCard =(props: any) =>{
            <View style={styles.infoStyle}>
              <Text style={styles.titleStyle}>{props.info.name}</Text>
             <Text style={styles.categoryStyle}>{props.info.serviceProviders}</Text>
-            <IconLabel/>
            </View>
         </View>
     )

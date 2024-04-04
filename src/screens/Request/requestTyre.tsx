@@ -1,9 +1,7 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { Center, CheckIcon, Checkbox, FormControl, Heading, Input, NativeBaseProvider, Select, WarningOutlineIcon,Image, Button} from "native-base";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
-import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
+import { StyleSheet, View, Dimensions } from "react-native";
 
 
 const TowingQuery = ({route}:any) => {

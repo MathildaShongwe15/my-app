@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { Avatar,Box,Center,FormControl,Input,NativeBaseProvider,VStack,View,Button, Heading,Text, useToast} from "native-base";
+import {Box,Center,FormControl,Input,NativeBaseProvider,VStack,View,Button, Heading,Text, useToast} from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
@@ -12,8 +12,6 @@ const Register = ({route}:any) => {
   const [color, setColor] = useState('');
   const [description, setDescription] = useState('');
   const [statusCode, setStatus] = useState({});
-
-
 
   let VehicleId: any = route.params.ParamKey;
 
@@ -39,20 +37,19 @@ const Register = ({route}:any) => {
           })
           .then(data => (setData(data.vehicle)))
           .catch(err => console.log(err))
-
-
-
   }
+
   const checkResponse=()=>{
     checkToast();
     updateVehicle();
-
  }
+
 useEffect(()=>{
   getVehicleData();
 },[])
 
 const toast = useToast();
+
 const checkToast = () =>{
   if(statusCode == 200){
 
@@ -64,7 +61,6 @@ const checkToast = () =>{
                   </Box>
           }
         })
-
   }
   if(statusCode == 400){
 
@@ -75,7 +71,6 @@ const checkToast = () =>{
                 </Box>
         }
       })
-
   }
 }
 const updateVehicle = async () =>{
@@ -96,7 +91,6 @@ const updateVehicle = async () =>{
             if(!response.ok){
               setStatus(response.status);
               throw new Error('Network response not ok'),
-              console.log(response)
             }
             setStatus(response.status);
             console.log("response is okay", response)
@@ -106,7 +100,6 @@ const updateVehicle = async () =>{
  }
    catch(e){
      console.error(e);
-
  }
 }
   const navigation = useNavigation();

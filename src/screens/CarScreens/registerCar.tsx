@@ -17,7 +17,6 @@ const RegisterVehicle = () => {
   const [statusCode, setStatus] = useState({});
 
   const RegisterVehicle = async (Brand :string ,Model :string,RegNo:string ,Color : string,Description:string) =>{
-    console.log(Brand,Model,RegNo,Color,Description)
     const getUserId = await AsyncStorage.getItem("UserID");
 
     await fetch('https://enormous-reasonably-raptor.ngrok-free.app/CreateVehicle',{
@@ -31,7 +30,6 @@ const RegisterVehicle = () => {
           if(!response.ok){
             setStatus(response.status);
             throw new Error('Network response not ok'),
-            console.log(response)
           }
           setStatus(response.status);
           console.log("response is okay", response)
@@ -44,8 +42,8 @@ const RegisterVehicle = () => {
 const toast = useToast();
 
 const checkToast = () =>{
-  if(statusCode == 200){
 
+  if(statusCode == 200){
         toast.show({
           placement: "bottom",
           render: () => {

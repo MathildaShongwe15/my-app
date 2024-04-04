@@ -13,18 +13,10 @@ const Register = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setpassword] = useState('');
   const [role, setRole] = useState('');
-  const [signed, setSigned] = useState(false);
-  const [signUpLoading, setSignUpLoading] = useState(false);
-  const [verifyLoading, setVerifyLoading] = useState(false);
+
 
    const savaData = async () =>{
 
-      console.warn(email);
-      console.warn(firstName);
-      console.warn(lastName);
-      console.warn(phoneNumber);
-      console.warn(password);
-      console.warn(role);
 
     const data = {Id: uuid.v4(),First_Name:firstName,Last_Name:lastName,email:email,phoneNumber:phoneNumber,password:password, role:role}
 
@@ -40,13 +32,9 @@ const Register = () => {
       });
       result = (await result).json();
       console.warn(result);
-      setSignUpLoading(false);
-      setSigned(true);
     }
     catch(e){
       console.error(e);
-      setVerifyLoading(false);
-
     }
 }
 
@@ -97,16 +85,6 @@ const Register = () => {
                 <FormControl.Label>Confirm Password</FormControl.Label>
                 <Input type="password" h={'9'} placeholder="Confirm New Password" bg="muted.50"/>
               </FormControl>
-              <FormControl w="" maxW="300" isRequired isInvalid>
-         <FormControl.Label>Service Provider</FormControl.Label>
-          <Select minWidth="200" height={10} accessibilityLabel="Role" placeholder="Choose service provider" h={'9'} _selectedItem={{ bg: "teal.600",endIcon: <CheckIcon size={5} />,}} mt="0" onValueChange={(value) =>{setRole(value);}}>
-            <Select.Item label="Service Provider" value="Service Provider" />
-            <Select.Item label="Customer" value="Customer" />
-          </Select>
-          <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
-            Please make a selection!
-          </FormControl.ErrorMessage>
-        </FormControl>
               <Button mt="2" colorScheme="blue" bgColor={'#07137D'} onPress={savaData}>
                 CREATE ACCOUNT
               </Button>

@@ -1,61 +1,15 @@
 import { Avatar, Box, Button , Center, CheckIcon, Checkbox, FormControl, HStack, Heading, IconButton, Input, Link, NativeBaseProvider, Select, VStack, View, WarningOutlineIcon, useToast,Text } from "native-base";
 import React, { useState, useContext, isValidElement, useEffect } from "react";
-import {StatusBar , Pressable, Alert, ActivityIndicator} from "react-native";
-import { createNativeStackNavigator, NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { NavigationContainer } from "@react-navigation/native";
 import { useNavigation } from '@react-navigation/native';
 import {  Image, Dimensions,StyleSheet } from 'react-native';
-// import { AuthContext } from "../../../Context/AuthContext";
-import Spinner from 'react-native-loading-spinner-overlay';
-//const navigation = useNavigation();
-import uuid from 'react-native-uuid';
 import { useAuth } from "../../../Context/AuthContext";
 import { Linking } from 'react-native';
-import Notification from "../../../middleware/notifications";
+
 
 
 
 const LoginApp = () => {
-async function sendEmail(to:any, subject:any, body:any, options = {}) {
-    const { cc, bcc }:any = options;
 
-    let url = `mailto:${to}`;
-
-    // Create email link query
-    const query = qs.stringify({
-        subject: subject,
-        body: body,
-        cc: cc,
-        bcc: bcc
-    });
-
-    if (query.length) {
-        url += `?${query}`;
-    }
-
-    // check if we can use this link
-    const canOpen = await Linking.canOpenURL(url);
-
-    if (!canOpen) {
-        throw new Error('Provided URL can not be handled');
-    }
-
-    return Linking.openURL(url);
-}
-
-
-// example.js
-
-
-
-// sendEmail(
-//     'user@domain.com',
-//        'We need your feedback',
-//     'UserName, we need 2 minutes of your time to fill this quick survey [link]',
-//  { cc: 'user@domain.com; user2@domain.com; userx@domain1.com' }
-// ).then(() => {
-//     console.log('Your message was successfully sent!');
-// });
 
 const {onLogin} = useAuth();
 const validator = require('validator');
@@ -67,8 +21,6 @@ const [emailValidError, setEmailValidError] = useState('');
 const [passwordValidError, setPasswordValidError] = useState('');
 const [statusCode, setStatus] = useState({});
 
-
-console.log(email,password);
 const navigation = useNavigation();
 
 const login = async() =>{
@@ -86,7 +38,6 @@ const checkToast = () =>{
                   </Box>
           }
         })
-
   }
   if(statusCode == 400){
 
@@ -104,7 +55,7 @@ const checkToast = () =>{
 useEffect(() => {
 
  },[])
-// check email format
+
 const validateEmail = (text:string) =>
 {
   const expression =  /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
@@ -191,7 +142,6 @@ const validatePassword = (text:string) =>{
       </Center></View>
       </NativeBaseProvider>);
   };
-
 
   const styles = StyleSheet.create({
     Container:{flex:1, backgroundColor: 'white', alignItems: 'center'

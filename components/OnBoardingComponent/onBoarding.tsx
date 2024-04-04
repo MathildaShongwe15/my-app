@@ -2,10 +2,9 @@ import { Button, NativeBaseProvider,View } from "native-base";
 import React, { useEffect, useRef, useState } from "react"
 import {Dimensions, FlatList,StyleSheet } from "react-native"
 import OnBoardingItem from './onBoardingItem'
-
 import { SafeAreaView } from "react-native-safe-area-context";
-import { SCREEN_WIDTH } from "@gorhom/bottom-sheet";
-import { TouchableOpacity } from "react-native-gesture-handler";
+
+
 const Data = [
     {
       image: require("../../assets/pics/Logo (2).png"),
@@ -97,26 +96,15 @@ const Data = [
               ))}
 
            </View>
-
             </SafeAreaView>
         </NativeBaseProvider>
     )
  }
- const Footer = () =>{
-  return <View style={styles.footer}>
-     <View style={styles.footerOne}>
-
-
-     </View>
-  </View>
-};
 
 const styles = StyleSheet.create({
   footer:{height: 0.25, justifyContent: 'space-between', paddingHorizontal:20, backgroundColor:'#0000'},
   footerOne:{flexDirection:'row', justifyContent: 'center',  backgroundColor:'#0000', marginTop:20},
   row:{flexDirection:'row',position:'absolute',right:0,left:0, bottom:0,justifyContent:'center'},
     dot:{width:10, height:8,backgroundColor:'grey',borderRadius:50, marginHorizontal:5,borderWidth:1, borderColor:'grey', marginBottom:40 }
-
-
 })
  export default onBoarding;

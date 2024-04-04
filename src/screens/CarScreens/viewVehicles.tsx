@@ -3,11 +3,9 @@ import { AlertDialog, Box, Button, Center,  NativeBaseProvider, VStack, useToast
 import React, { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet } from "react-native";
 import SmallCard from "../../../components/CardComponent/CardSmall"
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 
 
 const CarHistory =()=> {
@@ -24,7 +22,6 @@ const CarHistory =()=> {
 
   const getVehicles = async () =>{
     let Id = await AsyncStorage.getItem("USERID")
-    console.log("VEHICLES ID",Id);
     await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/GetVehicleByUserId/${Id}`,{
         method:'GET',
         headers:{
@@ -53,7 +50,6 @@ const DeleteVechicle = async() =>{
         if(!response.ok){
           setStatus(response.status);
           throw new Error('Network response not ok'),
-          console.log(response)
         }
         setStatus(response.status);
         console.log("response is okay", response)

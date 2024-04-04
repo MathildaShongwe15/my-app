@@ -9,8 +9,6 @@ const BlockCard1 =(props: any) =>{
 
     const handleItemPress = (item:string, Id:any) => {
 
-       console.warn("HEYYYYY ID ALL DAY",Id);
-
         if (item === 'oil and water') {
           navigation.navigate('Providers',{ParamKey: [item,Id]});
         } else if (item === 'Jump Start') {

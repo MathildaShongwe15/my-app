@@ -3,17 +3,13 @@ import { Animated, Easing, View,Text,Image } from "react-native";
 import LottieView from "lottie-react-native";
 import React, { useEffect, useRef, useState } from "react";
 
-
-
 const LoadingScreen = () => {
 
   const [loop, setLoop] = useState(true);
- // const animationRef = useRef<LottieView>(null);
   useEffect(() => {
     let timer = setTimeout(() => setLoop(false), 20000);
     return () => {
       clearTimeout(timer);
-
     };
 
   }, []);
@@ -24,6 +20,5 @@ const LoadingScreen = () => {
   </View>
    );
 };
-
 
 export default LoadingScreen;

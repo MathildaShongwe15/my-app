@@ -3,7 +3,6 @@ import { Button, Center, Heading } from "native-base";
 import React, { useMemo } from "react";
 import { View ,StyleSheet,Text} from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import Icon from "react-native-vector-icons/AntDesign";
 
 const Bottom = (props:any) => {

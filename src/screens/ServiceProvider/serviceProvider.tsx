@@ -1,9 +1,7 @@
-import { AlertDialog, Button, Center,  Heading,  NativeBaseProvider, VStack } from "native-base";
+import { Heading,  NativeBaseProvider, VStack } from "native-base";
 import React, { useEffect, useState } from "react";
-import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet,Text } from "react-native";
-import BlockCard from "../../../components/CardComponent/BlockCard"
+import { FlatList, TouchableOpacity, View,StyleSheet,Text } from "react-native";
 import Mdblockcard from "../../../components/CardComponent/mdBlockCard";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import LoadingScreens from '../Home/LoadingPage';
 import Icon from "react-native-vector-icons/AntDesign";

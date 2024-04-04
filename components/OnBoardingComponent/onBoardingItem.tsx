@@ -2,7 +2,6 @@ import { useNavigation } from "@react-navigation/native";
 import { Heading, NativeBaseProvider,Button } from "native-base";
 import React, { useState } from "react"
 import { TouchableOpacity,FlatList,useWindowDimensions,Image,StyleSheet,Text,View} from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context";
 
  const onBoardingItem = ({item}:any) => {
 
@@ -10,10 +9,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
     const navigation = useNavigation();
 
     return(
+
   <NativeBaseProvider>
           <View style={styles.Container}>
-
-
            <Image source={item.image} style={[styles.image, {width, resizeMode:'contain'}]} />
            <Heading style={styles.Heading}>{item.title}</Heading>
            <Text style={styles.Subtitle}>{item.description}</Text>
@@ -24,8 +22,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
            GET STARTED
             </Button>
         </View>
-            {/* <Text style={styles.smTitle}>Terms of Service</Text> */}
-
        </View>
 
 </NativeBaseProvider>

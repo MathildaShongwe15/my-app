@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Box,Center,FormControl,Heading,Input,NativeBaseProvider,VStack,View,} from "native-base";
 import React, { useState } from "react";
 import { StyleSheet, Button, Dimensions } from "react-native";
@@ -8,10 +8,10 @@ const Register = () => {
   const [password, setpassword] = useState('');
 
 const updatePassword = async () =>{
-
+  const Email:any = await AsyncStorage.getItem("EMAIL");
   const data1 = {password:password}
   try{
-       let result = await fetch('https://enormous-reasonably-raptor.ngrok-free.app/ResetPassword/LovingHill@gmail.com',{
+       let result = await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/ResetPassword/${Email}`,{
 
            method: 'PUT',
            headers:{
@@ -48,20 +48,10 @@ const updatePassword = async () =>{
           />
             </Center>
             <VStack space={3} mt="2">
-              {/* <FormControl>
-                <FormControl.Label>OTP sent via email</FormControl.Label>
-                <Input variant="filled"  placeholder={"OTP"}  bg="muted.50"  />
-              </FormControl> */}
               <FormControl>
                 <FormControl.Label>Enter your Email Address for OTP</FormControl.Label>
-                <Input  placeholder={"New password" }  bg="muted.50"  value={password} onChangeText={text => setpassword(text)} />
+                <Input  placeholder={"Enter email Address" }  bg="muted.50"  value={password} onChangeText={text => setpassword(text)} />
               </FormControl>
-              {/* <FormControl>
-                <FormControl.Label>Confirm new Password</FormControl.Label>
-                <Input placeholder={"Confirm new password"}  bg="muted.50" />
-              </FormControl> */}
-
-
               <Button
                 color="#07137D"
                 title="Send Email"

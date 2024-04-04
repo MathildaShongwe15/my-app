@@ -16,7 +16,6 @@ const CarHistory =({route} :any)=> {
    let serviceId:number = route.params.Paramskeys[3];
    let providerId:string =  route.params.Paramskeys[4];
 
-  console.warn(providerId);
 
   const [brand1, setVehicleBrand1] = useState("");
   const [reg1, setVehicleReg1] = useState("");
@@ -50,7 +49,7 @@ const CarHistory =({route} :any)=> {
           console.log("response is okay", response)
           return response.json();
         })
-        .then(data => (setData(data.vehicle),setId(data.vehicle.Id),console.log(data.vehicle),setIsLoading(false)))
+        .then(data => (setData(data.vehicle),setId(data.vehicle.Id),setIsLoading(false)))
         .catch(err => console.log(err))
 };
 

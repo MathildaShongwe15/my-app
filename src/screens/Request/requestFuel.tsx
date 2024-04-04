@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import {  } from "react-native-gesture-handler";
 import {Dimensions,Image,StyleSheet,Text} from 'react-native'
 import { useNavigation } from "@react-navigation/native";
-import TabBar from "../../../components/Navigation/tabBarNavigation"
-const Example = ({route}:any) => {
+
+
+const ReqFuel = ({route}:any) => {
   const navigation = useNavigation();
 
   let provider:string = route.params.Paramskeys[0];
@@ -41,12 +42,8 @@ const Example = ({route}:any) => {
           </Heading>
           <Text style={{fontWeight:300,color:'#07137D'}}>Please complete with the follwoing</Text>
       <Box safeArea p="2" w="90%" maxW="300" py="8">
-
-
-
       <FormControl w="" maxW="300" isRequired isInvalid>
      <FormControl.Label>Type of Fuel</FormControl.Label>
-
         <Select
           minWidth="200"
           accessibilityLabel="Type of Fuel"
@@ -60,8 +57,6 @@ const Example = ({route}:any) => {
           <Select.Item label="Diesel" value="Diesel" />
           <Select.Item label="Unleaded 95" value="Unleaded 95" />
           <Select.Item label="Unleaded 93" value="Unleaded 93" />
-
-
         </Select>
         <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="xs" />}>
           Please make a selection!
@@ -82,7 +77,6 @@ const Example = ({route}:any) => {
                 SUBMIT
               </Button>
       </Box>
-
       </VStack>
     </Center>
     </View>
@@ -90,7 +84,7 @@ const Example = ({route}:any) => {
   );
 };
 
-export default Example;
+export default ReqFuel;
 const styles = StyleSheet.create({
   Container: { flex: 1, backgroundColor: "white",},
 });

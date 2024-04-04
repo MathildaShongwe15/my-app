@@ -11,20 +11,14 @@ const Register = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  // const [isLoading, setIsLoading] = useState(true);
   const [statusCode, setStatus] = useState({});
-
-
- const [data, setData] = useState({});
+  const [data, setData] = useState({});
 
   const getUserData = async () =>{
 
     const UserId = await AsyncStorage.getItem("USERID");
-          console.log("PROFILE ID:", UserId)
 
         await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/Users/${UserId}`,{
-
-
             method: 'GET',
             headers:{
                 'Accept': 'application/json',
@@ -43,15 +37,12 @@ const Register = () => {
           })
           .then(data => (setData(data.user)))
           .catch(err => console.log(err))
-
-
-
   }
 
   const toast = useToast();
+
   const checkToast = () =>{
     if(statusCode == 200){
-
           toast.show({
             placement: "bottom",
             render: () => {
@@ -63,7 +54,6 @@ const Register = () => {
 
     }
     if(statusCode == 400){
-
         toast.show({
           render: () => {
             return <Box bg="red.500" px="10" py="5" mb={705} rounded="md"  mb={700}>
@@ -71,9 +61,9 @@ const Register = () => {
                   </Box>
           }
         })
-
     }
   }
+
 useEffect(()=>{
   getUserData()
 },[])
@@ -87,7 +77,7 @@ const updateUserData = async () =>{
 
   const data1 = {firstName:firstName,lastName:lastName,email:email,phoneNumber:phoneNumber}
   const UserId = await AsyncStorage.getItem("UserServiceKEYS");
- console.log("PROFILE ID:", UserId)
+
   try{
        let result = await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/UserUpdate/${UserId}`,{
 
@@ -100,18 +90,13 @@ const updateUserData = async () =>{
 
            });
            result = await result.json();
-           console.log(data1)
  }
    catch(e){
      console.error(e);
-
  }
 }
 
 const getContent = () =>{
-
-
-
   return (
     <NativeBaseProvider>
       <View style={styles.Container}>
@@ -124,7 +109,6 @@ const getContent = () =>{
                   uri: "https://images.unsplash.com/photo-1614289371518-722f2615943d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
                 }}
                 size="xl">
-
                 NB
                 <Avatar.Badge bg="green.500" />
               </Avatar>

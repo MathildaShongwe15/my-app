@@ -35,11 +35,12 @@ export const AuthProvider = ({children}:any) => {
   const [Id, setId] = useState('');
   const [userId, setUserId] = useState('');
   const [role, setRole] = useState('');
+  const [email, setEmailAddress] = useState('');
   const [statusCode, setStatus] = useState({});
 
   const login = async (email :string ,password :string) =>{
 
-                await fetch('localhost:3000/Login',{
+                await fetch('https://enormous-reasonably-raptor.ngrok-free.app/Login',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json',
@@ -69,14 +70,13 @@ export const AuthProvider = ({children}:any) => {
                      setId(data.ProviderId),
                      setRole(data.role),
                      setUserId(data.Id),
+                     setEmailAddress(data.Email),
 
-                     console.log("ROLE?????",role),
-                     console.log("USER?????",userId),
                      AsyncStorage.setItem(TOKEN_KEY, data.token),
                      AsyncStorage.setItem("ROLE", role),
                      AsyncStorage.setItem("USERID", userId),
-                     AsyncStorage.setItem("PROVID", Id),
-                     console.log("PROD",Id)
+                     AsyncStorage.setItem("PROVID", Id)
+
                      ))
                      .then(async () =>{
                       if( role === 'SERVICE PROVIDER'){
@@ -98,9 +98,6 @@ export const AuthProvider = ({children}:any) => {
     const getRole = await AsyncStorage.getItem("ROLE");
     const getUserId  = await AsyncStorage.getItem("UserKEY");
 
-    console.log("STORED USERID", await getUserId)
-    console.log("stored token:", getToken);
-
     if(getToken){
       setAuthState({
          token: getToken,
@@ -109,12 +106,6 @@ export const AuthProvider = ({children}:any) => {
 
       });
     }
-
-    console.log("stored",await AsyncStorage.getItem(TOKEN_KEY))
-    console.log("role",await AsyncStorage.getItem("ROLE"))
-    console.log("Provider?",await AsyncStorage.getItem("ProdID"))
-    console.log("USEKEY?",await AsyncStorage.getItem("UserKEY"))
-
   }
   loadToken();
 },[]);
@@ -132,7 +123,6 @@ const logout = async()=>{
     token:null,
     authenticated:false,
     role:null
-
    })
 }
 
@@ -146,7 +136,6 @@ const value ={
        <AuthContext.Provider value={value}>
         {children}
        </AuthContext.Provider>
-
     )
 }
 

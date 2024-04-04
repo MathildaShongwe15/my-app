@@ -19,8 +19,8 @@ const Menu =()=> {
   const [longitude,setLongitude] = useState();
   const navigation = useNavigation();
   const [currentIndex, setCurrentIndex] = useState(0);
-  // const [updateIndex,setUpdateIndex] = useState(0)
   const ref = useRef(null);
+
   const {width, height} = Dimensions.get('window');
 
   const updateIndexSlide = (e:any) =>{
@@ -34,7 +34,6 @@ const Menu =()=> {
 
     if(nextSlideIndex != data.length){
       const offset = nextSlideIndex * width;
-     // ref?.current?.scrollToOffset({offset});
       setCurrentIndex(currentIndex + 1);
     }
 
@@ -58,16 +57,9 @@ const Menu =()=> {
     let currentLocation:any = await Location.getCurrentPositionAsync({});
     setLocation(location);
 
-
-     // let currentLocation:any = await Location.getCurrentPositionAsync({});
       setLocation(currentLocation);
-          console.log(location);
           setLatitude(currentLocation.coords.latitude);
-          console.log(latitude);
           setLongitude(currentLocation.coords.longitude);
-
-
-
 }
 let text = 'Waiting..';
 
@@ -78,7 +70,6 @@ text = JSON.stringify(location);
 }
 
 const state= {
-
   region: {
     latitude: latitude ? latitude :0,
     longitude: longitude ? longitude:0,
@@ -87,7 +78,7 @@ const state= {
   },
 };
 
-const reverseGeocode :any= async () =>{
+const reverseGeocode = async () =>{
   const reverseGeocode = await Location.reverseGeocodeAsync({
       longitude:longitude?longitude:0,
       latitude: latitude?latitude:0
@@ -95,9 +86,6 @@ const reverseGeocode :any= async () =>{
   setformattedAddress(reverseGeocode[0].formattedAddress);
 }
   const getServices = async () =>{
-
-
-    // setSuccess(false);
     await fetch('https://enormous-reasonably-raptor.ngrok-free.app/AllServices',{
       method:'GET',
       headers:{
@@ -176,7 +164,6 @@ if(isLoading){
 
 
            showsHorizontalScrollIndicator={false}
-        //  alwaysBounceVertical={false}
         />
         <View style={{flexDirection: 'row'}}>
        <Heading style={styles.Heading1}>

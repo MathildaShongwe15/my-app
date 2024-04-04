@@ -1,9 +1,8 @@
-import { Avatar, Box, FlatList, HStack, Heading, Spacer, VStack,Text, NativeBaseProvider, Button, Center} from "native-base";
+import { Box, FlatList, HStack, Heading, Spacer, VStack,Text, NativeBaseProvider, Button, Center} from "native-base";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import uuid from 'react-native-uuid'
 import { StyleSheet, View} from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/AntDesign";
 const RequestsCart = ({route}:any) => {
 
@@ -17,14 +16,8 @@ const RequestsCart = ({route}:any) => {
   let serviceId:number = route.params.paramKey[7];
   let providerId:number = route.params.paramKey[8];
   let VehicleId:number = route.params.paramKey[9];
-  let VatAdded = (fee + 100) *  0.15;
-
-
 
   const [reqId, setReqId] = useState("");
-
-
-console.warn(serviceId,providerId,VehicleId);
 
   console.warn(provider);
    const navigation = useNavigation();
@@ -37,8 +30,8 @@ console.warn(serviceId,providerId,VehicleId);
     headingLocation:"Service Provider:",
 
     valueVehicle: brand + " " +model,
-    valueReg:reg,
-    valueColor:color,
+    valueReg:color,
+    valueColor:reg,
     valueService:type,
     valueLocation:provider,
   },
@@ -46,12 +39,9 @@ console.warn(serviceId,providerId,VehicleId);
     id: "2",
     headingVehicle: "Booking fee:",
     headingRegistration: "Service fee:",
-    headingService:"VAT(15%):",
-    headingLocation:"Total:",
 
     valueVehicle:"R 100.00",
     valueReg:"R "+ fee + ".00",
-    valueService:"R " + VatAdded + ".00",
     valueLocation:"R 227.00",
   },
 

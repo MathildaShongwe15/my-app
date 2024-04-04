@@ -1,7 +1,6 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import React from "react";
 import 'react-native-gesture-handler';
-import HomeS from "../../src/screens/Home/home";
 import Requests from "../../src/screens/Request/viewRequests";
 import Profile from "../../src/screens/Profile/profile";
 import DrawerContent from "./DrawerContent"
@@ -12,7 +11,6 @@ import Dashboard from "../../src/screens/Home/Dashboard";
 
 const AppBarNav = () =>{
     const Drawer = createDrawerNavigator();
-
     return(
           <Drawer.Navigator  defaultStatus="closed"screenOptions={{ overlayColor: '#07137D',drawerActiveBackgroundColor:'#07137D',drawerActiveTintColor:'#FFB400'}}drawerContent={props => <DrawerContent{...props}/>}>
                     <Drawer.Screen name='Dashboard' component={Dashboard}  options={{ headerTintColor:'#07137D',  title: 'Dashboard',drawerIcon: ({focused, size}) => ( <AntIcon name="dashboard" color={focused ? "#FFB400":"#07137D"} size={20} />),}} ></Drawer.Screen>

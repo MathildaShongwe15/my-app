@@ -8,7 +8,6 @@ import moment from 'moment'
 const ReqInfo = ({route}:any) => {
 
 let reqId:number = route.params.ParamKey;
-console.log("reqid", reqId)
 
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -19,6 +18,34 @@ console.log("reqid", reqId)
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({});
 
+  const updateStats = async () =>{
+
+    try{
+     const Id = AsyncStorage.getItem("PROVID")
+            await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/ServiceRequestUpdate/${Id}`,{
+                method: 'PUT',
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify({reqPending:0,reqCancelled:0, reqCompleted:+ 1, reqLogged:1 })
+
+
+                }) .then(response => {
+                 if(!response.ok){
+                   throw new Error('Network response not ok'),
+                   console.log(response)
+                 }
+                 console.log("response is okay", response)
+
+                 return response.json();
+               })
+
+     }
+     catch(err){
+       console.error(err)
+     }
+     };
   const getRequestSelected = async () =>{
         await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/AllServiceRequestsById/${reqId}`,{
             method: 'GET',
@@ -40,7 +67,6 @@ console.log("reqid", reqId)
   }
 
   const value:any =  AsyncStorage.getItem("LAT");
-   console.log("blink",longitude, latitude)
 
 useEffect(()=>{
     getRequestSelected();

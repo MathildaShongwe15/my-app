@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Dimensions,Image} from "react-native";
 import { Box, Center, Heading,NativeBaseProvider,Text,View, ZStack } from "native-base";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/AntDesign";
@@ -8,14 +7,11 @@ import moment from "moment";
 
 const Dashboard = () =>{
 
-
   const [logged, setLogged] = useState(0);
   const [accepted, setAccepted] = useState(0);
   const [cancelled, setCancelled] = useState(0);
   const [pending, setpending] = useState(0);
   const [updatedDate, setUpdated] = useState('')
-  const [Id, setId] = useState('')
-
 
   useEffect(() =>{
     getValues()
@@ -23,7 +19,6 @@ const Dashboard = () =>{
 
    const getValues = async () =>{
     let providerId:any = await AsyncStorage.getItem("PROVID")
-
 
     await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/GetStatsById/${providerId}`,{
         method:'GET',
@@ -33,7 +28,6 @@ const Dashboard = () =>{
         .then(response => {
           if(!response.ok){
             throw new Error('Network response not ok'),
-            console.log(response)
           }
           console.log("response is okay", response)
           return  response.json();
@@ -41,23 +35,6 @@ const Dashboard = () =>{
         .then(async data => (setLogged(data.values.ReqLogged), setAccepted(data.values.ReqCompleted), setpending(data.values.ReqPending), setCancelled(data.values.ReqCancelled),setUpdated(data.values.UpdatedAt)))
         .catch(err => console.log(err))
 };
-
-
-// const datas=[ {value:yValues[0], label:xValues[0]}, {value:80}, {value:90}, {value:70} ]
-
-    // const screenWidth = Dimensions.get("window").width;
-
-    //   const data = {
-    //     labels: [xValues[0], xValues[1], xValues[2], xValues[3], xValues[4], xValues[5],xValues[6],xValues[7]],
-    //     datasets: [
-    //       {
-    //         data: [yValues[0], 0, 0, 0, 0, 0,0,0],
-    //         color: (opacity = 1) => `rgba(248, 175, 7, ${opacity})`, // optional
-    //         strokeWidth: 2 // optional
-    //       }
-    //     ],
-    //     legend: ["Accepted Requests Monthly"] // optional
-    //   };
 
     return(
       <NativeBaseProvider >
@@ -125,7 +102,6 @@ const Dashboard = () =>{
         </Box>
       </Center>
 </View>
-
       </NativeBaseProvider>
     )
 }

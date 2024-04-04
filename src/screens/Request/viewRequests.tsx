@@ -1,23 +1,20 @@
-import { Avatar, Box,View, FlatList, HStack, Heading, Spacer, VStack,Text, NativeBaseProvider, Button} from "native-base";
+import { Avatar, Box, FlatList, HStack, Spacer, VStack,Text, NativeBaseProvider, Button} from "native-base";
 import React, { useEffect, useState } from "react";
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import {  useNavigation } from "@react-navigation/native";
 import LoadingScreens from '../Home/LoadingPage';
-import { TouchableOpacity } from "react-native-gesture-handler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Example = () => {
-  const [isLoading, setIsLoading] = useState(true);
+const ViewReq = () => {
+   const [isLoading, setIsLoading] = useState(true);
    const navigation = useNavigation();
    const [data, setData] = useState("");
    const [id,setId]=useState('');
 
 
-
    const getReq = async () =>{
 
     let ProdID = await AsyncStorage.getItem("PROVID");
-    console.log("REQUEST ID ARRIVED:",ProdID)
-    console.log("Ive arrived to requests", ProdID)
+
     await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/UserRequestByProviderId/${ProdID}`,{
         method:'GET',
         headers:{
@@ -35,17 +32,15 @@ const Example = () => {
         .catch(err => console.log(err))
 
 };
-console.log("hello I'm here Id", data)
+
 
 const getContent = () =>{
 
   if(isLoading){
     return <LoadingScreens/>
   }
-  console.log("hello I'm here Id", data)
 
    return  <Box style={{backgroundColor:"#ffff"}}>
-
      <FlatList data={data} renderItem={({
      item
    }) =><Box borderBottomWidth="0.2" _dark={{
@@ -91,7 +86,6 @@ const getContent = () =>{
          </Box>}  />
    </Box>
 }
-console.log("bathong ",id);
 useEffect(() =>{
   getReq();
 
@@ -105,4 +99,4 @@ useEffect(() =>{
 
   };
 
-  export default Example;
+  export default ViewReq;

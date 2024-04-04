@@ -12,8 +12,6 @@ const RouteMap = ({route}:any) => {
   let longitude:number = route.params?.paramKey[1];
   let reqId:string = route.params?.paramKey[2];
 
-  console.log("blink twiccce",  route.params?.paramKey)
-
   const [latitudeUser,setLatitudeUser] = useState();
   const [longitudeUser,setLongitudeUser] = useState();
   const [location,setLocation] = useState();
@@ -21,7 +19,6 @@ const RouteMap = ({route}:any) => {
   const updateRequestStatus = async () =>{
 
     try{
-     console.warn("JUST ARRIVED REQUEST",reqId);
             await fetch(`https://ec9b-41-76-96-122.ngrok-free.app/ServiceRequestUpdateStatus/${reqId}`,{
                 method: 'PUT',
                 headers:{
@@ -76,8 +73,6 @@ const RouteMap = ({route}:any) => {
 
 let  mylat:number = latitudeUser? latitudeUser: 0;
 let  mylong:number = longitudeUser? longitudeUser:0;
-
-console.log("DIM",mylat, mylong);
 
     const coordinates = [
         {
