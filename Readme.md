@@ -1,4 +1,4 @@
-# TankIt Mobile Application
+# TANKIT Mobile Application
 ### Road Assistance Mobile Application
 > [!NOTE]
 > MVP not yet deployed
