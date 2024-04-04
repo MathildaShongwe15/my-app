@@ -1,6 +1,8 @@
 # TankIt Mobile Application
 ### Road Assistance Mobile Application
+> [!NOTE]
 > MVP not yet deployed
+> Emulator used: Expo Go
 
 1. Tech stack used
    - Front-End
