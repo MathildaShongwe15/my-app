@@ -1,21 +1,21 @@
 import * as React from "react";
 import { View, TextInput,StyleSheet, Platform } from "react-native";
-import {useState, useEffect, useRef} from 'react';
+import {useState, useEffect, useRef, useCallback} from 'react';
 import * as Location from 'expo-location';
 import { Button, Input} from "native-base";
-import MapView from "react-native-maps";
-import { Marker } from "react-native-maps";
+import MapView, { Marker } from "react-native-maps";
 import BottomSheet from "../../../components/BottomSheetComponent/bottomSheet";
 import { useNavigation } from "@react-navigation/native";
 import * as Device from 'expo-device';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import uuid from 'react-native-uuid'
+import { ProgressProvider, useStep } from "../../../Context/ProgressContext";
 
-const PinLocation = ({route}:any) => {
+
+ const PinLocation = ({route}:any) => {
   const navigation = useNavigation();
 
   const mapRef:any = useRef();
-
-    let reqId:string =route.params.paramkey[6];
-
 
     const [location,setLocation] = useState();
     const [formattedaddress, setformattedAddress] = useState();
@@ -25,48 +25,55 @@ const PinLocation = ({route}:any) => {
     const [results,setResults] = useState<any[]>();
     const map = useRef<MapView | null>(null);
 
+ let provider:string = route.params.paramkey[0];
+ let brand:string =route.params.paramkey[1];
+ let model:string = route.params.paramkey[2];
+ let serviceId:number = route.params.paramkey[3];
+ let VehicleId:number = route.params.paramkey[4];
+ let providerId:number = route.params.paramkey[5];
+
+ let { states }:any = this
+ const {currentStep, updateProgress} = useStep();
 
 
-    const updateRequest = async () =>{
-      try{
-        console.warn("JUST ARRIVED REQUEST",reqId);
-              await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/ServiceRequestUpdate/${reqId}`,{
-               method: 'PUT',
-               headers:{
-                   'Accept': 'application/json',
-                   'Content-Type':'application/json'
-               },
-               body: JSON.stringify(
-                {
-                  serviceid: await route.params.paramkey[3],
-                  userid:"ba0d8023-5c3d-4dd7-83a2-d6d80c2c3f43",
-                  vehicleid:await route.params.paramkey[4],
-                  service_provider_id:await route.params.paramkey[5],
-                  qauntity:"",
-                  type:"",
-                  spare:0,
-                  amount:0,
-                  longitude:longitude,
-                  latitude:latitude})
-               }) .then(response => {
-                if(!response.ok){
-                  throw new Error('Network response not ok'),
-                  console.log(response)
-                }
-                console.log("response is okay", response)
+ const postServiceRequest = async () =>{
+  let UserId = await AsyncStorage.getItem("USERID");
+ await fetch('https://content-calm-skunk.ngrok-free.app/ServiceRequestCreate',{
+      method:'POST',
+      headers:{
+          'Content-Type':'application/json',
+      },
+      body: JSON.stringify(
+        {
+          Id:uuid.v4(),
+          serviceid:serviceId,
+          userid:UserId,
+          vehicleid:VehicleId,
+          serviceProviderId:providerId,
+          qauntity:0,
+          type:"",
+          spare:0,
+          amount: 0,
+          accepted:0,
+          longitude:longitude,
+          latitude:latitude
+        })
+      })
+      .then(response => {
+        if(!response.ok){
+          throw new Error('Network response not ok'),
+          console.log(response)
+        }
+        console.log("response is okay", response)
+        return response.json();
+      })
 
-                return response.json();
-              })
+      }
 
-    }
-    catch(err){
-      console.error(err)
-    }
-    };
 
     useEffect(() =>{
       getPermissions();
-     animateToRegion();
+      animateToRegion();
       },[]);
 
 const [errorMsg, setErrorMsg] = useState('');
@@ -124,21 +131,23 @@ const [errorMsg, setErrorMsg] = useState('');
    }
 
 return(
+  <ProgressProvider >
  <View style={styles.Container}>
    <MapView style={styles.map11} ref={mapRef} >
     <Marker coordinate={state.region} title="MY LOCATION" description="SEEME"/>
    </MapView>
     <BottomSheet text={formattedaddress} heading={"Current Address:"} />
   <View style={{flexDirection: 'row'}}>
- <Button  w='210' h='50' bg='#07137D' onPress={()=> {updateRequest(),navigation.navigate('Order', {paramkey:[formattedaddress,route.params.paramkey[0],route.params.paramkey[1],route.params.paramkey[2]]})}}>Pin your location</Button>
+ <Button  w='210' h='50' bg='#07137D' onPress={()=> {postServiceRequest(),navigation.navigate('Order', {paramkey:[formattedaddress,provider,brand,model]})}}>Pin your location</Button>
+
   <Button  w='210' h='50' variant={'subtle'} colorScheme={'blue'} onPress={animateToRegion}>Current Location</Button>
  </View>
  </View>
+ </ProgressProvider>
 );
 }
 
 export default PinLocation;
-
 const styles = StyleSheet.create({
     Container: { flex: 1, backgroundColor: "white",},
 

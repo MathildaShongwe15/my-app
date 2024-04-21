@@ -1,11 +1,14 @@
-import { Heading,  NativeBaseProvider, VStack } from "native-base";
+import { Button, Heading,  NativeBaseProvider, VStack } from "native-base";
 import React, { useEffect, useState } from "react";
 import { FlatList, TouchableOpacity, View,StyleSheet,Text } from "react-native";
 import Mdblockcard from "../../../components/CardComponent/mdBlockCard";
 import { useNavigation } from "@react-navigation/native";
 import LoadingScreens from '../Home/LoadingPage';
 import Icon from "react-native-vector-icons/AntDesign";
-
+import { useAuth } from "../../../Context/AuthContext";
+import { ProgressProvider, useStep } from "../../../Context/ProgressContext";
+import Btn from '../../../components/ProgressComponent/ButtonComponent'
+import ProgressIndicator from "../../../components/ProgressComponent/ProgressIndicator";
 const Menu =({route}:any)=> {
 
   const [isLoading, setIsLoading] = useState(true);
@@ -15,12 +18,11 @@ const Menu =({route}:any)=> {
   let ServiceId: any = route.params.ParamKey[1];
   let typeService: any = route.params.ParamKey[0];
 
-  console.warn(ServiceId);
-
   const getProviders = async () =>{
 
-    await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/GetProviderByService/${ServiceId}`,{
+    await fetch(`https://content-calm-skunk.ngrok-free.app/GetProviderByService/${ServiceId}`,{
       method:'GET',
+
       headers:{
           'Content-Type':'application/json',
       },})
@@ -37,10 +39,12 @@ const Menu =({route}:any)=> {
 };
 
 const getContent = () =>{
+  const {updateProgress} = useStep()
   if(isLoading){
     return <LoadingScreens/>
   }
-  return  <View style={styles.Container}>
+  return(
+  <View style={styles.Container}>
     <View style={{flexDirection: 'row'}}>
   <Heading style={styles.Heading1}>
    Choose a Service Provider
@@ -48,6 +52,7 @@ const getContent = () =>{
  <Icon name={"caretright"} size={15} color={"#07137D"} style={{marginTop:30, marginLeft:10}} />
 </View>
  <Text style={styles.sub}>All services you need </Text>
+
  <FlatList
     data={data}
     renderItem={({item}) => {
@@ -58,7 +63,9 @@ const getContent = () =>{
       );
     }}
   />
+          <Button width={100}height={10} onPress={updateProgress}>Hello</Button>
 </View>
+)
 }
 
 useEffect(() =>{

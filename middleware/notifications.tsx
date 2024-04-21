@@ -4,7 +4,7 @@ import { Button, View } from 'react-native';
 
 export default function App() {
   const Notify = async () =>{
-    let userProviderId = AsyncStorage.getItem("UserServiceKEY");
+    let userProviderId = await AsyncStorage.getItem("UserServiceKEY");
     await fetch('https://app.nativenotify.com/api/indie/group/notification',{
         method:'POST',
         headers:{

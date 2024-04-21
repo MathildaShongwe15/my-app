@@ -1,9 +1,11 @@
+
 import { Box, FlatList, HStack, Heading, Spacer, VStack,Text, NativeBaseProvider, Button, Center} from "native-base";
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import uuid from 'react-native-uuid'
 import { StyleSheet, View} from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const RequestsCart = ({route}:any) => {
 
   let brand:string = route.params.paramKey[0];
@@ -17,9 +19,7 @@ const RequestsCart = ({route}:any) => {
   let providerId:number = route.params.paramKey[8];
   let VehicleId:number = route.params.paramKey[9];
 
-  const [reqId, setReqId] = useState("");
 
-  console.warn(provider);
    const navigation = useNavigation();
    const data = [{
     id: "1",
@@ -46,46 +46,8 @@ const RequestsCart = ({route}:any) => {
   },
 
 ];
-function RemovePendingRequest ()  {
 
 
-route.params.paramKey.length = 0;
-route.params.paramKey[0] = "";
-console.warn(route.params.paramKey[0]);
-
-}
-
-
-const postServiceRequest = async () =>{
-  await fetch('https://enormous-reasonably-raptor.ngrok-free.app/ServiceRequestCreate',{
-      method:'POST',
-      headers:{
-          'Content-Type':'application/json',
-      },
-      body: JSON.stringify(
-        {
-          Id:uuid.v4(),
-          serviceid:serviceId,
-          userid:"ba0d8023-5c3d-4dd7-83a2-d6d80c2c3f43",
-          vehicleid:VehicleId,
-          serviceProviderId:providerId,
-          qauntity:0,
-          type:"",
-          spare:1,
-          amount: 0,
-        })
-      })
-      .then(response => {
-        if(!response.ok){
-          throw new Error('Network response not ok'),
-          console.log(response)
-        }
-        console.log("response is okay", response)
-        return response.json();
-      })
-      .then(data =>(setReqId(data.request.Id),console.log(reqId) ))
-      .catch(err => console.log(err))
-};
 
 
 useEffect(() =>{
@@ -172,7 +134,7 @@ useEffect(() =>{
                     <Button size="md" variant='subtle'  colorScheme="red" mt="5" mb="16" ml='5' w="180" h='50' onPress={() => navigation.navigate('BottomTabs',{screen: 'Menu'})} >
                       Cancel Request
                     </Button>
-                    <Button  size="md" bg={'#07137D'}  colorScheme="blue" mt="5" w="180" ml='2'  h="50" onPress={() =>{ postServiceRequest(),navigation.navigate('Maps', {paramkey: [provider,brand,model,serviceId,VehicleId,providerId,reqId]})}} >
+                    <Button  size="md" bg={'#07137D'}  colorScheme="blue" mt="5" w="180" ml='2'  h="50" onPress={() =>{ navigation.navigate('Maps', {paramkey: [provider,brand,model,serviceId,VehicleId,providerId]})}} >
                       Confirm Request
                     </Button>
           </View>

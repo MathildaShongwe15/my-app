@@ -2,7 +2,8 @@ import { useNavigation } from "@react-navigation/native";
 import { Center, CheckIcon, Checkbox, FormControl, Heading, Input, NativeBaseProvider, Select, WarningOutlineIcon,Image, Button} from "native-base";
 import React, { useState } from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
-
+import { ProgressProvider, useStep } from "../../../Context/ProgressContext";
+import Btn from'../../../components/ProgressComponent/ButtonComponent'
 
 const TowingQuery = ({route}:any) => {
 const navigation = useNavigation();
@@ -26,9 +27,10 @@ console.warn(typeService)
       navigation.navigate("My Vehicles",{Paramskeys:[provider,typeService,fee,value]});
     }
   }
-
     return (
      <NativeBaseProvider>
+       <ProgressProvider>
+
         <View style={styles.Container}>
             <Center >
             <Heading style={styles.Title} >Give us more information about your situation</Heading>
@@ -62,12 +64,15 @@ console.warn(typeService)
                         </Select>
                     </FormControl>
                     <Checkbox value='1'  bgColor={"coolGray.200"}my={5}>Do you have Spare tyre?</Checkbox>
-                    <Button  size="md" bg='#07137D'  colorScheme="blue" mt="10" w="300" onPress={() =>{CheckTyre(value)}} >
+                  <Btn/>
+                {/* <Button  size="md" bg='#07137D'  colorScheme="blue" mt="0" w="300" onPress={()=>CheckTyre(value)} >
                   SUBMIT
-                </Button>
+                </Button> */}
             </Center>
         </View>
+        </ProgressProvider>
      </NativeBaseProvider>
+
     )
 }
 

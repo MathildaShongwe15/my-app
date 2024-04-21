@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import {  useNavigation } from "@react-navigation/native";
 import LoadingScreens from '../Home/LoadingPage';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "../../../Context/AuthContext";
 
 const ViewReq = () => {
    const [isLoading, setIsLoading] = useState(true);
@@ -12,10 +13,9 @@ const ViewReq = () => {
 
 
    const getReq = async () =>{
+    let ProdID = await AsyncStorage.getItem("PROVID")
 
-    let ProdID = await AsyncStorage.getItem("PROVID");
-
-    await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/UserRequestByProviderId/${ProdID}`,{
+    await fetch(`https://content-calm-skunk.ngrok-free.app/UserRequestByProviderId/${ProdID}`,{
         method:'GET',
         headers:{
             'Content-Type':'application/json',

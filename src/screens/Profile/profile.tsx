@@ -1,8 +1,7 @@
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Avatar,Box,Center,FormControl,Input,NativeBaseProvider,VStack,View,Button, useToast,Text} from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import LoadingScreens from '../Home/LoadingPage';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Register = () => {
@@ -18,7 +17,7 @@ const Register = () => {
 
     const UserId = await AsyncStorage.getItem("USERID");
 
-        await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/Users/${UserId}`,{
+        await fetch(`https://content-calm-skunk.ngrok-free.app/Users/${UserId}`,{
             method: 'GET',
             headers:{
                 'Accept': 'application/json',
@@ -46,7 +45,7 @@ const Register = () => {
           toast.show({
             placement: "bottom",
             render: () => {
-              return <Box  bg="#65B741" px="10" py="5" mb={705} rounded="md" >
+              return <Box  bg="#65B741" px="10" py="5" mb={600} rounded="md" >
                       <Text>You have successfully Updated your Profile!</Text>
                     </Box>
             }
@@ -67,6 +66,12 @@ const Register = () => {
 useEffect(()=>{
   getUserData()
 },[])
+useFocusEffect(
+  React.useCallback(() => {
+    // Fetch data when the screen is focused (navigated back to)
+    getUserData();
+  }, [])
+);
 
 const checkResponse=()=>{
   updateUserData();
@@ -76,10 +81,10 @@ const checkResponse=()=>{
 const updateUserData = async () =>{
 
   const data1 = {firstName:firstName,lastName:lastName,email:email,phoneNumber:phoneNumber}
-  const UserId = await AsyncStorage.getItem("UserServiceKEYS");
+  const UserId = await AsyncStorage.getItem("USERID");
 
   try{
-       let result = await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/UserUpdate/${UserId}`,{
+       let result = await fetch(`https://content-calm-skunk.ngrok-free.app/UserUpdate/${UserId}`,{
 
            method: 'PUT',
            headers:{

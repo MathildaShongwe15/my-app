@@ -4,7 +4,7 @@ import { registerIndieID } from 'native-notify';
 
 interface AuthProps{
 
-   authState?: {token:string|null; authenticated:boolean|null;role:string|null}
+   authState?: {token:string|null; authenticated:boolean|null;role:string|null;Id:string|null;providerId:string|null;}
    onRegister?:(email:string, password:string, serviceProvider:string) => Promise<any>;
    onLogin?:(email:string, password:string) => Promise<any>;
    onLogout?: () => Promise<any>;
@@ -24,23 +24,30 @@ export const AuthProvider = ({children}:any) => {
     token: string | null;
     authenticated: boolean | null;
     role: string|null;
+    Id:string|null;
+    providerId:string|null;
 
   }>({
     token:null,
     authenticated:null,
-    role:null
+    role:null,
+    Id:null,
+    providerId:null
 
   });
+
 
   const [Id, setId] = useState('');
   const [userId, setUserId] = useState('');
   const [role, setRole] = useState('');
   const [email, setEmailAddress] = useState('');
   const [statusCode, setStatus] = useState({});
+  const [data, setData] = useState({});
+
 
   const login = async (email :string ,password :string) =>{
 
-                await fetch('https://enormous-reasonably-raptor.ngrok-free.app/Login',{
+            await fetch('https://content-calm-skunk.ngrok-free.app/Login',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json',
@@ -59,34 +66,32 @@ export const AuthProvider = ({children}:any) => {
                       return response.json();
                     })
                     .then(async data =>(
+
+
+                      await AsyncStorage.setItem("USERID", data.Id),
+                      await AsyncStorage.setItem("PROVID", data.ProviderId?? "empty"),
+
                       setAuthState({
                         token: data.token,
                         authenticated:true,
-                        role: data.role
+                        role: data.role,
+                        Id:data.Id,
+                        providerId:data.ProviderId
                      }),
-                     setId(''),
-                     setRole(''),
-                     setUserId(''),
+
+
                      setId(data.ProviderId),
                      setRole(data.role),
                      setUserId(data.Id),
                      setEmailAddress(data.Email),
 
-                     AsyncStorage.setItem(TOKEN_KEY, data.token),
-                     AsyncStorage.setItem("ROLE", role),
-                     AsyncStorage.setItem("USERID", userId),
-                     AsyncStorage.setItem("PROVID", Id)
 
+                     AsyncStorage.setItem(TOKEN_KEY, data.token),
+                     AsyncStorage.setItem("ROLE", role)
                      ))
-                     .then(async () =>{
-                      if( role === 'SERVICE PROVIDER'){
-                        AsyncStorage.setItem("UserServiceKEYS", userId);
-                        registerIndieID(Id, 19822, '5ba8jxbIfqSDiiLwi2SrvX');
-                      }
-                      if(role ==='CUSTOMER'){
-                         AsyncStorage.setItem("UserKEY", userId)
-                         console.log("USEKEY?",userId)
-                      }})
+
+
+
                      .catch(err => console.log(err))
 
   };
@@ -94,23 +99,32 @@ export const AuthProvider = ({children}:any) => {
  useEffect(() =>{
   const loadToken = async() =>{
 
+
     const getToken =await AsyncStorage.getItem(TOKEN_KEY);
     const getRole = await AsyncStorage.getItem("ROLE");
     const getUserId  = await AsyncStorage.getItem("UserKEY");
+    const getProd  = await AsyncStorage.getItem("PROVID");
 
     if(getToken){
       setAuthState({
          token: getToken,
          authenticated:true,
-         role: getRole
-
+         role: getRole,
+         Id:userId,
+         providerId:getProd
       });
     }
   }
-  loadToken();
-},[]);
+   loadToken();
+}
+,[]);
 
 const logout = async()=>{
+   setData('')
+   setId('')
+   setRole('')
+   setUserId('')
+   setEmailAddress('')
 
   AsyncStorage.removeItem(TOKEN_KEY);
   AsyncStorage.removeItem("ROLE");
@@ -122,22 +136,27 @@ const logout = async()=>{
    setAuthState({
     token:null,
     authenticated:false,
-    role:null
-   })
+    role:null,
+    Id:null,
+    providerId:null
+   });
+
+
+
 }
+
 
 const value ={
   onLogin: login,
   onLogout: logout,
-  authState
-} ;
+  authState,
 
+} ;
     return (
        <AuthContext.Provider value={value}>
         {children}
        </AuthContext.Provider>
     )
 }
-
 
 

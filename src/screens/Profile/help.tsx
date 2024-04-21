@@ -1,24 +1,18 @@
+
 import { AlertDialog, Avatar, Button, Center,  FormControl,  Heading,  Input,  NativeBaseProvider, VStack } from "native-base";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet,Text, ActivityIndicator, Dimensions, Platform} from "react-native";
 import LgBlockCard from "../../../components/CardComponent/LgBlockCard"
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
 import LoadingScreens from '../Home/LoadingPage';
-import Btn from '../../../components/ProgressComponent/ButtonComponent'
 import Icon from 'react-native-vector-icons/AntDesign'
 import BlockCard from "../../../components/CardComponent/BlockCard";
 import * as Location from 'expo-location';
 import * as Device from 'expo-device';
-import { useAuth } from "../../../Context/AuthContext";
-import StepIndicator from 'react-native-step-indicator';
-import { ProgressProvider, useMyDispatch, useMyState, useStep } from "../../../Context/ProgressContext";
-import ProgressIndicator from "../../../components/ProgressComponent/ProgressIndicator"
 
- const Menu =()=> {
+const Menu =()=> {
   const [data, setData] = useState([]);
-  const [search, setSearch] = useState('');
-  const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [location,setLocation] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [formattedaddress, setformattedAddress] = useState();
@@ -36,7 +30,6 @@ import ProgressIndicator from "../../../components/ProgressComponent/ProgressInd
     setCurrentIndex(currentIndex);
   }
 
-
   const goNextSlide = (e:any)=>{
     const nextSlideIndex=currentIndex +1;
 
@@ -44,8 +37,8 @@ import ProgressIndicator from "../../../components/ProgressComponent/ProgressInd
       const offset = nextSlideIndex * width;
       setCurrentIndex(currentIndex + 1);
     }
-  }
 
+  }
 
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -93,11 +86,8 @@ const reverseGeocode = async () =>{
   });
   setformattedAddress(reverseGeocode[0].formattedAddress);
 }
-const{authstate}:any = useAuth();
-
   const getServices = async () =>{
-    console.log("menu",authstate);
-    await fetch('https://content-calm-skunk.ngrok-free.app/AllServices',{
+    await fetch('https://enormous-reasonably-raptor.ngrok-free.app/AllServices',{
       method:'GET',
       headers:{
           'Content-Type':'application/json',
@@ -113,88 +103,80 @@ const{authstate}:any = useAuth();
              return response.json();
 
       })
-      .then(data => (setData(data.services), setFilteredDataSource(data.services)))
+      .then(data => (setData(data.services), setIsLoading(false)))
       .catch(err => console.log(err))
 };
-
-
-const searchfilterFunction = (text:string)=>{
-  if(text){
-    const newData = data.filter(
-      function(item){
-        const itemData = item.Type ? item.Type.toUpperCase():''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData)>-1;
-      }
-    );
-    setFilteredDataSource(newData);
-    setSearch(text);
-  }
-  else{
-    setFilteredDataSource(data);
-    setSearch(text);
-  }
-}
-useFocusEffect(
-  React.useCallback(() => {
-    reverseGeocode();
-  }, []));
 useEffect(() =>{
-  getServices();
   getPermissions();
   reverseGeocode();
   },[]);
-
 const getContent = () =>{
-  const {currentStep,updateProgress} = useStep();
 
- return (
+if(isLoading){
+  return <LoadingScreens/>
+}
 
-  <View style={styles.Container}>
+ return  <View style={styles.Container}>
   <View style={{flexDirection: "row"}}>
-
+  <Avatar
+                bg="amber.500"
+                source={{
+                  uri: "https://images.unsplash.com/photo-1614289371518-722f2615943d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+                }}
+                size="sm"
+                marginTop={6}
+                marginLeft={2}
+              >
+                NB
+                <Avatar.Badge bg="green.500" />
+              </Avatar>
               <View style={{flexDirection: "column"}}>
 
-      <View style={{flexDirection: "row", marginTop: 20}}>
-      <Icon name={"flag"} size={20} color={"#07137D"}  style={{marginTop:5, marginLeft:20}} />
-      <Text style={{fontSize:12, marginTop:5, marginLeft:8, color:"#07137D"}}>{formattedaddress}</Text></View>
+      <Text style={{fontSize:14, marginTop:15, marginLeft:12, color:"#07137D", fontWeight:800}}>John Doe</Text>
+      <View style={{flexDirection: "row"}}>
+      <Icon name={"car"} size={20} color={"#07137D"}  style={{marginTop:5, marginLeft:10}} />
+      <Text style={{fontSize:12, marginTop:5, marginLeft:12, color:"#07137D"}}>{formattedaddress}</Text></View>
       </View>
       </View>
-      <View style={{marginTop:15, height:100}}>
-      <ProgressIndicator/>
-
-    </View>
       <FormControl>
-      <Input  value={search} selectTextOnFocus={false}  placeholder="search"  bg="muted.200"  width={350} marginLeft={5} marginTop={2} onChangeText={(text)=>searchfilterFunction(text)} />
+      <Input   editable={false}  selectTextOnFocus={false} variant="filled"  placeholder="search"  bg="muted.200"  width={350} marginLeft={5} marginTop={5}/>
       </FormControl>
+          <View style={{flexDirection: 'row'}}>
+          <Heading style={styles.Heading}>
+            Browse categories
+          </Heading>
+          <Icon name={"caretright"} size={15} color={"#07137D"} style={{marginTop:35, marginLeft:10}} />
 
-        <View style={{flexDirection: 'row'}}>
 
-       <Heading style={styles.Heading1}>
-         Make a new Request
-       </Heading>
-
-       <Icon name={"caretright"} size={15} color={"#07137D"} style={{marginTop:30, marginLeft:10}} />
-      </View>
-       <Text style={styles.sub}>Request Services You Need</Text><FlatList
-          data={filteredDataSource}
-          keyExtractor={(item, index) => index.toString()}
+          </View>
+        <FlatList
+          data={Categories}
           renderItem={({item}) => {
-    return (
-          <LgBlockCard info={item}/>
+            return (
 
-    );
+              <TouchableOpacity  onPress={() => navigation.navigate(item.nav)}>
+                 <BlockCard info={item}/>
 
- }}
- showsHorizontalScrollIndicator={false}
- pagingEnabled={true}
- onMomentumScrollEnd={updateIndexSlide}
- ref={ref}
-/>
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={(items) => items.id.toString()}
+          horizontal
+
+
+           showsHorizontalScrollIndicator={false}
+        />
+
+
 </View>
 
- )
 };
+useEffect(() =>{
+
+  getServices()
+
+},[])
+const count: Int32 = 0;
 const Categories = [
     {
       image: require("../../../assets/pics/carIcon.png"),
@@ -253,15 +235,16 @@ const Categories = [
   ];
 
      return(
+
       <NativeBaseProvider>
        {getContent()}
-       </NativeBaseProvider>
+      </NativeBaseProvider>
+
      );
 }
 
 
 export default Menu;
-
 
 const styles = StyleSheet.create({
   Container: { flex: 1, backgroundColor: "white"},

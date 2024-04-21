@@ -13,11 +13,14 @@ import RequestsScreen from "../../src/screens/Request/requests";
 import MenuScreen from "../../src/screens/Home/Menu";
 import ProviderScreen from "../../src/screens/ServiceProvider/serviceProvider";
 import ViewReqScreen from "../../src/screens/Request/viewRequests";
-import Notification from '../../middleware/notifications'
-import RouteScreen from "../../src/screens/Map/RouteMap"
+import Notification from '../../middleware/notifications';
+import RouteScreen from "../../src/screens/Map/RouteMap";
+import RequestHistoryScreen from "../../src/screens/Request/myRequests";
+import SettingScreen from '../../src/screens/Profile/settings';
 import VehiclesScreen from"../../src/screens/CarScreens/Vehicles";
 import ViewVehiclesScreen from "../../src/screens/CarScreens/viewVehicles";
 import EditVehicleScreen from "../../src/screens/CarScreens/EditVehicle";
+import ComplaintScreen from '../../src/screens/Profile/complaintForm';
 import { useAuth } from "../../Context/AuthContext";
 import Icon from "react-native-vector-icons/AntDesign";
 import ReqInfoScreen from '../../src/screens/Request/reqInformation';
@@ -45,7 +48,7 @@ const App =() => {
 
         <Stack.Screen name="RequestFuel" component={RequestFuelScreen}options={{ headerShown: true}} />
         <Stack.Screen name="Registration Car" component={RegistrationScreen} options={{ headerShown: true, title:''}}/>
-        <Stack.Screen name="Services"  component={ResetScreen} />
+        <Stack.Screen name="Reset"  component={ResetScreen} />
         <Stack.Screen name="Route"  component={RouteScreen} />
         <Stack.Screen name="Fuel"  component={FuelScreen} />
         <Stack.Screen name="InfoReq"  component={ReqInfoScreen} />
@@ -59,6 +62,9 @@ const App =() => {
         <Stack.Screen name="Providers" component={ProviderScreen} options={{ headerShown: true , title:''}}></Stack.Screen>
         <Stack.Screen name="EditVehicles" component={EditVehicleScreen} options={{ headerShown: true ,title:'My Vehicles'}}></Stack.Screen>
         <Stack.Screen name="ViewReq" component={ViewReqScreen} options={{ headerShown: true}}></Stack.Screen>
+        <Stack.Screen name="ReqHistory" component={RequestHistoryScreen} options={{ headerShown: true}}></Stack.Screen>
+        <Stack.Screen name="Complaint" component={ComplaintScreen} options={{ headerShown: true}}></Stack.Screen>
+
       </Stack.Navigator>
 
   );
@@ -80,9 +86,12 @@ const App =() => {
           options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"home"} size={25} color={"#07137D"} />),tabBarActiveTintColor: "#07137D"
          }}>
          </Tab.Screen>
-
-                  <Tab.Screen name="Settings"  component={MenuScreen}
-                   options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"setting"} size={25} color={"#07137D"}  onPress={onLogout}/> ),tabBarActiveTintColor: "#07137D"
+         <Tab.Screen name="My Vehicles"  component={ViewVehiclesScreen}
+                   options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"car"} size={25} color={"#07137D"} /> ),tabBarActiveTintColor: "#07137D"
+                  }}>
+                  </Tab.Screen>
+                  <Tab.Screen name="Settings"  component={SettingScreen}
+                   options={{tabBarIcon:({color,size,focused}) =>(<Icon name={"setting"} size={25} color={"#07137D"}  /> ),tabBarActiveTintColor: "#07137D"
                   }}>
                   </Tab.Screen>
                   <Tab.Screen name="Logout"  component={HomeScreen}

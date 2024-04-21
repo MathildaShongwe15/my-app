@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import MapView, {Marker} from "react-native-maps";
+import MapView, {Marker, Polyline} from "react-native-maps";
 import MapViewDirections from "react-native-maps-directions";
 import {StyleSheet} from 'react-native'
 import * as Location from 'expo-location';
@@ -84,7 +84,6 @@ let  mylong:number = longitudeUser? longitudeUser:0;
              longitude: mylong
         }
     ];
-    console.log("coordsss",coordinates[1])
 
     const state= {
         region: {
@@ -96,9 +95,11 @@ let  mylong:number = longitudeUser? longitudeUser:0;
       };
 
     return (
-        <MapView   style={styles.map} initialRegion={state.region}>
+        <MapView  style={styles.map} initialRegion={state.region}>
            <Marker coordinate={coordinates[0]} title={"Request Location"} description={"Pinned Location for customer"}/>
            <Marker coordinate={coordinates[1]}/>
+                 {/* <Polyline coordinates={coordinates} strokeWidth={5}/> */}
+
             <MapViewDirections
                 origin={coordinates[1]}
                 destination={coordinates[0]}

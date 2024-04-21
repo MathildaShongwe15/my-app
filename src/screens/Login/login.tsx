@@ -1,12 +1,8 @@
-import { Avatar, Box, Button , Center, CheckIcon, Checkbox, FormControl, HStack, Heading, IconButton, Input, Link, NativeBaseProvider, Select, VStack, View, WarningOutlineIcon, useToast,Text } from "native-base";
+import { Avatar, Box, Button , Center, CheckIcon, Checkbox, FormControl, HStack, Heading, IconButton, Input, Link, NativeBaseProvider, Select, VStack, View, WarningOutlineIcon, useToast,Text, Modal} from "native-base";
 import React, { useState, useContext, isValidElement, useEffect } from "react";
 import { useNavigation } from '@react-navigation/native';
 import {  Image, Dimensions,StyleSheet } from 'react-native';
 import { useAuth } from "../../../Context/AuthContext";
-import { Linking } from 'react-native';
-
-
-
 
 const LoginApp = () => {
 
@@ -17,6 +13,9 @@ const validator = require('validator');
 const [role, setRole] = useState('')
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
+
+const [Resetemail, setResetEmail] = useState('');
+
 const [emailValidError, setEmailValidError] = useState('');
 const [passwordValidError, setPasswordValidError] = useState('');
 const [statusCode, setStatus] = useState({});
@@ -25,7 +24,30 @@ const navigation = useNavigation();
 
 const login = async() =>{
  onLogin!(email,password);
+
 }
+const getUserEmail = async () =>{
+
+  await fetch(`https://content-calm-skunk.ngrok-free.app/GetUserByEmail/${Resetemail}`,{
+      method: 'GET',
+      headers:{
+          'Accept': 'application/json',
+          'Content-Type':'application/json'
+      },
+    })
+    .then(response => {
+      if(!response.ok){
+        setStatus(response.status);
+        throw new Error('Network response not ok'),
+        console.log(response)
+      }
+      setStatus(response.status);
+      console.log("response is okay", response)
+      return response.json();
+    })
+    .catch(err => console.log(err))
+}
+
 const toast = useToast();
 const checkToast = () =>{
   if(statusCode == 200){
@@ -40,7 +62,6 @@ const checkToast = () =>{
         })
   }
   if(statusCode == 400){
-
       toast.show({
         render: () => {
           return <Box bg="red.500" px="2" py="1" rounded="sm" mb={700}>
@@ -48,7 +69,6 @@ const checkToast = () =>{
                 </Box>
         }
       })
-
   }
 }
 
@@ -68,9 +88,33 @@ const validatePassword = (text:string) =>{
   !text ? setPasswordValidError("*Required") : undefined
   setPassword(text);
 }
+      const [modalVisible, setModalVisible] = React.useState(false);
 
     return (
-    <NativeBaseProvider>
+       <NativeBaseProvider>
+        <Center>
+          <Modal isOpen={modalVisible} onClose={() => setModalVisible(false)} avoidKeyboard justifyContent='center' bottom="4" size="lg">
+            <Modal.Content>
+              <Modal.CloseButton />
+              <Modal.Header>Forgot Password?</Modal.Header>
+              <Modal.Body>
+                Enter email address and we'll send an OTP to reset your password.
+                <FormControl mt="3">
+                  <FormControl.Label>Email</FormControl.Label>
+                  <Input onChangeText={text => setResetEmail(text)}/>
+                </FormControl>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button flex="1"  backgroundColor={'#07137D'} onPress={()=>{navigation.navigate('ResetPass')}}>
+
+                  Proceed
+                </Button>
+              </Modal.Footer>
+            </Modal.Content>
+          </Modal>
+</Center>
+
+
       <View style={styles.Container}>
          <Center w="100%" h="100%">
 
@@ -115,7 +159,7 @@ const validatePassword = (text:string) =>{
 
 
       </FormControl>
-              <Link _text={{ fontSize: "xs", fontWeight: "500", color: "blue.800"}} alignSelf="flex-end" mt="2" onPress={()=> navigation.navigate('ResetPass')}>
+              <Link _text={{ fontSize: "xs", fontWeight: "500", color: "blue.800"}} alignSelf="flex-end" mt="2" onPress={()=>setModalVisible(!modalVisible)}>
                 Forget Password?
               </Link>
 

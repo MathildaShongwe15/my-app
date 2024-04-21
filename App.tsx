@@ -8,11 +8,14 @@ import LoginScreen from "./src/screens/Login/login";
 import RegisterScreen from "./src/screens/Register/register"
 import ResetScreen from "./src/screens/Profile/resetPassword"
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { registerIndieID } from "native-notify";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ProgressProvider } from "./Context/ProgressContext";
 
 export default function App(){
 
   return(
-    <AuthProvider>
+    <AuthProvider >
       <Layout></Layout>
     </AuthProvider>
   )
@@ -23,7 +26,7 @@ export const Layout = () => {
   const Stack = createNativeStackNavigator();
 
   const roleCheck = ()=>{
-
+    console.log(authState.authenticated);
     if(!authState?.authenticated){
       return <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false}} />
@@ -33,17 +36,25 @@ export const Layout = () => {
         </Stack.Navigator>
     }
     if(authState.role === 'CUSTOMER' && authState?.authenticated){
-      return <TopNav/>
+      return <ProgressProvider>
+        <TopNav/>
+        </ProgressProvider>
     }
     if(authState.role === 'SERVICE PROVIDER' && authState?.authenticated){
-      return <SideBar/>
+      registerIndieID(authState.ProviderId, 19822, '5ba8jxbIfqSDiiLwi2SrvX');
+      return <ProgressProvider>
+        <SideBar/>
+      </ProgressProvider>
     }
   }
 
   return (
+
       <NavigationContainer>
            {roleCheck()}
     </NavigationContainer>
+
+
   );
 }
 

@@ -3,7 +3,7 @@ import { AlertDialog, Button, Center,  NativeBaseProvider, VStack } from "native
 import React, { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet } from "react-native";
 import SmallCard from "../../../components/CardComponent/CardSmall"
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/AntDesign';
 import LoadingScreens from '../Home/LoadingPage';
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -34,9 +34,7 @@ const CarHistory =({route} :any)=> {
   const getVehicles = async () =>{
    let Id = await AsyncStorage.getItem("USERID")
 
-   console.log(Id);
-
-    await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/GetVehicleByUserId/${Id}`,{
+    await fetch(`https://content-calm-skunk.ngrok-free.app/GetVehicleByUserId/${Id}`,{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
@@ -96,7 +94,16 @@ const getContent = () =>{
 useEffect(() =>{
   getVehicles()
 },[])
-
+useEffect(() => {
+  // This effect will run whenever data changes
+  console.log('Data updated. Refreshing...');
+}, [data]);
+useFocusEffect(
+  React.useCallback(() => {
+    // Fetch data when the screen is focused (navigated back to)
+    getVehicles();
+  }, [])
+);
      return(
       <NativeBaseProvider>
       {getContent()}

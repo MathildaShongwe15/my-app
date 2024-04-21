@@ -17,9 +17,9 @@ const RegisterVehicle = () => {
   const [statusCode, setStatus] = useState({});
 
   const RegisterVehicle = async (Brand :string ,Model :string,RegNo:string ,Color : string,Description:string) =>{
-    const getUserId = await AsyncStorage.getItem("UserID");
+    const getUserId = await AsyncStorage.getItem("USERID");
 
-    await fetch('https://enormous-reasonably-raptor.ngrok-free.app/CreateVehicle',{
+    await fetch('https://content-calm-skunk.ngrok-free.app/CreateVehicle',{
         method:'POST',
         headers:{
             'Content-Type':'application/json',
@@ -29,8 +29,9 @@ const RegisterVehicle = () => {
         .then(response => {
           if(!response.ok){
             setStatus(response.status);
-            throw new Error('Network response not ok'),
+            throw new Error('Network response not ok')
           }
+
           setStatus(response.status);
           console.log("response is okay", response)
           return response.json();

@@ -18,7 +18,7 @@ const Register = ({route}:any) => {
  const [data, setData] = useState({});
 
   const getVehicleData = async () =>{
-        await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/GetVehicleByVehicleId/${VehicleId}`,{
+        await fetch(`https://content-calm-skunk.ngrok-free.app/GetVehicleByVehicleId/${VehicleId}`,{
             method: 'GET',
             headers:{
                 'Accept': 'application/json',
@@ -77,7 +77,7 @@ const updateVehicle = async () =>{
 
   const data1 = {VehicleBrand:brand,VehicleModel:model,RegNo:reg,Color:color,Description:description}
   try{
-       let result = await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/UpdateVehicle/${VehicleId}`,{
+       let result = await fetch(`https://content-calm-skunk.ngrok-free.app/UpdateVehicle/${VehicleId}`,{
 
            method: 'PUT',
            headers:{
@@ -90,7 +90,7 @@ const updateVehicle = async () =>{
            .then(response => {
             if(!response.ok){
               setStatus(response.status);
-              throw new Error('Network response not ok'),
+              throw new Error('Network response not ok')
             }
             setStatus(response.status);
             console.log("response is okay", response)

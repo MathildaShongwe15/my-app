@@ -17,18 +17,19 @@ let reqId:number = route.params.ParamKey;
   const [longitude, setlong] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({});
+  let count = 0;
 
   const updateStats = async () =>{
 
     try{
      const Id = AsyncStorage.getItem("PROVID")
-            await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/ServiceRequestUpdate/${Id}`,{
+            await fetch(`https://content-calm-skunk.ngrok-free.app/ServiceRequestUpdate/${Id}`,{
                 method: 'PUT',
                 headers:{
                     'Accept': 'application/json',
                     'Content-Type':'application/json'
                 },
-                body: JSON.stringify({reqPending:0,reqCancelled:0, reqCompleted:+ 1, reqLogged:1 })
+                body: JSON.stringify({reqPending:count++,reqCancelled:0, reqCompleted:0, reqLogged:count++ })
 
 
                 }) .then(response => {
@@ -47,7 +48,7 @@ let reqId:number = route.params.ParamKey;
      }
      };
   const getRequestSelected = async () =>{
-        await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/AllServiceRequestsById/${reqId}`,{
+        await fetch(`https://content-calm-skunk.ngrok-free.app/AllServiceRequestsById/${reqId}`,{
             method: 'GET',
             headers:{
                 'Accept': 'application/json',
@@ -84,7 +85,7 @@ const getContent = () =>{
         <Center w="100%">
           <Box safeArea p="2" w="90%" maxW="290" py="8">
             <VStack space={3} mt="2">
-              <Text style={{fontWeight:'400', fontSize:18, color:"#07137D", marginTop:0}}>Service Request for {data.Users.First_Name} { data.Users.Last_Name} </Text>
+              <Text style={{fontWeight:'500', fontSize:18, color:"#07137D", marginTop:0}}>Service Request for {data.Users.First_Name} { data.Users.Last_Name} </Text>
               <FormControl>
                 <FormControl.Label>Date and Time</FormControl.Label>
                 <Input variant="filled" editable={false}  placeholder={moment(data.CreatedAt).format('MMMM Do YYYY, h:mm:ss a')}  bg="muted.50"   value={firstName} onChangeText={text => setFirstName(text)} />

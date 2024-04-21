@@ -3,9 +3,10 @@ import { AlertDialog, Box, Button, Center,  NativeBaseProvider, VStack, useToast
 import React, { useEffect, useState } from "react";
 import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet } from "react-native";
 import SmallCard from "../../../components/CardComponent/CardSmall"
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/AntDesign';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuth } from "../../../Context/AuthContext";
 
 
 const CarHistory =()=> {
@@ -19,18 +20,19 @@ const CarHistory =()=> {
   const onClose = () => setIsOpen(false);
   const cancelRef = React.useRef(null);
 
+  const{userState}:any = useAuth();
 
   const getVehicles = async () =>{
-    let Id = await AsyncStorage.getItem("USERID")
-    await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/GetVehicleByUserId/${Id}`,{
+    let Id = await AsyncStorage.getItem("USERID");
+
+    await fetch(`https://content-calm-skunk.ngrok-free.app/GetVehicleByUserId/${Id}`,{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
         },})
         .then(response => {
           if(!response.ok){
-            throw new Error('Network response not ok'),
-            console.log(response)
+            throw new Error('Network response not ok')
           }
           console.log("response is okay", response)
           return response.json();
@@ -40,7 +42,7 @@ const CarHistory =()=> {
 };
 
 const DeleteVechicle = async() =>{
-  await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/DeleteVehicle/${id2}`,{
+  await fetch(`https://content-calm-skunk.ngrok-free.app/DeleteVehicle/${id2}`,{
       method:'DELETE',
       headers:{
           'Content-Type':'application/json',
@@ -49,13 +51,14 @@ const DeleteVechicle = async() =>{
       .then(response => {
         if(!response.ok){
           setStatus(response.status);
-          throw new Error('Network response not ok'),
+          throw new Error('Network response not ok')
         }
         setStatus(response.status);
         console.log("response is okay", response)
         return response.json();
       })
       .catch(err => console.log(err))
+      getVehicles();
 };
 
 const toast = useToast();
@@ -92,6 +95,13 @@ const checkResponse=()=>{
 useEffect(() =>{
   getVehicles();
 },[])
+
+useFocusEffect(
+  React.useCallback(() => {
+    // Fetch data when the screen is focused (navigated back to)
+    getVehicles();
+  }, [])
+);
 
      return(
       <NativeBaseProvider>

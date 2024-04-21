@@ -50,24 +50,27 @@ const styles = StyleSheet.create({
     cardContainer:{
         width:360,
         height:120,
-        marginTop:5,
+        marginTop:15,
         marginLeft:12,
         borderStyle:"solid",
         borderRadius: 20,
         borderColor:"red",
         backgroundColor: "#7895CB",
+        shadowColor:"#B4B4B8",
+        borderBlockColor:"#31363F",
+        shadowOpacity:1
     },
 
     titleStyle:{
        fontSize:20,
-       fontWeight:'800',
+       fontWeight:'600',
        textAlign:'center',
        marginTop:5,
        color:"#07137D",
     },
     categoryStyle:{
         fontWeight:'400',
-        fontSize:12,
+        fontSize:10,
         textAlign:'center',
         color:"#07137D",
     }

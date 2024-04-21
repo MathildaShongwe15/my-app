@@ -1,9 +1,10 @@
 
 import React, { useEffect, useState } from "react";
 import { Box, Center, Heading,NativeBaseProvider,Text,View, ZStack } from "native-base";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/AntDesign";
 import moment from "moment";
+import { useAuth } from "../../../Context/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Dashboard = () =>{
 
@@ -14,21 +15,26 @@ const Dashboard = () =>{
   const [updatedDate, setUpdated] = useState('')
 
   useEffect(() =>{
+    //const{authstate}:any = useAuth();
+
     getValues()
     },[]);
 
-   const getValues = async () =>{
-    let providerId:any = await AsyncStorage.getItem("PROVID")
 
-    await fetch(`https://enormous-reasonably-raptor.ngrok-free.app/GetStatsById/${providerId}`,{
+   const getValues = async () =>{
+
+    const providerId:any  = await AsyncStorage.getItem("PROVID");
+
+    await fetch(`https://content-calm-skunk.ngrok-free.app/GetStatsById/${providerId}`,{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
         },})
         .then(response => {
           if(!response.ok){
-            throw new Error('Network response not ok'),
+            throw new Error('Network response not ok')
           }
+
           console.log("response is okay", response)
           return  response.json();
         })
@@ -39,6 +45,8 @@ const Dashboard = () =>{
     return(
       <NativeBaseProvider >
         <View style={{backgroundColor:'#fff'}} maxHeight={1000}>
+        <Heading  fontSize={20} marginTop={15} marginLeft={10} fontWeight={600} color={"#07137D"}>Welcome Back </Heading>
+        <Heading  fontSize={10} marginTop={2} marginLeft={10} fontWeight={400} color={"#07137D"}>View your dashbaord stats for the month </Heading>
         <Center h="700">
         <Box bg="#DBDFEA" size="80" width={320} height={100} rounded="lg"  marginTop={-200}>
         <View style={{flexDirection: 'row'}}>

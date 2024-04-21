@@ -21,7 +21,7 @@ const Register = () => {
     const data = {Id: uuid.v4(),First_Name:firstName,Last_Name:lastName,email:email,phoneNumber:phoneNumber,password:password, role:role}
 
     try{
-    let result = fetch('https://enormous-reasonably-raptor.ngrok-free.app/Auth',{
+    let result = fetch('https://content-calm-skunk.ngrok-free.app/Auth',{
 
         method: 'POST',
         headers:{
