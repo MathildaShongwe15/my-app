@@ -1,7 +1,7 @@
 import { Avatar, Box, FlatList, HStack, Spacer, VStack,Text, NativeBaseProvider, Button} from "native-base";
 import React, { useEffect, useState } from "react";
 import {  useNavigation } from "@react-navigation/native";
-import LoadingScreens from '../Home/LoadingPage';
+import LoadingScreens from '../../../components/LoadingComponent/loadingPage';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "../../../Context/AuthContext";
 
@@ -15,7 +15,7 @@ const ViewReq = () => {
    const getReq = async () =>{
     let ProdID = await AsyncStorage.getItem("PROVID")
 
-    await fetch(`https://content-calm-skunk.ngrok-free.app/UserRequestByProviderId/${ProdID}`,{
+    await fetch(`https://mutt-one-calf.ngrok-free.app/UserRequestByProviderId/${ProdID}`,{
         method:'GET',
         headers:{
             'Content-Type':'application/json',

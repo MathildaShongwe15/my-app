@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FlatList, TouchableOpacity, View,StyleSheet,Text } from "react-native";
 import Mdblockcard from "../../../components/CardComponent/mdBlockCard";
 import { useNavigation } from "@react-navigation/native";
-import LoadingScreens from '../Home/LoadingPage';
+import LoadingScreens from '../../../components/LoadingComponent/loadingPage';
 import Icon from "react-native-vector-icons/AntDesign";
 import { useAuth } from "../../../Context/AuthContext";
 import { ProgressProvider, useStep } from "../../../Context/ProgressContext";
@@ -13,6 +13,8 @@ const Menu =({route}:any)=> {
 
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [value, setValue] = useState(true);
+
   const navigation = useNavigation();
 
   let ServiceId: any = route.params.ParamKey[1];
@@ -20,7 +22,7 @@ const Menu =({route}:any)=> {
 
   const getProviders = async () =>{
 
-    await fetch(`https://content-calm-skunk.ngrok-free.app/GetProviderByService/${ServiceId}`,{
+    await fetch(`https://mutt-one-calf.ngrok-free.app/GetProviderByService/${ServiceId}`,{
       method:'GET',
 
       headers:{
@@ -63,7 +65,6 @@ const getContent = () =>{
       );
     }}
   />
-          <Button width={100}height={10} onPress={updateProgress}>Hello</Button>
 </View>
 )
 }
@@ -75,13 +76,13 @@ getProviders()
     const handleItemPress = (name:string,servicefee:number,ProviderId:string) => {
 
         if (typeService === 'oil and water') {
-          navigation.navigate('My Vehicles',{Paramskeys: [name,typeService,servicefee,ServiceId,ProviderId]});
+          navigation.navigate('My Vehicles',{Paramskeys: [name,typeService,servicefee,ServiceId,ProviderId,value]});
         }
         if (typeService === 'Towing') {
-          navigation.navigate('My Vehicles',{Paramskeys: [name,typeService,servicefee,ServiceId,ProviderId]});
+          navigation.navigate('My Vehicles',{Paramskeys: [name,typeService,servicefee,ServiceId,ProviderId,value]});
         }
         if (typeService === 'Jump Start') {
-          navigation.navigate('My Vehicles',{Paramskeys: [name,typeService,servicefee,ServiceId,ProviderId]});
+          navigation.navigate('My Vehicles',{Paramskeys: [name,typeService,servicefee,ServiceId,ProviderId,value]});
          }
         if (typeService === 'Tyre Change') {
         navigation.navigate('Tyre',{Paramskeys: [name,typeService,servicefee,ServiceId,ProviderId]});
@@ -90,7 +91,7 @@ getProviders()
          navigation.navigate('Fuel',{Paramskeys: [name,typeService,servicefee,ServiceId,ProviderId]});
         }
        if(typeService === 'Lock-Smith') {
-         navigation.navigate('My Vehicles',{Paramskeys: [name,typeService,servicefee,ServiceId,ProviderId]});
+         navigation.navigate('My Vehicles',{Paramskeys: [name,typeService,servicefee,ServiceId,ProviderId,value]});
       }
     }
      return(

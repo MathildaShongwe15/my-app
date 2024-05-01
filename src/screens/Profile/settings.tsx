@@ -54,7 +54,7 @@ const getContent = () =>{
                 </TouchableOpacity>
              </View>
              <View flexDirection={"row"} marginTop={5}>
-             <Icon name={"danger"} size={25} color={"#B4B4B8"} />
+             <Icon name={"customerservice"} size={25} color={"#B4B4B8"} />
 
                 <TouchableOpacity onPress={() => navigation.navigate("Complaint")} >
 
@@ -68,20 +68,7 @@ const getContent = () =>{
                      <Text style={{marginLeft:15, color:"B4B4B8"}}>About</Text>
                 </TouchableOpacity>
              </View>
-             <View flexDirection={"row"} marginTop={5}>
-             <Icon name={"info"} size={25} color={"#B4B4B8"} />
 
-                <TouchableOpacity onPress={() => navigation.navigate("Registration Car")} >
-                     <Text style={{marginLeft:15, color:"B4B4B8"}}>FAQ</Text>
-                </TouchableOpacity>
-             </View>
-             <View flexDirection={"row"} marginTop={5}>
-             <Icon name={"logout"} size={25} color={"#B4B4B8"} />
-
-                <TouchableOpacity onPress={() => navigation.navigate("logout")}>
-                     <Text style={{marginLeft:15, color:"B4B4B8"}}>Logout</Text>
-                </TouchableOpacity>
-             </View>
 
             </VStack>
           </Box>

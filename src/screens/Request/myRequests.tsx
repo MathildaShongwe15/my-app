@@ -1,7 +1,7 @@
 import { Avatar, Box, FlatList, HStack, Spacer, VStack,Text, NativeBaseProvider, Button} from "native-base";
 import React, { useEffect, useState } from "react";
 import {  useNavigation } from "@react-navigation/native";
-import LoadingScreens from '../Home/LoadingPage';
+import LoadingScreens from '../../../components/LoadingComponent/loadingPage';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ViewReq = () => {
@@ -14,7 +14,7 @@ const ViewReq = () => {
    const getReq = async () =>{
     let userId = await AsyncStorage.getItem("USERID")
 
-    await fetch(`https://content-calm-skunk.ngrok-free.app/AllServiceRequestsByUserId/${userId}`,{
+    await fetch(`https://mutt-one-calf.ngrok-free.app/AllServiceRequestsByUserId/${userId}`,{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
@@ -38,7 +38,7 @@ const getContent = () =>{
   if(isLoading){
     return <LoadingScreens/>
   }
-
+   console.log(data)
    return  <Box style={{backgroundColor:"#ffff"}}>
      <FlatList data={data} renderItem={({
      item

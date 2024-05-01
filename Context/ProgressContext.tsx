@@ -2,7 +2,7 @@ import React, {createContext,useReducer, useContext, useEffect, useState, useCal
 
 interface ProgressContextProps{
     currentStep?:number,
-    updateProgress?:()=>void;
+    updateProgress?:()=>void ;
 }
 const value = {
     setValue :0

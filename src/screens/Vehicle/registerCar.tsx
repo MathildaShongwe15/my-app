@@ -8,6 +8,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 
 
 const RegisterVehicle = () => {
+  const navigation = useNavigation();
 
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
@@ -15,11 +16,13 @@ const RegisterVehicle = () => {
   const [color, setColor] = useState('');
   const [description, setDescription] = useState('');
   const [statusCode, setStatus] = useState({});
+  const [requiredError, setRequiredError] = useState('');
+  const [requiredErrorColor, setRequiredColorError] = useState('');
 
   const RegisterVehicle = async (Brand :string ,Model :string,RegNo:string ,Color : string,Description:string) =>{
     const getUserId = await AsyncStorage.getItem("USERID");
 
-    await fetch('https://content-calm-skunk.ngrok-free.app/CreateVehicle',{
+    await fetch('https://mutt-one-calf.ngrok-free.app/CreateVehicle',{
         method:'POST',
         headers:{
             'Content-Type':'application/json',
@@ -68,15 +71,14 @@ const checkResponse=()=>{
    RegisterVehicle(brand,model,Reg,color,description);
    checkToast();
 }
-
-const checkEmpty=()=>{
-  if(model == '' || brand == '' || Reg =='' || color == ''){
-    return true
+const validateRequired = (text:string) =>
+  {
+    !text ? setRequiredError("*Required") :  setRequiredError("")
   }
-  else{
-    return false
-  }
-}
+  const validateRequiredColor = (text:string) =>
+    {
+      !text ? setRequiredColorError("*Required") :  setRequiredColorError("")
+    }
   return (
 
     <NativeBaseProvider>
@@ -95,7 +97,27 @@ const checkEmpty=()=>{
 
               onValueChange={text => setBrand(text)}>
               <Select.Item label="Honda" value="Honda" />
-              <Select.Item label="Hondayi" value="Hondayi" />
+              <Select.Item label="Hyundai " value="Hyundai " />
+              <Select.Item label="Toyota" value="Toyota" />
+              <Select.Item label="BMW" value="BMW" />
+              <Select.Item label="Jeep" value="Jeep" />
+              <Select.Item label="Porsche" value="Porsche" />
+              <Select.Item label="Dodge" value="Porsche" />
+              <Select.Item label="Ferrari" value="Ferrari" />
+              <Select.Item label="Lamborghini" value="Lamborghini" />
+              <Select.Item label="Mazda" value="Madza" />
+              <Select.Item label="Maserati" value="Maserati" />
+              <Select.Item label="Chrysler" value="Chrysler" />
+              <Select.Item label="Cadillac" value="Cadillac" />
+              <Select.Item label="Ford Mustang" value="Ford Mustang" />
+              <Select.Item label="Lexus" value="Lexus" />
+              <Select.Item label="Rolls-Royce" value="Rolls-Royce" />
+              <Select.Item label="Volvo" value="Volvo" />
+              <Select.Item label="Kia" value="Kia" />
+              <Select.Item label="Suzuki" value="Suzuki" />
+              <Select.Item label="Citroen" value="Citroen" />
+              <Select.Item label="Fiat" value="Fiat" />
+              <Select.Item label="Mini" value="Mini" />
               <Select.Item label="Ford" value="Ford" />
               <Select.Item label="Volkswagen" value="Volkswagen" />
               <Select.Item label="Nissan" value="Nissan" />
@@ -134,13 +156,15 @@ const checkEmpty=()=>{
           </FormControl>
           <FormControl w="3/4" maxW="300" mt='1'>
             <FormControl.Label>Registration Number</FormControl.Label>
-            <Input placeholder="Registration Number" value={Reg} onChangeText={text => setReg(text)}/>
+            <Input placeholder="Registration Number" value={Reg} onChangeText={text => {setReg(text),validateRequired(text)}}/>
+            {requiredError ? <Text style={{color:"#C51605",fontSize:12, marginLeft:10}}>{requiredError}</Text> : null}
 
             </FormControl>
           <FormControl w="3/4" maxW="300" mt='1'>
             <FormControl.Label>Color</FormControl.Label>
-            <Input  placeholder="Color" value={color} onChangeText={text => setColor(text)}/>
-            {checkEmpty()}
+            <Input  placeholder="Color" value={color} onChangeText={text => {setColor(text),validateRequiredColor(text)}}/>
+            {requiredErrorColor ? <Text style={{color:"#C51605",fontSize:12, marginLeft:10}}>{requiredErrorColor}</Text> : null}
+
           </FormControl>
           <FormControl.Label w="3/4" maxW="300" mt='2'>
             Other information

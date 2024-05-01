@@ -11,10 +11,17 @@ const navigation = useNavigation();
 let provider:string = route.params.Paramskeys[0];
 let typeService:string = route.params.Paramskeys[1];
 let fee:number = route.params.Paramskeys[2];
+let serviceId:string = route.params.Paramskeys[3];
+let ProviderId:string = route.params.Paramskeys[4];
+const [isChecked, setIsChecked] = useState(true);
 
-console.warn(typeService)
+const handleChange = (newValue:any) => {
+  setIsChecked(newValue);
+  console.warn(isChecked)
+};
 
-  const [value, setValue] =  useState("");
+
+  const [value, setValue] =  useState(1);
 
   const CheckTyre = (number :string) =>{
     if(number =="0") {
@@ -24,7 +31,7 @@ console.warn(typeService)
       alert("Choose number of Spare Tyres!");
     }
     else{
-      navigation.navigate("My Vehicles",{Paramskeys:[provider,typeService,fee,value]});
+      navigation.navigate("My Vehicles",{Paramskeys:[provider,typeService,fee,serviceId,ProviderId,isChecked]});
     }
   }
     return (
@@ -55,7 +62,7 @@ console.warn(typeService)
                             endIcon: <CheckIcon size={5} />,
                         }}
                         mt="1"
-                        onValueChange={text => setValue(text)}
+
                         >
                         <Select.Item label="1" value="1" />
                         <Select.Item label="2" value="2" />
@@ -63,11 +70,10 @@ console.warn(typeService)
                         <Select.Item label="4" value="4" />
                         </Select>
                     </FormControl>
-                    <Checkbox value='1'  bgColor={"coolGray.200"}my={5}>Do you have Spare tyre?</Checkbox>
-                  <Btn/>
-                {/* <Button  size="md" bg='#07137D'  colorScheme="blue" mt="0" w="300" onPress={()=>CheckTyre(value)} >
+                    <Checkbox value="hasSpareTyre" isChecked={isChecked} onChange={handleChange}  bgColor={"coolGray.200"}my={5}>Do you have Spare tyre?</Checkbox>
+                <Button  size="md" bg='#07137D'  colorScheme="blue" mt="0" w="300" onPress={()=>CheckTyre(value)} >
                   SUBMIT
-                </Button> */}
+                </Button>
             </Center>
         </View>
         </ProgressProvider>

@@ -4,44 +4,22 @@ import React, { useState } from "react";
 import { StyleSheet, Dimensions } from "react-native";
 import {  Image,Text } from 'react-native';
 import StepIndicator from 'react-native-step-indicator';
+import Icon from "react-native-vector-icons/AntDesign";
 const Register = () => {
 
   const [password, setpassword] = useState('');
-  const [statusCode, setStatus] = useState({});
-  const [email, setEmail] = useState({});
-  const [isOpen, setIsOpen] = React.useState(false);
-  const onClose = () => setIsOpen(false);
-  const cancelRef = React.useRef(null);
-
-
-
-  const getUserEmail = async () =>{
-
-        await fetch(`https://content-calm-skunk.ngrok-free.app/GetUserByEmail/${email}`,{
-            method: 'GET',
-            headers:{
-                'Accept': 'application/json',
-                'Content-Type':'application/json'
-            },
-          })
-          .then(response => {
-            if(!response.ok){
-              setStatus(response.status);
-              throw new Error('Network response not ok'),
-              console.log(response)
-            }
-            setStatus(response.status);
-            console.log("response is okay", response)
-            return response.json();
-          })
-          .catch(err => console.log(err))
-  }
+  const [passwordValidError, setPasswordValidError] = useState('');
+  const [passwordValidErrorText, setPasswordValidErrorText] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [input1, setInput1] = useState('');
+  const [input2, setInput2] = useState('');
+  const [match, setMatch] = useState(true);
 
 const updatePassword = async () =>{
   const Email:any = await AsyncStorage.getItem("EMAIL");
   const data1 = {password:password}
   try{
-       let result = await fetch(`https://content-calm-skunk.ngrok-free.app/ResetPassword/${Email}`,{
+       let result = await fetch(`https://mutt-one-calf.ngrok-free.app/ResetPassword/${Email}`,{
 
            method: 'PUT',
            headers:{
@@ -59,7 +37,12 @@ const updatePassword = async () =>{
  }
 }
 
-
+const validatePassword = (text:string) =>{
+  const expression =/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^ ][\w\d!@#$%^&*]{8,}$/;
+  text && !expression.test(text)? setPasswordValidErrorText('*Password must be valid'):setPasswordValidErrorText('')
+  !text ? setPasswordValidError("*Required") : setPasswordValidError('')
+  setpassword(text);
+}
 
 
   return (
@@ -68,37 +51,7 @@ const updatePassword = async () =>{
 
       <View style={styles.Container}>
 
-      <Center>
-        <AlertDialog
-          leastDestructiveRef={cancelRef}
-          isOpen={isOpen}
-          onClose={onClose}
-        >
-          <AlertDialog.Content>
-            <AlertDialog.CloseButton />
-            <AlertDialog.Header >Manage Car History</AlertDialog.Header>
-            <AlertDialog.Body>
-              Enter OTP
-            </AlertDialog.Body>
-            <AlertDialog.Footer>
-              <Button.Group space={2}>
-                <Button
-                variant={'subtle'}
-                  colorScheme="red"
 
-                  ref={cancelRef}
-                  onClose={onClose}
-                >
-                  Resend OTP
-                </Button>
-                <Button  colorScheme="blue"  bgColor={'#07137D'} onPress={() => navigation.navigate('EditVehicles', {ParamKey:id2})}>
-                  Reset password
-                </Button>
-              </Button.Group>
-            </AlertDialog.Footer>
-          </AlertDialog.Content>
-        </AlertDialog>
-      </Center>
         <Center w="100%">
           <Box safeArea p="2" w="90%" maxW="290" py="8">
             <Center>
@@ -116,15 +69,30 @@ const updatePassword = async () =>{
             <VStack space={3} mt="2">
               <FormControl>
                 <FormControl.Label>New Password</FormControl.Label>
-                <Input  placeholder={"Enter new password" }  bg="muted.50"  value={password} onChangeText={text => setpassword(text)} />
+                <View flexDirection={'row'}>
+                <Input  placeholder={"Enter new password" }  bg="muted.50" type={showPassword? "text": "password"}  width={270} value={input1} onChangeText={text => {setInput1(text),setMatch(input1 === input2);}}  />
+
+                <Icon name={showPassword ? "eye":"eyeo"} onPress={()=>setShowPassword(!showPassword)} size={20} style={{marginTop:10, marginLeft:5}}></Icon>
+                </View>
+                {passwordValidError ? <Text style={{color:"#C51605", fontSize:12, marginLeft:10}}>{passwordValidError}</Text> : null}
+                {passwordValidErrorText ? <Text style={{color:"#C51605", fontSize:12, marginLeft:10}}>{passwordValidErrorText}</Text> : null}
               </FormControl>
               <FormControl>
                 <FormControl.Label>Confirm New Password</FormControl.Label>
-                <Input  placeholder={"Confirm new password" }  bg="muted.50"  value={password} onChangeText={text => setpassword(text)} />
-              </FormControl>
-              <Button
 
-                onPress={() => setIsOpen(!isOpen)}
+                <Input  placeholder={"Confirm new password" }  bg="muted.50" type={showPassword? "text": "password"}  width={270}  value={input2} onChangeText={text => {setInput2(text);setMatch(input1 === input2); validatePassword(text);}} />
+
+
+              {passwordValidError ? <Text style={{color:"#C51605", fontSize:12, marginLeft:10}}>{passwordValidError}</Text> : null}
+                {passwordValidErrorText ? <Text style={{color:"#C51605", fontSize:12, marginLeft:10}}>{passwordValidErrorText}</Text> : null}
+              </FormControl>
+              {match ? (
+             <Text style={{color:"#65B741", fontSize:12, marginLeft:10}}>Passwords match!</Text>
+            ) : (
+              <Text style={{color:"#C51605", fontSize:12, marginLeft:10}}>* Passwords don't match</Text>
+            )}
+              <Button
+                onPress={() => updatePassword()}
                 style={{backgroundColor:"#07137D"}}
               >Reset password</Button>
             </VStack>

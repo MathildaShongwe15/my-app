@@ -19,7 +19,7 @@ const RouteMap = ({route}:any) => {
   const updateRequestStatus = async () =>{
 
     try{
-            await fetch(`https://ec9b-41-76-96-122.ngrok-free.app/ServiceRequestUpdateStatus/${reqId}`,{
+            await fetch(`https://mutt-one-calf.ngrok-free.app/ServiceRequestUpdateStatus/${reqId}`,{
                 method: 'PUT',
                 headers:{
                     'Accept': 'application/json',

@@ -1,5 +1,5 @@
 import React from "react";
-import Authstack from '../Navigation/AuthStack'
+import Authstack from './AuthStack'
 import { NativeBaseProvider } from "native-base";
 
 const TopStackNav = () => {

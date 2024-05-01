@@ -25,7 +25,7 @@ const CarHistory =()=> {
   const getVehicles = async () =>{
     let Id = await AsyncStorage.getItem("USERID");
 
-    await fetch(`https://content-calm-skunk.ngrok-free.app/GetVehicleByUserId/${Id}`,{
+    await fetch(`https://mutt-one-calf.ngrok-free.app/GetVehicleByUserId/${Id}`,{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
@@ -42,7 +42,7 @@ const CarHistory =()=> {
 };
 
 const DeleteVechicle = async() =>{
-  await fetch(`https://content-calm-skunk.ngrok-free.app/DeleteVehicle/${id2}`,{
+  await fetch(`https://mutt-one-calf.ngrok-free.app/DeleteVehicle/${id2}`,{
       method:'DELETE',
       headers:{
           'Content-Type':'application/json',

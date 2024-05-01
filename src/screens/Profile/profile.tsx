@@ -17,7 +17,7 @@ const Register = () => {
 
     const UserId = await AsyncStorage.getItem("USERID");
 
-        await fetch(`https://content-calm-skunk.ngrok-free.app/Users/${UserId}`,{
+        await fetch(`https://mutt-one-calf.ngrok-free.app/Users/${UserId}`,{
             method: 'GET',
             headers:{
                 'Accept': 'application/json',
@@ -84,7 +84,7 @@ const updateUserData = async () =>{
   const UserId = await AsyncStorage.getItem("USERID");
 
   try{
-       let result = await fetch(`https://content-calm-skunk.ngrok-free.app/UserUpdate/${UserId}`,{
+       let result = await fetch(`https://mutt-one-calf.ngrok-free.app/UserUpdate/${UserId}`,{
 
            method: 'PUT',
            headers:{

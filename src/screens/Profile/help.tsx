@@ -5,7 +5,7 @@ import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet,Text, Activit
 import LgBlockCard from "../../../components/CardComponent/LgBlockCard"
 import { useNavigation } from "@react-navigation/native";
 import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
-import LoadingScreens from '../Home/LoadingPage';
+import LoadingScreens from '../../../components/LoadingComponent/loadingPage';
 import Icon from 'react-native-vector-icons/AntDesign'
 import BlockCard from "../../../components/CardComponent/BlockCard";
 import * as Location from 'expo-location';
@@ -87,7 +87,7 @@ const reverseGeocode = async () =>{
   setformattedAddress(reverseGeocode[0].formattedAddress);
 }
   const getServices = async () =>{
-    await fetch('https://enormous-reasonably-raptor.ngrok-free.app/AllServices',{
+    await fetch('https://mutt-one-calf.ngrok-free.app/AllServices',{
       method:'GET',
       headers:{
           'Content-Type':'application/json',

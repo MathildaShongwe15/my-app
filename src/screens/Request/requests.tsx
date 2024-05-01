@@ -18,6 +18,7 @@ const RequestsCart = ({route}:any) => {
   let serviceId:number = route.params.paramKey[7];
   let providerId:number = route.params.paramKey[8];
   let VehicleId:number = route.params.paramKey[9];
+  let value:boolean = route.params.paramKey[10];
 
 
    const navigation = useNavigation();
@@ -134,7 +135,7 @@ useEffect(() =>{
                     <Button size="md" variant='subtle'  colorScheme="red" mt="5" mb="16" ml='5' w="180" h='50' onPress={() => navigation.navigate('BottomTabs',{screen: 'Menu'})} >
                       Cancel Request
                     </Button>
-                    <Button  size="md" bg={'#07137D'}  colorScheme="blue" mt="5" w="180" ml='2'  h="50" onPress={() =>{ navigation.navigate('Maps', {paramkey: [provider,brand,model,serviceId,VehicleId,providerId]})}} >
+                    <Button  size="md" bg={'#07137D'}  colorScheme="blue" mt="5" w="180" ml='2'  h="50" onPress={() =>{ navigation.navigate('Maps', {paramkey: [provider,brand,model,serviceId,VehicleId,providerId,value]})}} >
                       Confirm Request
                     </Button>
           </View>

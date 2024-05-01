@@ -25,7 +25,7 @@ const Dashboard = () =>{
 
     const providerId:any  = await AsyncStorage.getItem("PROVID");
 
-    await fetch(`https://content-calm-skunk.ngrok-free.app/GetStatsById/${providerId}`,{
+    await fetch(`https://mutt-one-calf.ngrok-free.app/GetStatsById/${providerId}`,{
         method:'GET',
         headers:{
             'Content-Type':'application/json',

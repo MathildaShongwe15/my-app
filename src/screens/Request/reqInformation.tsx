@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import {Text, Avatar,Box,Center,FormControl,Input,NativeBaseProvider,VStack,View,Button} from "native-base";
 import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import LoadingScreens from '../Home/LoadingPage';
+import LoadingScreens from '../../../components/LoadingComponent/loadingPage';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from 'moment'
 const ReqInfo = ({route}:any) => {
@@ -23,7 +23,7 @@ let reqId:number = route.params.ParamKey;
 
     try{
      const Id = AsyncStorage.getItem("PROVID")
-            await fetch(`https://content-calm-skunk.ngrok-free.app/ServiceRequestUpdate/${Id}`,{
+            await fetch(`https://mutt-one-calf.ngrok-free.app/ServiceRequestUpdate/${Id}`,{
                 method: 'PUT',
                 headers:{
                     'Accept': 'application/json',
@@ -48,7 +48,7 @@ let reqId:number = route.params.ParamKey;
      }
      };
   const getRequestSelected = async () =>{
-        await fetch(`https://content-calm-skunk.ngrok-free.app/AllServiceRequestsById/${reqId}`,{
+        await fetch(`https://mutt-one-calf.ngrok-free.app/AllServiceRequestsById/${reqId}`,{
             method: 'GET',
             headers:{
                 'Accept': 'application/json',
@@ -88,27 +88,27 @@ const getContent = () =>{
               <Text style={{fontWeight:'500', fontSize:18, color:"#07137D", marginTop:0}}>Service Request for {data.Users.First_Name} { data.Users.Last_Name} </Text>
               <FormControl>
                 <FormControl.Label>Date and Time</FormControl.Label>
-                <Input variant="filled" editable={false}  placeholder={moment(data.CreatedAt).format('MMMM Do YYYY, h:mm:ss a')}  bg="muted.50"   value={firstName} onChangeText={text => setFirstName(text)} />
+                <Input variant="filled"  selectTextOnFocus={false}  editable={false}  placeholder={moment(data.CreatedAt).format('MMMM Do YYYY, h:mm:ss a')}  bg="muted.50"   value={firstName} onChangeText={text => setFirstName(text)} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Service Type</FormControl.Label>
-                <Input variant="filled" placeholder={data.Services.Type}  bg="muted.50"  value={lastName} onChangeText={text => setLastName(text)} />
+                <Input variant="filled" selectTextOnFocus={false}  placeholder={data.Services.Type}  bg="muted.50"  value={lastName} onChangeText={text => setLastName(text)} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Vehicle Registration Number</FormControl.Label>
-                <Input variant="filled" placeholder={data.Vehicle.RegNo}  bg="muted.50"  value={email} onChangeText={text => setEmail(text)} />
+                <Input variant="filled" selectTextOnFocus={false}  placeholder={data.Vehicle.RegNo}  bg="muted.50"  value={email} onChangeText={text => setEmail(text)} />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Vehicle Brand</FormControl.Label>
-                <Input variant="filled" placeholder={data.Vehicle.VehicleBrand} bg="muted.50"  value={phoneNumber} onChangeText={text => setPhoneNumber(text)}  />
+                <Input variant="filled"selectTextOnFocus={false}  placeholder={data.Vehicle.VehicleBrand} bg="muted.50"  value={phoneNumber} onChangeText={text => setPhoneNumber(text)}  />
               </FormControl>
               <FormControl>
                 <FormControl.Label>Vehicle Model</FormControl.Label>
-                <Input variant="filled" placeholder={data.Vehicle.VehicleModel} bg="muted.50"  value={phoneNumber} onChangeText={text => setPhoneNumber(text)}  />
+                <Input variant="filled" selectTextOnFocus={false} placeholder={data.Vehicle.VehicleModel} bg="muted.50"  value={phoneNumber} onChangeText={text => setPhoneNumber(text)}  />
               </FormControl>
               <FormControl>
               <FormControl.Label>Additional Information</FormControl.Label>
-                <Input variant="filled" placeholder={data.Vehicle.Description} bg="muted.50"  value={phoneNumber} onChangeText={text => setPhoneNumber(text)}  />
+                <Input variant="filled" selectTextOnFocus={false}  placeholder={data.Vehicle.Description} bg="muted.50"  value={phoneNumber} onChangeText={text => setPhoneNumber(text)}  />
               </FormControl>
                <Button size="md" colorScheme="blue" mt="5" width={280} backgroundColor={"#07137D"} onPress={()=> navigation.navigate("RouteMap",{paramKey:[latitude,longitude,reqId]})}>
                   Accept and View Pinned Location

@@ -31,14 +31,17 @@ import { ProgressProvider, useStep } from "../../../Context/ProgressContext";
  let serviceId:number = route.params.paramkey[3];
  let VehicleId:number = route.params.paramkey[4];
  let providerId:number = route.params.paramkey[5];
+ let value:boolean = route.params.paramkey[6];
+
+console.warn(value);
 
  let { states }:any = this
- const {currentStep, updateProgress} = useStep();
+ const {updateProgress}:any = useStep();
 
 
  const postServiceRequest = async () =>{
   let UserId = await AsyncStorage.getItem("USERID");
- await fetch('https://content-calm-skunk.ngrok-free.app/ServiceRequestCreate',{
+ await fetch('https://mutt-one-calf.ngrok-free.app/ServiceRequestCreate',{
       method:'POST',
       headers:{
           'Content-Type':'application/json',
@@ -52,7 +55,7 @@ import { ProgressProvider, useStep } from "../../../Context/ProgressContext";
           serviceProviderId:providerId,
           qauntity:0,
           type:"",
-          spare:0,
+          spare:value,
           amount: 0,
           accepted:0,
           longitude:longitude,
@@ -136,9 +139,9 @@ return(
    <MapView style={styles.map11} ref={mapRef} >
     <Marker coordinate={state.region} title="MY LOCATION" description="SEEME"/>
    </MapView>
-    <BottomSheet text={formattedaddress} heading={"Current Address:"} />
+    <BottomSheet text={formattedaddress} heading={"Current location:"} />
   <View style={{flexDirection: 'row'}}>
- <Button  w='210' h='50' bg='#07137D' onPress={()=> {postServiceRequest(),navigation.navigate('Order', {paramkey:[formattedaddress,provider,brand,model]})}}>Pin your location</Button>
+ <Button  w='210' h='50' bg='#07137D' onPress={()=> {updateProgress() ,postServiceRequest(),navigation.navigate('Order', {paramkey:[formattedaddress,provider,brand,model]})}}>Pin your location</Button>
 
   <Button  w='210' h='50' variant={'subtle'} colorScheme={'blue'} onPress={animateToRegion}>Current Location</Button>
  </View>

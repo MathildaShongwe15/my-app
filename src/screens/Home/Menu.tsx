@@ -4,7 +4,7 @@ import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet,Text, Activit
 import LgBlockCard from "../../../components/CardComponent/LgBlockCard"
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Int32 } from "react-native/Libraries/Types/CodegenTypes";
-import LoadingScreens from '../Home/LoadingPage';
+import LoadingScreens from '../../../components/LoadingComponent/loadingPage';
 import Btn from '../../../components/ProgressComponent/ButtonComponent'
 import Icon from 'react-native-vector-icons/AntDesign'
 import BlockCard from "../../../components/CardComponent/BlockCard";
@@ -97,7 +97,7 @@ const{authstate}:any = useAuth();
 
   const getServices = async () =>{
     console.log("menu",authstate);
-    await fetch('https://content-calm-skunk.ngrok-free.app/AllServices',{
+    await fetch('https://mutt-one-calf.ngrok-free.app/AllServices',{
       method:'GET',
       headers:{
           'Content-Type':'application/json',
@@ -135,10 +135,12 @@ const searchfilterFunction = (text:string)=>{
     setSearch(text);
   }
 }
+
 useFocusEffect(
   React.useCallback(() => {
     reverseGeocode();
   }, []));
+
 useEffect(() =>{
   getServices();
   getPermissions();

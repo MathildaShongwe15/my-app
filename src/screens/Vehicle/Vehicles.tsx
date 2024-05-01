@@ -5,7 +5,7 @@ import { FlatList, SafeAreaView, TouchableOpacity, View,StyleSheet } from "react
 import SmallCard from "../../../components/CardComponent/CardSmall"
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import Icon from 'react-native-vector-icons/AntDesign';
-import LoadingScreens from '../Home/LoadingPage';
+import LoadingScreens from '../../../components/LoadingComponent/loadingPage';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CarHistory =({route} :any)=> {
@@ -15,7 +15,7 @@ const CarHistory =({route} :any)=> {
    let fee:number = route.params.Paramskeys[2];
    let serviceId:number = route.params.Paramskeys[3];
    let providerId:string =  route.params.Paramskeys[4];
-
+   let value:boolean =  route.params.Paramskeys[5];
 
   const [brand1, setVehicleBrand1] = useState("");
   const [reg1, setVehicleReg1] = useState("");
@@ -34,7 +34,7 @@ const CarHistory =({route} :any)=> {
   const getVehicles = async () =>{
    let Id = await AsyncStorage.getItem("USERID")
 
-    await fetch(`https://content-calm-skunk.ngrok-free.app/GetVehicleByUserId/${Id}`,{
+    await fetch(`https://mutt-one-calf.ngrok-free.app/GetVehicleByUserId/${Id}`,{
         method:'GET',
         headers:{
             'Content-Type':'application/json',
@@ -68,7 +68,7 @@ const getContent = () =>{
       <AlertDialog.Body> What would you like to do?</AlertDialog.Body>
       <AlertDialog.Footer>
         <Button.Group space={0} alignContent={'center'} justifyContent={'center'}>
-          <Button colorScheme="blue"  bg='#07137D' onPress={() => navigation.navigate('Requests', {paramKey:[brand1,reg1, color1, model1,Provider,type,fee,serviceId,providerId,id2]})}>
+          <Button colorScheme="blue"  bg='#07137D' onPress={() => navigation.navigate('Requests', {paramKey:[brand1,reg1, color1, model1,Provider,type,fee,serviceId,providerId,id2,value]})}>
             Choose this vehicle
           </Button>
         </Button.Group>

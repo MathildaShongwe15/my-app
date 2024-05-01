@@ -47,7 +47,7 @@ export const AuthProvider = ({children}:any) => {
 
   const login = async (email :string ,password :string) =>{
 
-            await fetch('https://content-calm-skunk.ngrok-free.app/Login',{
+            await fetch('https://mutt-one-calf.ngrok-free.app/Login',{
                     method:'POST',
                     headers:{
                         'Content-Type':'application/json',
