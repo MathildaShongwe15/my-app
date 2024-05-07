@@ -4,6 +4,7 @@ import {  useNavigation } from "@react-navigation/native";
 import LoadingScreens from '../../../components/LoadingComponent/loadingPage';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useAuth } from "../../../Context/AuthContext";
+import moment from "moment";
 
 const ViewReq = () => {
    const [isLoading, setIsLoading] = useState(true);
@@ -65,7 +66,7 @@ const getContent = () =>{
              <Text fontSize="xs" _dark={{
          color: "warmGray.50"
        }} color="coolGray.800" alignSelf="flex-start">
-               {item.CreatedAt}
+               {moment(item.CreatedAt).format('MMMM Do YYYY, h:mm:ss a')}
              </Text>
              </VStack>
              <Spacer />

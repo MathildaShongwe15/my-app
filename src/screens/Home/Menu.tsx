@@ -12,7 +12,7 @@ import * as Location from 'expo-location';
 import * as Device from 'expo-device';
 import { useAuth } from "../../../Context/AuthContext";
 import StepIndicator from 'react-native-step-indicator';
-import { ProgressProvider, useMyDispatch, useMyState, useStep } from "../../../Context/ProgressContext";
+import { useStep } from "../../../Context/ProgressContext";
 import ProgressIndicator from "../../../components/ProgressComponent/ProgressIndicator"
 
  const Menu =()=> {
@@ -153,15 +153,7 @@ const getContent = () =>{
  return (
 
   <View style={styles.Container}>
-  <View style={{flexDirection: "row"}}>
 
-              <View style={{flexDirection: "column"}}>
-
-      <View style={{flexDirection: "row", marginTop: 20}}>
-      <Icon name={"flag"} size={20} color={"#07137D"}  style={{marginTop:5, marginLeft:20}} />
-      <Text style={{fontSize:12, marginTop:5, marginLeft:8, color:"#07137D"}}>{formattedaddress}</Text></View>
-      </View>
-      </View>
       <View style={{marginTop:15, height:100}}>
       <ProgressIndicator/>
 

@@ -56,7 +56,7 @@ const checkToast = () =>{
         toast.show({
           placement: "bottom",
           render: () => {
-            return <Box bg="#65B741" px="10" py="5" mb={655} rounded="md" >
+            return <Box bg="#65B741" px="10" py="5" mb={555} rounded="md" >
                     <Text>You have successfully updated your vehicle</Text>
                   </Box>
           }

@@ -58,7 +58,7 @@ const checkToast = () =>{
   if(statusCode == 200){
     toast.show({
       render: () => {
-        return <Box bg="green.500" px="2" py="1" mb={705} rounded="md">
+        return <Box bg="green.500" px="2" py="1" mb={655} rounded="md">
                 <Text>Logged in successfully!</Text>
               </Box>
       }
@@ -68,7 +68,7 @@ const checkToast = () =>{
     console.log("!!!!!!",statusCode)
       toast.show({
         render: () => {
-          return <Box bg="red.500" px="2" py="1" mb={705} rounded="md">
+          return <Box bg="red.500" px="2" py="1" mb={655} rounded="md">
                   <Text>Something went wrong!</Text>
                 </Box>
         }
@@ -192,7 +192,7 @@ const validatePassword = (text:string) =>{
               color: "blue.800",
               fontWeight: "medium",
               fontSize: "xs"
-            }} href="#" onPress={()=>navigation.navigate('Register')}>
+            }}  onPress={()=>navigation.navigate('Register')}>
                Don't Have an Account? Sign Up
               </Link>
             </HStack>

@@ -98,7 +98,6 @@ let  mylong:number = longitudeUser? longitudeUser:0;
         <MapView  style={styles.map} initialRegion={state.region}>
            <Marker coordinate={coordinates[0]} title={"Request Location"} description={"Pinned Location for customer"}/>
            <Marker coordinate={coordinates[1]}/>
-                 {/* <Polyline coordinates={coordinates} strokeWidth={5}/> */}
 
             <MapViewDirections
                 origin={coordinates[1]}

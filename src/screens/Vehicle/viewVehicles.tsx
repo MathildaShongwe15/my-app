@@ -68,7 +68,7 @@ const checkToast = () =>{
         toast.show({
           placement: "bottom",
           render: () => {
-            return <Box bg="#65B741" px="10" py="5" mb={705} rounded="md" >
+            return <Box bg="#65B741" px="10" py="5" mb={655} rounded="md" >
                     <Text>You have successfully deleted your vehicle</Text>
                   </Box>
           }
@@ -79,7 +79,7 @@ const checkToast = () =>{
   if(statusCode == 400){
       toast.show({
         render: () => {
-          return <Box bg="red.500"px="10" py="5" mb={705}  rounded="md" >
+          return <Box bg="red.500"px="10" py="5" mb={655}  rounded="md" >
                   <Text>Something went wrong!</Text>
                 </Box>
         }

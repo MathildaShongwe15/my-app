@@ -53,7 +53,7 @@ const getContent = () =>{
                <Text _dark={{
            color: "warmGray.50"
          }} color="coolGray.800" bold>
-                 {item.ServiceProvider.Name}
+                 {item.Id}
                </Text>
                <Text color="coolGray.600" _dark={{
            color: "warmGray.200"

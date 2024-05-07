@@ -45,7 +45,7 @@ const Register = () => {
           toast.show({
             placement: "bottom",
             render: () => {
-              return <Box  bg="#65B741" px="10" py="5" mb={600} rounded="md" >
+              return <Box  bg="#65B741" px="10" py="5" mb={655} rounded="md" >
                       <Text>You have successfully Updated your Profile!</Text>
                     </Box>
             }
@@ -55,7 +55,7 @@ const Register = () => {
     if(statusCode == 400){
         toast.show({
           render: () => {
-            return <Box bg="red.500" px="10" py="5" mb={705} rounded="md"  mb={700}>
+            return <Box bg="red.500" px="10" py="5" mb={655} rounded="md"  mb={700}>
                     <Text>Something went wrong!</Text>
                   </Box>
           }
@@ -68,7 +68,6 @@ useEffect(()=>{
 },[])
 useFocusEffect(
   React.useCallback(() => {
-    // Fetch data when the screen is focused (navigated back to)
     getUserData();
   }, [])
 );

@@ -4,16 +4,23 @@ import {  } from "react-native-gesture-handler";
 import {Dimensions,Image,StyleSheet,Text} from 'react-native'
 import { useNavigation } from "@react-navigation/native";
 
-
 const ReqFuel = ({route}:any) => {
   const navigation = useNavigation();
 
   let provider:string = route.params.Paramskeys[0];
   let typeService:string = route.params.Paramskeys[1];
 
-
   const[value, setValue] = useState();
+  const [limit, setLimit] = useState(0);
+  const [limitError, setLimitError] = useState('');
 
+  const checkLimit = (value:any) =>
+    {
+      const newNumber = parseInt(value);
+      newNumber <= 250 ? setLimitError('Amount needs to be at least R250.00'):setLimitError('');
+      newNumber >= 2500 ? setLimitError('Amount needs to be at least R2500.00'):setLimitError('');
+      setLimit(newNumber);
+    }
   return (
     <NativeBaseProvider>
       <View style={styles.Container}>
@@ -64,7 +71,9 @@ const ReqFuel = ({route}:any) => {
       </FormControl>
       <FormControl w="" maxW="">
       <FormControl.Label>Amount</FormControl.Label>
-      <Input variant="outline" placeholder="Amount"  bg="muted.50" onChangeText={text => setValue(text)} value={value}/>
+      <Input   variant="outline" placeholder="Amount"  bg="muted.50" onChangeText={checkLimit} value={limit.toString()}/>
+      { limitError? <Text style={{color:"#C51605",fontSize:12, marginLeft:10}}>{limitError}</Text> : null}
+
       </FormControl>
       <Button
                 mt="8"

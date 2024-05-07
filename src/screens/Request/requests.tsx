@@ -43,7 +43,7 @@ const RequestsCart = ({route}:any) => {
 
     valueVehicle:"R 100.00",
     valueReg:"R "+ fee + ".00",
-    valueLocation:"R 227.00",
+    valueLocation:100+fee,
   },
 
 ];

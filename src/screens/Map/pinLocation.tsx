@@ -33,7 +33,6 @@ import { ProgressProvider, useStep } from "../../../Context/ProgressContext";
  let providerId:number = route.params.paramkey[5];
  let value:boolean = route.params.paramkey[6];
 
-console.warn(value);
 
  let { states }:any = this
  const {updateProgress}:any = useStep();
@@ -72,6 +71,31 @@ console.warn(value);
       })
 
       }
+
+      const updateStats = async () =>{
+       await fetch('https://mutt-one-calf.ngrok-free.app/UpdateStats',{
+            method:'PUT',
+            headers:{
+                'Content-Type':'application/json',
+            },
+            body: JSON.stringify(
+              {
+                "ReqPending": + 1,
+                "ReqCancelled": 0,
+                "ReqCompleted": 0,
+                "ReqLogged": + 1
+              })
+            })
+            .then(response => {
+              if(!response.ok){
+                throw new Error('Network response not ok'),
+                console.log(response)
+              }
+              console.log("response is okay", response)
+              return response.json();
+            })
+
+            }
 
 
     useEffect(() =>{
@@ -132,7 +156,11 @@ const [errorMsg, setErrorMsg] = useState('');
       mapRef.current.animateToRegion(state.region, 1000);
       reverseGeocode();
    }
-
+const handleProgress = () =>{
+  updateProgress();
+  postServiceRequest();
+  updateStats();
+}
 return(
   <ProgressProvider >
  <View style={styles.Container}>
@@ -141,7 +169,7 @@ return(
    </MapView>
     <BottomSheet text={formattedaddress} heading={"Current location:"} />
   <View style={{flexDirection: 'row'}}>
- <Button  w='210' h='50' bg='#07137D' onPress={()=> {updateProgress() ,postServiceRequest(),navigation.navigate('Order', {paramkey:[formattedaddress,provider,brand,model]})}}>Pin your location</Button>
+ <Button  w='210' h='50' bg='#07137D' onPress={()=> { handleProgress(),navigation.navigate('Order', {paramkey:[formattedaddress,provider,brand,model]})}}>Pin your location</Button>
 
   <Button  w='210' h='50' variant={'subtle'} colorScheme={'blue'} onPress={animateToRegion}>Current Location</Button>
  </View>

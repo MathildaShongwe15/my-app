@@ -25,7 +25,7 @@ const BlockCard2 =(props: any ) =>{
 
 const styles = StyleSheet.create({
     cardContainer:{
-        width:360,
+        width:380,
         height:100,
         marginTop:20,
         marginLeft:12,

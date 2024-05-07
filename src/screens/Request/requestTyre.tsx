@@ -3,7 +3,6 @@ import { Center, CheckIcon, Checkbox, FormControl, Heading, Input, NativeBasePro
 import React, { useState } from "react";
 import { StyleSheet, View, Dimensions } from "react-native";
 import { ProgressProvider, useStep } from "../../../Context/ProgressContext";
-import Btn from'../../../components/ProgressComponent/ButtonComponent'
 
 const TowingQuery = ({route}:any) => {
 const navigation = useNavigation();
@@ -17,7 +16,6 @@ const [isChecked, setIsChecked] = useState(true);
 
 const handleChange = (newValue:any) => {
   setIsChecked(newValue);
-  console.warn(isChecked)
 };
 
 
